@@ -1,0 +1,137 @@
+/*FOOTER SECTION*/
+footer {
+    background: #343434;
+    padding-top: 50px;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 16px;
+    color: white;
+}
+
+.footer-container {
+    width: 1140px;
+    margin: auto;
+    display: flex;
+    justify-content: center;
+}
+
+.footer-content, .social-handles {
+    width: 33.3%;
+}
+
+h3 {
+    font-size: 28px;
+    margin-bottom: 15px;
+    text-align: center;
+}
+
+.footer-content p {
+    width: 200px;
+    margin: auto;
+    padding: 7px;
+}
+
+.footer-content ul {
+    text-align: center;
+}
+
+.quick-link-list {
+    padding: 0;
+}
+
+.quick-link-list li {
+    width: auto;
+    text-align: center;
+    list-style-type: none;
+    padding: 7px;
+    position: relative;
+}
+
+.quick-link-list li::before {
+    content: '';
+    position: absolute;
+    transform: translate(-50%, -50%);
+    left: 50%;
+    top: 100%;
+    width: 0;
+    height: 2px;
+    background: #f18930;
+    transition-duration: .5s;
+}
+
+.quick-link-list li:hover::before {
+    width: 70px;
+}
+
+.quick-link-list li a {
+    text-decoration: none;
+    color: white;
+}
+
+.quick-link-list li a:hover {
+    color: #f18930;
+}
+
+.social-handles {
+    padding: 0;
+}
+
+.social-handles li {
+    width: auto;
+    text-align: center;
+    list-style-type: none;
+    padding: 7px;
+    position: relative;
+}
+
+.social-handles li::before {
+    content: '';
+    position: absolute;
+    transform: translate(-50%, -50%);
+    left: 50%;
+    top: 100%;
+    width: 0;
+    height: 2px;
+    background: #f18930;
+    transition-duration: .5s;
+}
+
+.social-handles li:hover::before {
+    width: 70px;
+}
+
+.social-handles {
+    text-align: center;
+    padding: 0;
+}
+
+.social-handles li {
+    display: inline-block;
+    margin-left: 150px;
+    text-align: center;
+    padding: 5px;
+}
+
+.social-handles a {
+    color: white;
+    text-decoration: none;
+    font-size: 16px;
+}
+
+
+.social-handles a:hover {
+    color: #f18930;
+}
+
+.bottom-bar {
+    background: #f18930;
+    text-align: center;
+    padding: 10px 0;
+    margin-top: 50px;
+}
+
+.bottom-bar p {
+    color: #343434;
+    margin: 0;
+    font-size: 16px;
+    padding: 7px;
+}
