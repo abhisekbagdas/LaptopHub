@@ -21,8 +21,10 @@
         <ul>
             <li><a href="${pageContext.request.contextPath}/home">Home</a></li>
             <li><a href="${pageContext.request.contextPath}/products">Product</a></li>
-            <li><a href="${pageContext.request.contextPath}/login">Login</a></li>
-            <li><a href="${pageContext.request.contextPath}/register">Register</a></li>
+            <li><a href="${pageContext.request.contextPath}/about">About</a></li>
+            <li><a href="${pageContext.request.contextPath}/contact">Contact</a></li>
+            <li><a href="${pageContext.request.contextPath}/acrt">Cart</a></li>
+            <li><a>HamBurger Icon</a></li>
         </ul>
     </nav>
 </header>
