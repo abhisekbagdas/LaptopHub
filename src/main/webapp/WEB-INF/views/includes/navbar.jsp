@@ -6,6 +6,7 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 <header>
     <div class="Logo">
         <h1>LaptopHub</h1>
@@ -14,8 +15,13 @@
         <ul>
             <li><a href="${pageContext.request.contextPath}/home">Home</a></li>
             <li><a href="${pageContext.request.contextPath}/products">Product</a></li>
-            <li><a href="${pageContext.request.contextPath}/login">Login</a></li>
-            <li><a href="${pageContext.request.contextPath}/register">Register</a></li>
+            <li><a href="${pageContext.request.contextPath}/cart">Cart</a></li>
+            <li><a href="${pageContext.request.contextPath}/contact">Contact</a></li>
+            <li class="login-icon">
+                <a href="${pageContext.request.contextPath}/login">
+                    <i class="fas fa-user-circle"></i> Login
+                </a>
+            </li>
         </ul>
     </nav>
 </header>
