@@ -6,6 +6,7 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 <header>
     <div class="Logo">
@@ -21,6 +22,17 @@
                 <a href="${pageContext.request.contextPath}/login">
                     <i class="fas fa-user-circle"></i> Login
                 </a>
+            </li>
+            <li>
+                <div class="usersession">
+                    <h3>
+                        <c:if test="${not empty sessionScope.user}">
+                             Welcome,
+                        </c:if>
+                        <c:out value="${sessionScope.user.username}" /></h3>
+                    <a href="${pageContext.request.contextPath}/logout" class="logout"
+                       onclick="return confirm('Are you sure you want to logout?');">Logout</a>
+                </div>
             </li>
         </ul>
     </nav>

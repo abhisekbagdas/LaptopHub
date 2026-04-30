@@ -29,16 +29,18 @@ header {
     align-items: center;
     justify-content: space-between;
     padding: 2px 40px;
-    background-color: #f5f5f5; /* Optional: adds background */
+    background-color: #f4f6f8;
+    border-bottom: 1px solid #dfe5eb;
 }
 
 nav {
     margin: 20px;
     display: flex;
     justify-content: center;
+    position: relative;
 }
 
-.navbar ul {
+.navbar > ul {
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -46,22 +48,93 @@ nav {
     list-style: none;
 }
 
-.navbar ul li {
+.navbar > ul li {
     display: inline;
     align-items: center;
     margin-right: 9px;
 }
 
-.navbar ul li a {
+.navbar > ul li a {
     text-decoration: none;
-    color: black;
+    color: #1f2d3a;
     font-weight: bold;
     transition: all .3s linear;
     font-size: large;
 }
 
-.navbar ul li a:hover {
+.navbar > ul li a:hover {
     text-decoration: underline;
+}
+
+.menu-toggle-item {
+    margin-left: 10px;
+}
+
+.menu-toggle {
+    width: 38px;
+    height: 38px;
+    border: 1px solid #cfd8e2;
+    border-radius: 8px;
+    background: #ffffff;
+    color: #2a3a4a;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: background-color 0.2s ease, color 0.2s ease, border-color 0.2s ease;
+}
+
+.menu-toggle:hover {
+    background: #eef3f7;
+    color: #f18930;
+    border-color: #bfcbd7;
+}
+
+.menu-toggle:focus-visible {
+    outline: 2px solid #f18930;
+    outline-offset: 2px;
+}
+
+.popup-menu {
+    position: absolute;
+    top: calc(100% + 8px);
+    right: 0;
+    min-width: 190px;
+    background: #f4f6f8;
+    border: 1px solid #dfe5eb;
+    border-radius: 10px;
+    box-shadow: 0 8px 24px rgba(23, 33, 43, 0.15);
+    padding: 0;
+    z-index: 999;
+}
+
+.popup-menu ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.popup-menu li {
+    display: block;
+    margin: 0;
+}
+
+.popup-menu li + li {
+    border-top: 1px solid #dfe5eb;
+}
+
+.popup-menu li a {
+    display: block;
+    padding: 12px 16px;
+    color: #2a3a4a;
+    font-size: 0.95rem;
+    text-decoration: none;
+    font-weight: 600;
+}
+
+.popup-menu li a:hover {
+    background: #e8eef4;
+    color: #f18930;
 }
 
 /* Footer Styles */
