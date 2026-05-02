@@ -2,7 +2,6 @@ package com.icp.laptophub.entity;
 
 import java.sql.Timestamp;
 
-
 public class User {
 
     private int id;
@@ -12,14 +11,12 @@ public class User {
     private Timestamp createdAt;
     private Timestamp updatedAt;
 
-    // Constructor for creating a new user (registration)
     public User(String username, String email, String password) {
         this.username = username;
         this.email = email;
         this.password = password;
     }
 
-    // Constructor for reading from database
     public User(int id, String username, String email, String password,
                 Timestamp createdAt, Timestamp updatedAt) {
         this.id = id;

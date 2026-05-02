@@ -8,11 +8,19 @@ USE laptophub;
 
 -- Clear existing data before seeding
 DELETE FROM users;
+DELETE FROM products;
 ALTER TABLE users AUTO_INCREMENT = 1;
 
 -- ========== Users ==========
 -- Two test users for verifying topic isolation
 -- Both use password: "Test@123"
 INSERT INTO users (username, email, password) VALUES
-                                                  ('testuser', 'test@example.com', '$2a$10$yUK8SPXB.NwRSviTxcIVHOxtfvwjGEe600j9g2H5xi3Y4l54A5jLa'),
-                                                  ('demouser', 'demo@example.com', '$2a$10$yUK8SPXB.NwRSviTxcIVHOxtfvwjGEe600j9g2H5xi3Y4l54A5jLa');
+                                                   ('admin', 'admin@example.com', '$2a$10$yUK8SPXB.NwRSviTxcIVHOxtfvwjGEe600j9g2H5xi3Y4l54A5jLa'),
+                                                   ('testuser', 'test@example.com', '$2a$10$yUK8SPXB.NwRSviTxcIVHOxtfvwjGEe600j9g2H5xi3Y4l54A5jLa'),
+                                                   ('demouser', 'demo@example.com', '$2a$10$yUK8SPXB.NwRSviTxcIVHOxtfvwjGEe600j9g2H5xi3Y4l54A5jLa');
+
+INSERT INTO products (user_id, name, description, price, image) VALUES
+                                                                    (3, 'Laptop A', 'A powerful laptop for professionals.', 999.99, 'static/images/laptop_a.png'),
+                                                                    (3, 'Laptop B', 'A budget-friendly laptop for students.', 499.99, 'static/images/laptop_a.png'),
+                                                                    (2, 'Laptop B', 'A budget-friendly laptop for students.', 499.99, 'static/images/laptop_a.png'),
+                                                                    (1, 'Laptop C', 'A gaming laptop with high-end specs.', 1499.99, 'static/images/laptop_a.png');
