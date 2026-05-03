@@ -1,25 +1,24 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib uri="jakarta.tags.core" prefix="c" %>
-<!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>My Cart — LaptopHub</title>
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/static/css/style.css" />
+    <title>My Cart - LaptopHub</title>
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/static/css/main.css" />
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/static/css/home.css" />
     <link rel="stylesheet" href="${pageContext.request.contextPath}/static/css/cart.css" />
 </head>
 <body>
 
+<%@ include file="/WEB-INF/views/includes/navbar.jsp" %>
 <!-- TOP BAR -->
 <div class="topbar">
     <div class="topbar-left">
-        <a href="about.jsp">About us</a>
-        <a href="faqs.jsp">FAQ</a>
-        <a href="privacy.jsp">Privacy policy</a>
+        <a href="${pageContext.request.contextPath}/about">About us</a>
+        <a href="${pageContext.request.contextPath}/faqs">FAQ</a>
+        <a href="${pageContext.request.contextPath}/privacy">Privacy policy</a>
     </div>
     <div class="topbar-right">
-        <a href="warranty.jsp">Warranty</a>
+        <a href="${pageContext.request.contextPath}/warranty">Warranty</a>
         <a href="tel:+97798011000037">Customer service: +977-9801100037</a>
     </div>
 </div>
@@ -31,14 +30,15 @@
         <a href="${pageContext.request.contextPath}/">Home</a>
         <c:choose>
             <c:when test="${not empty sessionScope.user}">
-                <a href="user.jsp">${sessionScope.user.name}</a>
-                <a href="logout.jsp">Logout</a>
+                <a href="${pageContext.request.contextPath}/user">${sessionScope.user.name}</a>
+                <a href="${pageContext.request.contextPath}/logout" class="logout"
+                   onclick="return confirm('Are you sure you want to logout?');">Logout</a>
             </c:when>
             <c:otherwise>
-                <a href="login.jsp">My account</a>
+                <a href="${pageContext.request.contextPath}login.jsp">My account</a>
             </c:otherwise>
         </c:choose>
-        <a href="cart.jsp">
+        <a href="${pageContext.request.contextPath}cart">
             <button class="cart-btn">&#128722; My cart
                 <c:if test="${not empty sessionScope.cartCount}">(${sessionScope.cartCount})</c:if>
             </button>
@@ -81,13 +81,13 @@
                             <div class="item-name">${item.name}</div>
                             <div class="item-spec">${item.shortSpec}</div>
                             <div class="qty-ctrl">
-                                <form action="cart.jsp" method="POST" style="display:inline;">
+                                <form action="${pageContext.request.contextPath}/cart" method="POST" style="display:inline;">
                                     <input type="hidden" name="action" value="decrease" />
                                     <input type="hidden" name="productId" value="${item.productId}" />
                                     <button type="submit" class="qty-btn">&#8722;</button>
                                 </form>
                                 <span class="qty-val">${item.quantity}</span>
-                                <form action="cart.jsp" method="POST" style="display:inline;">
+                                <form action="${pageContext.request.contextPath}/cart" method="POST" style="display:inline;">
                                     <input type="hidden" name="action" value="increase" />
                                     <input type="hidden" name="productId" value="${item.productId}" />
                                     <button type="submit" class="qty-btn">&#43;</button>
@@ -95,7 +95,7 @@
                             </div>
                         </div>
                         <div class="item-price">Rs. ${item.totalPrice}</div>
-                        <form action="cart.jsp" method="POST" style="display:inline;">
+                        <form action="${pageContext.request.contextPath}/cart" method="POST" style="display:inline;">
                             <input type="hidden" name="action" value="remove" />
                             <input type="hidden" name="productId" value="${item.productId}" />
                             <button type="submit" class="remove-btn">&#10005;</button>
@@ -143,13 +143,13 @@
                 <span>Rs. ${requestScope.total}</span>
             </div>
 
-            <a href="checkout.jsp"><button class="checkout-btn">Proceed to checkout</button></a>
+            <a href="${pageContext.request.contextPath}checkout"><button class="checkout-btn">Proceed to checkout</button></a>
             <a href="${pageContext.request.contextPath}/"><button class="continue-btn">Continue shopping</button></a>
 
             <!-- PROMO CODE -->
             <div class="promo-wrap">
                 <label>Promo code</label>
-                <form action="cart.jsp" method="POST">
+                <form action="${pageContext.request.contextPath}cart" method="POST">
                     <input type="hidden" name="action" value="promo" />
                     <div class="promo-row">
                         <input type="text" name="promoCode" placeholder="Enter code" />
@@ -176,9 +176,6 @@
 </div>
 
 <!-- FOOTER -->
-<div class="footer-bar">
-    &copy; 2026 LaptopHub &mdash; Warranty &middot; Secure payments &middot; Free delivery above Rs. 5,000
-</div>
-
+<%@ include file="/WEB-INF/views/includes/footer.jsp" %>
 </body>
 </html>

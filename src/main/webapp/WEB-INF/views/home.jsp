@@ -1,62 +1,63 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
-<%@ taglib uri="jakarta.tags.core" prefix="c" %>
-<!DOCTYPE html>
-<html lang="en">
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%--<%@ taglib uri="jakarta.tags.core" prefix="c" %>--%>
+<html>
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<%--    <meta charset="UTF-8" />--%>
+<%--    <meta name="viewport" content="width=device-width, initial-scale=1.0" />--%>
     <title>LaptopHub — Best Laptops in Nepal</title>
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/static/css/style.css" />
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/static/css/main.css" />
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/static/css/home.css" />
 </head>
 <body>
 
 <!-- ===================================================
      TOP BAR
      =================================================== -->
-<div class="topbar">
-    <div class="topbar-left">
-        <a href="about.jsp">About us</a>
-        <a href="faq.jsp">FAQ</a>
-        <a href="privacy.jsp">Privacy policy</a>
-    </div>
-    <div class="topbar-right">
-        <a href="warranty.jsp">Warranty</a>
-        <a href="pickup.jsp">Pickup location</a>
-        <a href="tel:+97798011000037">Customer service: +977-9801100037</a>
-    </div>
-</div>
+<%--<div class="topbar">--%>
+<%--    <div class="topbar-left">--%>
+<%--        <a href="about.jsp">About us</a>--%>
+<%--        <a href="faq.jsp">FAQ</a>--%>
+<%--        <a href="privacy.jsp">Privacy policy</a>--%>
+<%--    </div>--%>
+<%--    <div class="topbar-right">--%>
+<%--        <a href="warranty.jsp">Warranty</a>--%>
+<%--        <a href="pickup.jsp">Pickup location</a>--%>
+<%--        <a href="tel:+97798011000037">Customer service: +977-9801100037</a>--%>
+<%--    </div>--%>
+<%--</div>--%>
 
 <!-- ===================================================
      NAVBAR
      =================================================== -->
-<nav class="navbar">
-    <a href="index.jsp" class="logo">laptop<span>hub</span></a>
+<%@ include file="/WEB-INF/views/includes/navbar.jsp" %>
+<%--<nav class="navbar">--%>
+<%--    <a href="index.jsp" class="logo">laptop<span>hub</span></a>--%>
 
-    <form class="search-bar" action="search.jsp" method="GET">
-        <input type="text" name="q" placeholder="Search for laptops, brands, accessories..." />
-        <button type="submit">Search</button>
-    </form>
+<%--    <form class="search-bar" action="search.jsp" method="GET">--%>
+<%--        <input type="text" name="q" placeholder="Search for laptops, brands, accessories..." />--%>
+<%--        <button type="submit">Search</button>--%>
+<%--    </form>--%>
 
-    <div class="nav-links">
-        <c:choose>
-            <c:when test="${not empty sessionScope.user}">
-                <a href="account.jsp">My account (${sessionScope.user.name})</a>
-                <a href="logout.jsp">Logout</a>
-            </c:when>
-            <c:otherwise>
-                <a href="login.jsp">My account</a>
-            </c:otherwise>
-        </c:choose>
-        <a href="${pageContext.request.contextPath}/cart">
-            <button class="cart-btn">&#128722; My cart
+<%--    <div class="nav-links">--%>
+<%--        <c:choose>--%>
+<%--            <c:when test="${not empty sessionScope.user}">--%>
+<%--&lt;%&ndash;                <a href="account.jsp">My account (${sessionScope.user.name})</a>&ndash;%&gt;--%>
+<%--                <a href="logout.jsp">Logout</a>--%>
+<%--            </c:when>--%>
+<%--            <c:otherwise>--%>
+<%--                <a href="login.jsp">My account</a>--%>
+<%--            </c:otherwise>--%>
+<%--        </c:choose>--%>
+<%--        <a href="${pageContext.request.contextPath}/cart">--%>
+<%--            <button class="cart-btn">&#128722; My cart--%>
 
-                <c:if test="${not empty sessionScope.cartCount}">
-                    (${sessionScope.cartCount})
-                </c:if>
-            </button>
-        </a>
-    </div>
-</nav>
+<%--                <c:if test="${not empty sessionScope.cartCount}">--%>
+<%--                    (${sessionScope.cartCount})--%>
+<%--                </c:if>--%>
+<%--            </button>--%>
+<%--        </a>--%>
+<%--    </div>--%>
+<%--</nav>--%>
 
 <!-- ===================================================
      CATEGORY NAV
@@ -83,7 +84,9 @@
         <p>RTX 4080 &middot; AMD Ryzen 9 &middot; 32GB RAM</p>
         <div class="hero-price">
             Rs. 3,49,999
-            <small>Rs. 3,99,999</small>
+            <small>
+            <del>Rs. 3,99,999</del>
+            </small>
         </div>
         <a href="product.jsp?id=1"><button class="btn-white">Shop now</button></a>
     </div>
@@ -102,7 +105,7 @@
             <h3>MacBook Air M3 &mdash; 15&quot;</h3>
             <p>Apple M3 chip &middot; 8GB &middot; 256GB &middot; 18hr battery</p>
             <div class="hero-card-footer">
-                <span class="price">Rs. 1,54,990</span>
+                <span class="price"><del>Rs. 1,54,990</del></span>
                 <a href="product.jsp?id=3" class="view-link">View &rarr;</a>
             </div>
         </div>
@@ -317,9 +320,7 @@
 <!-- ===================================================
      FOOTER
      =================================================== -->
-<div class="footer-bar">
-    &copy; 2026 LaptopHub &mdash; Warranty &middot; Secure payments &middot; Free delivery above Rs. 5,000
-</div>
 
+<%@ include file="/WEB-INF/views/includes/footer.jsp" %>
 </body>
 </html>
