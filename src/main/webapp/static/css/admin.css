@@ -1,0 +1,106 @@
+#Welcome{
+    text-align: center;
+}
+
+.Products{
+    gap: 20px;
+}
+.Products h2, .user h2{
+    margin-left: 20px;
+}
+
+.Product-Card{
+    border: solid 1px black;
+    border-radius: 10px;
+    padding: 10px;
+    display: flex;
+}
+.Product-Card .label{
+    font-weight: bold;
+    margin-right: 10px;
+;
+}
+.Products input {
+    padding: 10px;
+    border-radius: 6px;
+    border: 1px solid #555;
+    box-sizing: border-box; /* prevents overflow */
+    background-color: #333;
+    color: white;
+}
+.Product-Actions{
+    display: flex;
+    gap: 10px;
+    margin-top: 20px;
+    margin-left: 20px;
+}
+.add-product{
+    background-color: green;
+    color: white;
+    border: none;
+    padding: 8px 12px;
+    border-radius: 6px;
+    cursor: pointer;
+}
+.remove-product{
+    background-color: red;
+    color: white;
+    border: none;
+    padding: 8px 12px;
+    border-radius: 6px;
+    cursor: pointer;
+}
+
+.product-list th,.product-list td{
+    padding:8px 10px;
+    border-bottom:1px solid #444;
+    text-align:left;
+    color: white;
+}
+.product-list{
+    width:100%;
+    border-collapse:collapse;
+    margin-top:12px}
+.user-Card{
+    border: solid 1px black;
+    border-radius: 10px;
+    padding: 10px;
+    display: flex;
+}
+.user-Card .label{
+    font-weight: bold;
+    margin-right: 10px;
+;
+}
+.user input {
+    padding: 10px;
+    border-radius: 6px;
+    border: 1px solid #555;
+    box-sizing: border-box; /* prevents overflow */
+    background-color: #333;
+    color: white;
+}
+.User-Actions{
+    display: flex;
+    gap: 10px;
+    margin-left: 20px;
+    margin-top: 20px;
+}
+.add-user {
+    background-color: green;
+    color: white;
+    border: none;
+    padding: 8px 12px;
+    border-radius: 6px;
+    cursor: pointer;
+}
+
+.remove-user {
+    background-color: red;
+    color: white;
+    border: none;
+    padding: 8px 12px;
+    border-radius: 6px;
+    cursor: pointer;
+}
+.user-list{list-style:none;padding:0;margin:8px 0; color: white;}

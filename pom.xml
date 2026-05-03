@@ -32,6 +32,26 @@
             <scope>test</scope>
         </dependency>
         <dependency>
+            <groupId>jakarta.servlet</groupId>
+            <artifactId>jakarta.servlet-api</artifactId>
+            <version>6.0.0</version>
+            <scope>provided</scope>
+        </dependency>
+
+        <!-- Jakarta JSON Processing -->
+        <dependency>
+            <groupId>jakarta.json</groupId>
+            <artifactId>jakarta.json-api</artifactId>
+            <version>2.1.3</version>
+        </dependency>
+
+        <!-- Jakarta JSON Implementation -->
+        <dependency>
+            <groupId>org.eclipse.parsson</groupId>
+            <artifactId>parsson</artifactId>
+            <version>1.1.5</version>
+        </dependency>
+        <dependency>
             <groupId>org.junit.jupiter</groupId>
             <artifactId>junit-jupiter-engine</artifactId>
             <version>${junit.version}</version>
@@ -68,7 +88,6 @@
             <version>3.1.0-M1</version>
             <scope>compile</scope>
         </dependency>
-
         <!-- JSTL 3.0 Implementation (Glassfish) — needed at runtime -->
         <dependency>
             <groupId>org.glassfish.web</groupId>

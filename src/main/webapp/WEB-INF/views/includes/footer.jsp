@@ -22,6 +22,8 @@ ${pageContext.request.contextPath}/static/css/main.css
             <div class="contact-info">
                 <p><strong>📍Location:</strong> Pokhara, Nepal</p>
                 <p><strong>📞 Phone:</strong> +977-98765453210 </p>
+                <p><strong> Location:</strong> Pokhara, Nepal</p>
+                <p><strong> Phone:</strong> 98XXXXXXXX</p>
                 <p><strong>✉ Email:</strong> info@laptophub.com</p>
             </div>
             <div class="social-links">
