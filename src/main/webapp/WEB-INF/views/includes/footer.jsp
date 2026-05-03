@@ -20,7 +20,7 @@
             <h3>Connect With Us</h3>
             <div class="contact-info">
                 <p><strong> Location:</strong> Pokhara, Nepal</p>
-                <p><strong> Phone:</strong> 9846221453 <strong>Abishek Ko Phone Number</strong></p>
+                <p><strong> Phone:</strong> 98XXXXXXXX</p>
                 <p><strong>✉ Email:</strong> info@laptophub.com</p>
             </div>
             <div class="social-links">
