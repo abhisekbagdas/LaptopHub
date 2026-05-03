@@ -1,5 +1,5 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-${pageContext.request.contextPath}/static/css/main.css
+<link rel="stylesheet" href="${pageContext.request.contextPath}/static/css/main.css"/>
 <footer>
     <div class="footer-container">
         <div class="footer-section about">
