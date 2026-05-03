@@ -1,0 +1,611 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>About Us — LaptopVault</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --ink: #0f0e0d;
+    --muted: #6b6860;
+    --surface: #f7f5f0;
+    --white: #ffffff;
+    --accent: #c94c2e;
+    --accent-light: #fdf1ee;
+    --border: #e2dfda;
+    --dark-bg: #111010;
+    --gold: #b8922a;
+  }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--white);
+    color: var(--ink);
+    font-size: 16px;
+    line-height: 1.7;
+  }
+
+  /* NAV */
+  nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1.2rem 5vw;
+    border-bottom: 1px solid var(--border);
+    position: sticky;
+    top: 0;
+    background: rgba(255,255,255,0.95);
+    backdrop-filter: blur(8px);
+    z-index: 100;
+  }
+  .logo {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--ink);
+    text-decoration: none;
+    letter-spacing: -0.5px;
+  }
+  .logo span { color: var(--accent); }
+  nav ul { list-style: none; display: flex; gap: 2rem; }
+  nav ul a { color: var(--muted); text-decoration: none; font-size: 0.9rem; font-weight: 500; transition: color 0.2s; }
+  nav ul a:hover, nav ul a.active { color: var(--ink); }
+  .nav-cta {
+    background: var(--ink);
+    color: var(--white) !important;
+    padding: 0.5rem 1.2rem;
+    border-radius: 2rem;
+    transition: background 0.2s !important;
+  }
+  .nav-cta:hover { background: var(--accent) !important; color: var(--white) !important; }
+
+  /* HERO */
+  .hero {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    min-height: 88vh;
+    overflow: hidden;
+  }
+  .hero-left {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 6rem 5vw 6rem 5vw;
+    background: var(--dark-bg);
+    color: var(--white);
+    position: relative;
+    overflow: hidden;
+  }
+  .hero-left::before {
+    content: '';
+    position: absolute;
+    width: 400px; height: 400px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(201,76,46,0.25), transparent 70%);
+    top: -100px; left: -100px;
+    pointer-events: none;
+  }
+  .hero-eyebrow {
+    font-size: 0.75rem;
+    font-weight: 500;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 1.5rem;
+  }
+  .hero-left h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(2.8rem, 5vw, 4.2rem);
+    line-height: 1.1;
+    font-weight: 700;
+    margin-bottom: 1.5rem;
+    letter-spacing: -1px;
+  }
+  .hero-left h1 em { color: var(--accent); font-style: normal; }
+  .hero-left p {
+    font-size: 1.05rem;
+    color: rgba(255,255,255,0.65);
+    max-width: 400px;
+    margin-bottom: 2.5rem;
+    line-height: 1.75;
+  }
+  .hero-stats {
+    display: flex;
+    gap: 2.5rem;
+    margin-top: 1rem;
+  }
+  .hero-stat strong {
+    display: block;
+    font-family: 'Playfair Display', serif;
+    font-size: 2rem;
+    color: var(--white);
+  }
+  .hero-stat span {
+    font-size: 0.8rem;
+    color: rgba(255,255,255,0.5);
+    letter-spacing: 0.05em;
+  }
+  .hero-right {
+    background: var(--surface);
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .hero-visual {
+    width: 80%;
+    max-width: 420px;
+    aspect-ratio: 4/3;
+    position: relative;
+  }
+  .laptop-illustration {
+    width: 100%;
+    height: 100%;
+  }
+  .floating-badge {
+    position: absolute;
+    background: var(--white);
+    border: 1px solid var(--border);
+    border-radius: 1rem;
+    padding: 0.75rem 1.2rem;
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    box-shadow: 0 8px 32px rgba(0,0,0,0.08);
+    font-size: 0.82rem;
+    font-weight: 500;
+    animation: float 3s ease-in-out infinite;
+  }
+  .floating-badge .icon { font-size: 1.2rem; }
+  .badge-1 { top: 10%; right: -10%; animation-delay: 0s; }
+  .badge-2 { bottom: 18%; left: -12%; animation-delay: 1.5s; }
+  @keyframes float {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-8px); }
+  }
+
+  /* SECTION TITLES */
+  .section { padding: 6rem 5vw; }
+  .section-label {
+    font-size: 0.72rem;
+    font-weight: 500;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 0.8rem;
+  }
+  .section-title {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(1.8rem, 3.5vw, 2.8rem);
+    font-weight: 700;
+    line-height: 1.15;
+    letter-spacing: -0.5px;
+    margin-bottom: 1.5rem;
+  }
+  .section-subtitle {
+    color: var(--muted);
+    max-width: 520px;
+    font-size: 1rem;
+    line-height: 1.75;
+  }
+
+  /* STORY */
+  .story {
+    background: var(--surface);
+  }
+  .story-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 5rem;
+    align-items: center;
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+  .story-text p { color: var(--muted); margin-bottom: 1rem; }
+  .story-image-wrap {
+    position: relative;
+  }
+  .story-img-box {
+    width: 100%;
+    aspect-ratio: 4/3;
+    background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%);
+    border-radius: 1rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    position: relative;
+  }
+  .story-img-box svg { width: 70%; opacity: 0.9; }
+  .story-tag {
+    position: absolute;
+    bottom: -1.5rem;
+    right: -1.5rem;
+    background: var(--accent);
+    color: var(--white);
+    padding: 1.2rem 1.5rem;
+    border-radius: 0.8rem;
+    font-family: 'Playfair Display', serif;
+    font-size: 1.1rem;
+    font-weight: 700;
+  }
+  .story-tag span { display: block; font-family: 'DM Sans', sans-serif; font-size: 0.75rem; font-weight: 400; opacity: 0.8; margin-top: 0.2rem; }
+
+  /* VALUES */
+  .values { max-width: 1200px; margin: 0 auto; }
+  .values-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.5rem;
+    margin-top: 3.5rem;
+  }
+  .value-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 1rem;
+    padding: 2rem 1.75rem;
+    transition: box-shadow 0.25s, transform 0.25s;
+  }
+  .value-card:hover { box-shadow: 0 12px 40px rgba(0,0,0,0.08); transform: translateY(-3px); }
+  .value-icon {
+    width: 48px; height: 48px;
+    background: var(--accent-light);
+    border-radius: 0.75rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 1.25rem;
+  }
+  .value-icon svg { width: 24px; height: 24px; stroke: var(--accent); fill: none; stroke-width: 2; }
+  .value-card h3 { font-family: 'Playfair Display', serif; font-size: 1.2rem; margin-bottom: 0.6rem; }
+  .value-card p { color: var(--muted); font-size: 0.92rem; }
+
+  /* TEAM */
+  .team { background: var(--dark-bg); color: var(--white); }
+  .team .section-title { color: var(--white); }
+  .team .section-subtitle { color: rgba(255,255,255,0.55); }
+  .team-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1.5rem;
+    margin-top: 3.5rem;
+    max-width: 1200px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  .team-card {
+    background: rgba(255,255,255,0.05);
+    border: 1px solid rgba(255,255,255,0.1);
+    border-radius: 1rem;
+    padding: 1.75rem 1.5rem;
+    text-align: center;
+    transition: background 0.2s;
+  }
+  .team-card:hover { background: rgba(255,255,255,0.09); }
+  .avatar {
+    width: 72px; height: 72px;
+    border-radius: 50%;
+    margin: 0 auto 1rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Playfair Display', serif;
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--white);
+  }
+  .avatar.c1 { background: var(--accent); }
+  .avatar.c2 { background: #2e6ec9; }
+  .avatar.c3 { background: #2ea06e; }
+  .avatar.c4 { background: var(--gold); }
+  .team-card h4 { font-weight: 500; margin-bottom: 0.25rem; }
+  .team-card p { font-size: 0.82rem; color: rgba(255,255,255,0.45); }
+
+  /* TIMELINE */
+  .timeline-section { background: var(--surface); }
+  .timeline { max-width: 700px; margin: 3.5rem auto 0; position: relative; }
+  .timeline::before {
+    content: '';
+    position: absolute;
+    left: 20px; top: 0; bottom: 0;
+    width: 2px;
+    background: var(--border);
+  }
+  .tl-item {
+    display: flex;
+    gap: 1.5rem;
+    padding-bottom: 2.5rem;
+    position: relative;
+  }
+  .tl-dot {
+    width: 40px; height: 40px;
+    border-radius: 50%;
+    background: var(--white);
+    border: 2px solid var(--accent);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.75rem;
+    font-weight: 700;
+    color: var(--accent);
+    flex-shrink: 0;
+    position: relative;
+    z-index: 1;
+  }
+  .tl-content h4 { font-family: 'Playfair Display', serif; font-size: 1.1rem; margin-bottom: 0.3rem; }
+  .tl-content p { color: var(--muted); font-size: 0.9rem; }
+
+  /* CTA BANNER */
+  .cta-banner {
+    background: var(--accent);
+    color: var(--white);
+    text-align: center;
+    padding: 5rem 5vw;
+  }
+  .cta-banner h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(2rem, 4vw, 3rem);
+    font-weight: 700;
+    margin-bottom: 1rem;
+  }
+  .cta-banner p { font-size: 1rem; opacity: 0.85; margin-bottom: 2rem; }
+  .btn-white {
+    display: inline-block;
+    background: var(--white);
+    color: var(--accent);
+    padding: 0.9rem 2.2rem;
+    border-radius: 3rem;
+    font-weight: 600;
+    text-decoration: none;
+    font-size: 0.95rem;
+    transition: transform 0.2s;
+  }
+  .btn-white:hover { transform: translateY(-2px); }
+  .btn-outline {
+    display: inline-block;
+    background: transparent;
+    border: 2px solid rgba(255,255,255,0.5);
+    color: var(--white);
+    padding: 0.9rem 2.2rem;
+    border-radius: 3rem;
+    font-weight: 500;
+    text-decoration: none;
+    font-size: 0.95rem;
+    margin-left: 1rem;
+    transition: border-color 0.2s;
+  }
+  .btn-outline:hover { border-color: var(--white); }
+
+  /* FOOTER */
+  footer {
+    background: var(--dark-bg);
+    color: rgba(255,255,255,0.5);
+    text-align: center;
+    padding: 2rem;
+    font-size: 0.85rem;
+  }
+  footer strong { color: rgba(255,255,255,0.8); }
+
+  /* RESPONSIVE */
+  @media (max-width: 900px) {
+    .hero { grid-template-columns: 1fr; }
+    .hero-right { min-height: 300px; }
+    .story-grid { grid-template-columns: 1fr; gap: 3rem; }
+    .values-grid { grid-template-columns: 1fr 1fr; }
+    .team-grid { grid-template-columns: repeat(2, 1fr); }
+    nav ul { display: none; }
+  }
+  @media (max-width: 600px) {
+    .values-grid { grid-template-columns: 1fr; }
+    .team-grid { grid-template-columns: 1fr; }
+    .hero-stats { flex-direction: column; gap: 1.2rem; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="#" class="logo">Laptop<span>Vault</span></a>
+  <ul>
+    <li><a href="#">Home</a></li>
+    <li><a href="#">Shop</a></li>
+    <li><a href="#" class="active">About</a></li>
+    <li><a href="#">Blog</a></li>
+    <li><a href="contact-us.html" class="nav-cta">Contact Us</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-left">
+    <p class="hero-eyebrow">Our Story</p>
+    <h1>Powering <em>Dreams</em>,<br>One Laptop at a Time</h1>
+    <p>Since 2014, LaptopVault has been the trusted destination for professionals, students, and creatives who demand the very best from their machines.</p>
+    <div class="hero-stats">
+      <div class="hero-stat"><strong>120K+</strong><span>Happy Customers</span></div>
+      <div class="hero-stat"><strong>500+</strong><span>Models in Stock</span></div>
+      <div class="hero-stat"><strong>10 Yrs</strong><span>Of Excellence</span></div>
+    </div>
+  </div>
+  <div class="hero-right">
+    <div class="hero-visual">
+      <svg class="laptop-illustration" viewBox="0 0 420 320" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <rect x="60" y="40" width="300" height="200" rx="12" fill="#1a1a1a" stroke="#333" stroke-width="2"/>
+        <rect x="75" y="55" width="270" height="170" rx="6" fill="#0a0a0a"/>
+        <rect x="80" y="60" width="260" height="160" rx="4" fill="#111"/>
+        <!-- Screen content simulation -->
+        <rect x="95" y="75" width="230" height="12" rx="3" fill="#2a2a2a"/>
+        <rect x="95" y="95" width="180" height="8" rx="2" fill="#222"/>
+        <rect x="95" y="110" width="200" height="8" rx="2" fill="#222"/>
+        <rect x="95" y="125" width="150" height="8" rx="2" fill="#222"/>
+        <rect x="95" y="148" width="100" height="36" rx="6" fill="#c94c2e"/>
+        <rect x="210" y="148" width="115" height="36" rx="6" fill="#1e1e1e" stroke="#333" stroke-width="1"/>
+        <!-- Base -->
+        <rect x="30" y="240" width="360" height="22" rx="6" fill="#1a1a1a"/>
+        <rect x="150" y="238" width="120" height="4" rx="2" fill="#111"/>
+        <!-- Hinge detail -->
+        <rect x="55" y="236" width="310" height="5" rx="2" fill="#222"/>
+      </svg>
+      <div class="floating-badge badge-1"><span class="icon">⭐</span> 4.9 Rated Store</div>
+      <div class="floating-badge badge-2"><span class="icon">🚚</span> Free Next-Day Shipping</div>
+    </div>
+  </div>
+</section>
+
+<!-- STORY -->
+<section class="section story">
+  <div class="story-grid">
+    <div class="story-text">
+      <p class="section-label">How It Started</p>
+      <h2 class="section-title">Born from a Frustration, Built for You</h2>
+      <p>It was 2014 when our founder, Arjun Mehta, couldn't find a reliable, honest laptop retailer. Big-box stores pushed overpriced models he didn't need. Online marketplaces were flooded with dubious listings.</p>
+      <p>So he started LaptopVault — a curated online store focused on transparency, expert advice, and machines that truly match each buyer's needs. No fluff, no upsells, just the right laptop at the right price.</p>
+      <p>Today, we're a team of 40+ tech enthusiasts shipping laptops to customers across 28 countries, with the same philosophy we started with: <em>honest, human-first tech retail.</em></p>
+    </div>
+    <div class="story-image-wrap">
+      <div class="story-img-box">
+        <svg viewBox="0 0 300 220" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <circle cx="150" cy="110" r="80" fill="#c94c2e" opacity="0.12"/>
+          <rect x="70" y="60" width="160" height="110" rx="8" fill="#2d2d2d" stroke="#444" stroke-width="1.5"/>
+          <rect x="80" y="70" width="140" height="90" rx="4" fill="#1a1a1a"/>
+          <rect x="90" y="82" width="120" height="8" rx="2" fill="#444"/>
+          <rect x="90" y="98" width="90" height="6" rx="2" fill="#333"/>
+          <rect x="90" y="110" width="110" height="6" rx="2" fill="#333"/>
+          <rect x="60" y="172" width="180" height="12" rx="4" fill="#2d2d2d"/>
+          <circle cx="225" cy="80" r="28" fill="#c94c2e" opacity="0.9"/>
+          <text x="225" y="86" fill="white" font-size="18" text-anchor="middle" font-family="serif">✓</text>
+        </svg>
+      </div>
+      <div class="story-tag">Since 2014 <span>A decade of trust</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- VALUES -->
+<section class="section">
+  <div class="values">
+    <p class="section-label">What Drives Us</p>
+    <h2 class="section-title">Our Core Values</h2>
+    <p class="section-subtitle">Every decision we make comes back to three principles that have guided us since day one.</p>
+    <div class="values-grid">
+      <div class="value-card">
+        <div class="value-icon">
+          <svg viewBox="0 0 24 24"><path d="M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138 3.42 3.42 0 00-.806-1.946 3.42 3.42 0 010-4.438 3.42 3.42 0 00.806-1.946 3.42 3.42 0 013.138-3.138z"/></svg>
+        </div>
+        <h3>Radical Transparency</h3>
+        <p>No hidden fees, no inflated specs, no paid recommendations. We tell you what you need to hear, not what sells the most margin.</p>
+      </div>
+      <div class="value-card">
+        <div class="value-icon">
+          <svg viewBox="0 0 24 24"><path d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0"/></svg>
+        </div>
+        <h3>Expert Guidance</h3>
+        <p>Our team of certified tech advisors help you find the perfect match — whether you're a gamer, designer, student, or business professional.</p>
+      </div>
+      <div class="value-card">
+        <div class="value-icon">
+          <svg viewBox="0 0 24 24"><path d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"/></svg>
+        </div>
+        <h3>Customer First, Always</h3>
+        <p>From a 30-day no-questions-asked return policy to lifetime tech support, we're with you long after checkout.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TEAM -->
+<section class="section team">
+  <div style="max-width: 1200px; margin: 0 auto;">
+    <p class="section-label">The People Behind The Screen</p>
+    <h2 class="section-title">Meet Our Team</h2>
+    <p class="section-subtitle">Forty passionate humans who live and breathe technology — and genuinely love helping you find yours.</p>
+    <div class="team-grid">
+      <div class="team-card">
+        <div class="avatar c1">AM</div>
+        <h4>Shakti Sedai</h4>
+        <p>Founder & CEO</p>
+      </div>
+      <div class="team-card">
+        <div class="avatar c2">SL</div>
+        <h4>Lucky</h4>
+        <p>Head of Product</p>
+      </div>
+      <div class="team-card">
+        <div class="avatar c3">DK</div>
+        <h4>avishek</h4>
+        <p>Lead Tech Advisor</p>
+      </div>
+      <div class="team-card">
+        <div class="avatar c4">PR</div>
+        <h4>Oasis</h4>
+        <p>Customer Experience</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TIMELINE -->
+<section class="section timeline-section">
+  <div style="max-width: 1100px; margin: 0 auto;">
+    <p class="section-label">Our Journey</p>
+    <h2 class="section-title">A Decade of Milestones</h2>
+    <div class="timeline">
+      <div class="tl-item">
+        <div class="tl-dot">14</div>
+        <div class="tl-content">
+          <h4>Founded in 2014</h4>
+          <p>Arjun Mehta launches LaptopVault from a small home office in Bangalore with just 12 laptop models.</p>
+        </div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-dot">16</div>
+        <div class="tl-content">
+          <h4>10,000 Customers Milestone</h4>
+          <p>Expanded to a dedicated warehouse and hired the first team of 8 tech advisors.</p>
+        </div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-dot">19</div>
+        <div class="tl-content">
+          <h4>International Expansion</h4>
+          <p>Launched international shipping to 15 countries and introduced the Price-Match Guarantee.</p>
+        </div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-dot">22</div>
+        <div class="tl-content">
+          <h4>Certified Refurbished Program</h4>
+          <p>Introduced our eco-conscious Certified Refurbished line, saving over 8,000 laptops from landfills.</p>
+        </div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-dot">24</div>
+        <div class="tl-content">
+          <h4>10 Years Strong</h4>
+          <p>Celebrated a decade with 120,000+ customers, 40 team members, and a brand new HQ in Mumbai.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="cta-banner">
+  <h2>Ready to Find Your Perfect Laptop?</h2>
+  <p>Our experts are standing by to help you make the right choice, every time.</p>
+  <a href="#" class="btn-white">Shop Now</a>
+  <a href="contact-us.html" class="btn-outline">Talk to an Expert</a>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <p>© 2024 <strong>LaptopVault</strong> — All rights reserved. Built with passion for technology.</p>
+</footer>
+
+</body>
+</html>
