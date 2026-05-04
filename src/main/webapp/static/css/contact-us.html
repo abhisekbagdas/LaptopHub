@@ -1,0 +1,825 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Contact Us — LaptopVault</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --ink: #0f0e0d;
+    --muted: #6b6860;
+    --surface: #f7f5f0;
+    --white: #ffffff;
+    --accent: #c94c2e;
+    --accent-light: #fdf1ee;
+    --border: #e2dfda;
+    --dark-bg: #111010;
+    --focus: #c94c2e;
+  }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--white);
+    color: var(--ink);
+    font-size: 16px;
+    line-height: 1.7;
+  }
+
+  /* NAV */
+  nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1.2rem 5vw;
+    border-bottom: 1px solid var(--border);
+    position: sticky;
+    top: 0;
+    background: rgba(255,255,255,0.95);
+    backdrop-filter: blur(8px);
+    z-index: 100;
+  }
+  .logo {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--ink);
+    text-decoration: none;
+    letter-spacing: -0.5px;
+  }
+  .logo span { color: var(--accent); }
+  nav ul { list-style: none; display: flex; gap: 2rem; }
+  nav ul a { color: var(--muted); text-decoration: none; font-size: 0.9rem; font-weight: 500; transition: color 0.2s; }
+  nav ul a:hover, nav ul a.active { color: var(--ink); }
+  .nav-cta {
+    background: var(--ink);
+    color: var(--white) !important;
+    padding: 0.5rem 1.2rem;
+    border-radius: 2rem;
+    transition: background 0.2s !important;
+  }
+  .nav-cta:hover { background: var(--accent) !important; color: var(--white) !important; }
+
+  /* PAGE HEADER */
+  .page-header {
+    background: var(--dark-bg);
+    color: var(--white);
+    padding: 5rem 5vw 4rem;
+    position: relative;
+    overflow: hidden;
+  }
+  .page-header::before {
+    content: '';
+    position: absolute;
+    width: 500px; height: 500px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(201,76,46,0.2), transparent 65%);
+    right: -100px; top: -150px;
+    pointer-events: none;
+  }
+  .page-header::after {
+    content: '';
+    position: absolute;
+    width: 300px; height: 300px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(201,76,46,0.1), transparent 70%);
+    left: 5%; bottom: -100px;
+    pointer-events: none;
+  }
+  .page-header-inner { max-width: 700px; position: relative; z-index: 1; }
+  .header-eyebrow {
+    font-size: 0.72rem;
+    font-weight: 500;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 1rem;
+  }
+  .page-header h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(2.4rem, 5vw, 3.8rem);
+    font-weight: 700;
+    line-height: 1.1;
+    letter-spacing: -1px;
+    margin-bottom: 1rem;
+  }
+  .page-header p { color: rgba(255,255,255,0.6); font-size: 1.05rem; max-width: 480px; }
+
+  /* CONTACT CARDS ROW */
+  .contact-methods {
+    background: var(--surface);
+    padding: 3rem 5vw;
+    border-bottom: 1px solid var(--border);
+  }
+  .contact-methods-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.25rem;
+    max-width: 1100px;
+    margin: 0 auto;
+  }
+  .method-card {
+    background: var(--white);
+    border: 1px solid var(--border);
+    border-radius: 1rem;
+    padding: 1.75rem 1.5rem;
+    display: flex;
+    align-items: flex-start;
+    gap: 1rem;
+    transition: box-shadow 0.2s, transform 0.2s;
+  }
+  .method-card:hover { box-shadow: 0 8px 28px rgba(0,0,0,0.07); transform: translateY(-2px); }
+  .method-icon {
+    width: 48px; height: 48px;
+    border-radius: 0.75rem;
+    background: var(--accent-light);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+  }
+  .method-icon svg { width: 22px; height: 22px; stroke: var(--accent); fill: none; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+  .method-info h3 { font-size: 1rem; font-weight: 500; margin-bottom: 0.25rem; }
+  .method-info p { font-size: 0.85rem; color: var(--muted); margin-bottom: 0.5rem; line-height: 1.5; }
+  .method-link { font-size: 0.9rem; color: var(--accent); text-decoration: none; font-weight: 500; }
+  .method-link:hover { text-decoration: underline; }
+  .badge-live {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    font-size: 0.72rem;
+    font-weight: 500;
+    color: #2ea06e;
+    background: #eaf7f1;
+    border-radius: 2rem;
+    padding: 2px 10px;
+    margin-bottom: 0.5rem;
+  }
+  .dot-live { width: 7px; height: 7px; border-radius: 50%; background: #2ea06e; animation: pulse 1.5s infinite; }
+  @keyframes pulse { 0%,100%{opacity:1;} 50%{opacity:0.4;} }
+
+  /* MAIN LAYOUT */
+  .contact-main {
+    display: grid;
+    grid-template-columns: 1fr 420px;
+    gap: 0;
+    max-width: 1300px;
+    margin: 0 auto;
+    padding: 0 5vw;
+    min-height: 70vh;
+    align-items: start;
+  }
+
+  /* FORM */
+  .form-side {
+    padding: 4rem 4rem 4rem 0;
+    border-right: 1px solid var(--border);
+  }
+  .form-label {
+    font-size: 0.72rem;
+    font-weight: 500;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 0.5rem;
+    display: block;
+  }
+  .form-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 2rem;
+    font-weight: 700;
+    margin-bottom: 0.5rem;
+    letter-spacing: -0.5px;
+  }
+  .form-subtitle { color: var(--muted); margin-bottom: 2.5rem; }
+
+  .form-group { margin-bottom: 1.5rem; }
+  .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1.25rem; }
+  label {
+    display: block;
+    font-size: 0.85rem;
+    font-weight: 500;
+    margin-bottom: 0.45rem;
+    color: var(--ink);
+  }
+  input, select, textarea {
+    width: 100%;
+    padding: 0.75rem 1rem;
+    border: 1.5px solid var(--border);
+    border-radius: 0.6rem;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.95rem;
+    color: var(--ink);
+    background: var(--white);
+    transition: border-color 0.2s, box-shadow 0.2s;
+    outline: none;
+    appearance: none;
+  }
+  input::placeholder, textarea::placeholder { color: #b5b0a8; }
+  input:focus, select:focus, textarea:focus {
+    border-color: var(--accent);
+    box-shadow: 0 0 0 3px rgba(201,76,46,0.1);
+  }
+  textarea { resize: vertical; min-height: 140px; }
+  select {
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%236b6860' stroke-width='2'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 0.8rem center;
+    background-size: 18px;
+    padding-right: 2.5rem;
+    cursor: pointer;
+  }
+
+  /* Topic chips */
+  .topic-chips { display: flex; flex-wrap: wrap; gap: 0.5rem; }
+  .chip {
+    padding: 0.45rem 1rem;
+    border: 1.5px solid var(--border);
+    border-radius: 2rem;
+    font-size: 0.82rem;
+    cursor: pointer;
+    transition: all 0.15s;
+    background: transparent;
+    color: var(--muted);
+    font-family: 'DM Sans', sans-serif;
+  }
+  .chip:hover { border-color: var(--accent); color: var(--accent); }
+  .chip.selected { border-color: var(--accent); background: var(--accent-light); color: var(--accent); font-weight: 500; }
+
+  .file-upload {
+    border: 1.5px dashed var(--border);
+    border-radius: 0.6rem;
+    padding: 1.2rem;
+    text-align: center;
+    cursor: pointer;
+    transition: border-color 0.2s;
+  }
+  .file-upload:hover { border-color: var(--accent); }
+  .file-upload p { font-size: 0.85rem; color: var(--muted); }
+  .file-upload span { color: var(--accent); font-weight: 500; }
+
+  .btn-submit {
+    width: 100%;
+    background: var(--accent);
+    color: var(--white);
+    border: none;
+    padding: 1rem 2rem;
+    border-radius: 0.7rem;
+    font-size: 1rem;
+    font-weight: 600;
+    font-family: 'DM Sans', sans-serif;
+    cursor: pointer;
+    transition: background 0.2s, transform 0.2s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+  }
+  .btn-submit:hover { background: #a83e22; transform: translateY(-1px); }
+  .btn-submit:active { transform: translateY(0); }
+  .form-footer-note { font-size: 0.8rem; color: var(--muted); text-align: center; margin-top: 1rem; }
+
+  /* SIDEBAR */
+  .info-side {
+    padding: 4rem 0 4rem 4rem;
+  }
+  .info-block { margin-bottom: 2.5rem; }
+  .info-block h4 { font-family: 'Playfair Display', serif; font-size: 1.1rem; margin-bottom: 0.75rem; }
+
+  .hours-table { width: 100%; font-size: 0.88rem; }
+  .hours-table tr td { padding: 0.35rem 0; }
+  .hours-table tr td:last-child { text-align: right; color: var(--muted); }
+  .hours-table tr.today td { color: var(--accent); font-weight: 500; }
+  .hours-table tr.today td:last-child { color: var(--accent); }
+
+  .divider { border: none; border-top: 1px solid var(--border); margin: 2rem 0; }
+
+  .social-links { display: flex; gap: 0.75rem; flex-wrap: wrap; }
+  .social-link {
+    width: 42px; height: 42px;
+    border: 1px solid var(--border);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-decoration: none;
+    color: var(--muted);
+    transition: border-color 0.2s, color 0.2s;
+  }
+  .social-link:hover { border-color: var(--accent); color: var(--accent); }
+  .social-link svg { width: 18px; height: 18px; fill: currentColor; }
+
+  .trust-items { display: flex; flex-direction: column; gap: 0.75rem; }
+  .trust-item {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    font-size: 0.88rem;
+    color: var(--muted);
+  }
+  .trust-check {
+    width: 22px; height: 22px;
+    border-radius: 50%;
+    background: #eaf7f1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    color: #2ea06e;
+    font-size: 0.75rem;
+    font-weight: 700;
+  }
+
+  /* MAP SECTION */
+  .map-section {
+    background: var(--surface);
+    padding: 4rem 5vw;
+    border-top: 1px solid var(--border);
+  }
+  .map-inner { max-width: 1100px; margin: 0 auto; }
+  .map-header { margin-bottom: 2rem; }
+  .map-header h2 { font-family: 'Playfair Display', serif; font-size: 1.8rem; font-weight: 700; }
+  .map-header p { color: var(--muted); margin-top: 0.3rem; }
+  .map-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; }
+  .map-placeholder {
+    background: #e8e4dc;
+    border-radius: 1rem;
+    overflow: hidden;
+    position: relative;
+    height: 280px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .map-svg { width: 100%; height: 100%; }
+  .office-info {
+    background: var(--white);
+    border: 1px solid var(--border);
+    border-radius: 1rem;
+    padding: 2rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+  }
+  .office-row {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.9rem;
+    font-size: 0.92rem;
+  }
+  .office-row-icon {
+    width: 36px; height: 36px;
+    border-radius: 0.5rem;
+    background: var(--accent-light);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+  }
+  .office-row-icon svg { width: 18px; height: 18px; stroke: var(--accent); fill: none; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+  .office-row-text strong { display: block; font-size: 0.8rem; font-weight: 500; text-transform: uppercase; letter-spacing: 0.08em; color: var(--muted); margin-bottom: 0.15rem; }
+  .office-row-text span { color: var(--ink); }
+
+  /* FAQ */
+  .faq-section { padding: 4rem 5vw; }
+  .faq-inner { max-width: 800px; margin: 0 auto; }
+  .faq-section h2 { font-family: 'Playfair Display', serif; font-size: 2rem; font-weight: 700; margin-bottom: 2rem; }
+  .faq-item {
+    border-bottom: 1px solid var(--border);
+  }
+  .faq-question {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1.25rem 0;
+    background: none;
+    border: none;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.97rem;
+    font-weight: 500;
+    cursor: pointer;
+    text-align: left;
+    color: var(--ink);
+  }
+  .faq-question .arrow { transition: transform 0.25s; font-size: 1.1rem; color: var(--muted); }
+  .faq-item.open .faq-question .arrow { transform: rotate(45deg); }
+  .faq-answer {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.35s ease, padding 0.3s;
+    font-size: 0.92rem;
+    color: var(--muted);
+    line-height: 1.75;
+  }
+  .faq-item.open .faq-answer { max-height: 300px; padding-bottom: 1.2rem; }
+
+  /* FOOTER */
+  footer {
+    background: var(--dark-bg);
+    color: rgba(255,255,255,0.5);
+    text-align: center;
+    padding: 2rem;
+    font-size: 0.85rem;
+  }
+  footer strong { color: rgba(255,255,255,0.8); }
+
+  /* RESPONSIVE */
+  @media (max-width: 1000px) {
+    .contact-main { grid-template-columns: 1fr; }
+    .form-side { border-right: none; padding: 3rem 0; border-bottom: 1px solid var(--border); }
+    .info-side { padding: 2.5rem 0; }
+    .map-grid { grid-template-columns: 1fr; }
+    .contact-methods-grid { grid-template-columns: 1fr; }
+  }
+  @media (max-width: 700px) {
+    .form-row { grid-template-columns: 1fr; }
+    nav ul { display: none; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="#" class="logo">Laptop<span>Vault</span></a>
+  <ul>
+    <li><a href="#">Home</a></li>
+    <li><a href="#">Shop</a></li>
+    <li><a href="about-us.html">About</a></li>
+    <li><a href="#">Blog</a></li>
+    <li><a href="#" class="nav-cta active">Contact Us</a></li>
+  </ul>
+</nav>
+
+<!-- PAGE HEADER -->
+<header class="page-header">
+  <div class="page-header-inner">
+    <p class="header-eyebrow">Get in Touch</p>
+    <h1>We're Here to Help You Find the Right Laptop</h1>
+    <p>Whether you have a quick question or need expert advice, our team typically responds within 2 hours.</p>
+  </div>
+</header>
+
+<!-- CONTACT METHOD CARDS -->
+<div class="contact-methods">
+  <div class="contact-methods-grid">
+    <div class="method-card">
+      <div class="method-icon">
+        <svg viewBox="0 0 24 24"><path d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"/></svg>
+      </div>
+      <div class="method-info">
+        <div class="badge-live"><span class="dot-live"></span> Available now</div>
+        <h3>Live Chat</h3>
+        <p>Chat with a tech expert in real time. No bots, just humans.</p>
+        <a href="#" class="method-link">Start a Chat →</a>
+      </div>
+    </div>
+    <div class="method-card">
+      <div class="method-icon">
+        <svg viewBox="0 0 24 24"><path d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>
+      </div>
+      <div class="method-info">
+        <h3>Email Support</h3>
+        <p>Send us a detailed message and we'll reply within 2–4 hours on business days.</p>
+        <a href="mailto:hello@laptopvault.com" class="method-link">hello@laptopvault.com</a>
+      </div>
+    </div>
+    <div class="method-card">
+      <div class="method-icon">
+        <svg viewBox="0 0 24 24"><path d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"/></svg>
+      </div>
+      <div class="method-info">
+        <h3>Phone Support</h3>
+        <p>Mon–Sat, 9 AM–7 PM IST. Call our dedicated helpline for immediate support.</p>
+        <a href="tel:+911800123456" class="method-link">+91 1800-123-456</a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- MAIN FORM + SIDEBAR -->
+<div class="contact-main">
+  <!-- FORM -->
+  <div class="form-side">
+    <span class="form-label">Send a Message</span>
+    <h2 class="form-title">Tell Us What You Need</h2>
+    <p class="form-subtitle">Fill in the details below and a specialist will get back to you personally.</p>
+
+    <form onsubmit="handleSubmit(event)">
+      <div class="form-group form-row">
+        <div>
+          <label for="first-name">First Name</label>
+          <input type="text" id="first-name" placeholder="Alex" required>
+        </div>
+        <div>
+          <label for="last-name">Last Name</label>
+          <input type="text" id="last-name" placeholder="Johnson">
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="email">Email Address</label>
+        <input type="email" id="email" placeholder="alex@example.com" required>
+      </div>
+
+      <div class="form-group">
+        <label for="phone">Phone Number (Optional)</label>
+        <input type="tel" id="phone" placeholder="+1 (555) 000-0000">
+      </div>
+
+      <div class="form-group">
+        <label for="topic-select">I'm enquiring about…</label>
+        <select id="topic-select">
+          <option value="" disabled selected>Select a topic</option>
+          <option>Product Recommendation</option>
+          <option>Order Status / Tracking</option>
+          <option>Return or Exchange</option>
+          <option>Technical Support</option>
+          <option>Payment or Billing</option>
+          <option>Bulk / Corporate Order</option>
+          <option>Other</option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label>Quick topic (pick all that apply)</label>
+        <div class="topic-chips">
+          <button type="button" class="chip" onclick="toggleChip(this)">Gaming</button>
+          <button type="button" class="chip" onclick="toggleChip(this)">Business</button>
+          <button type="button" class="chip" onclick="toggleChip(this)">Student</button>
+          <button type="button" class="chip" onclick="toggleChip(this)">Creative / Design</button>
+          <button type="button" class="chip" onclick="toggleChip(this)">Refurbished</button>
+          <button type="button" class="chip" onclick="toggleChip(this)">Budget Under ₹50K</button>
+          <button type="button" class="chip" onclick="toggleChip(this)">Premium</button>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="message">Your Message</label>
+        <textarea id="message" placeholder="Tell us about your requirements, questions, or any issue you're facing…" required></textarea>
+      </div>
+
+      <div class="form-group">
+        <label>Attach a File (Optional)</label>
+        <div class="file-upload" onclick="document.getElementById('file-input').click()">
+          <p>📎 <span>Browse file</span> or drag & drop here</p>
+          <p style="font-size: 0.78rem; margin-top: 0.3rem;">Screenshots, invoices, receipts — up to 10MB</p>
+          <input type="file" id="file-input" style="display:none" accept=".jpg,.png,.pdf,.docx">
+        </div>
+      </div>
+
+      <button type="submit" class="btn-submit">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
+        Send My Message
+      </button>
+      <p class="form-footer-note">We respect your privacy. Your information is never sold or shared with third parties.</p>
+    </form>
+
+    <!-- Success message -->
+    <div id="success-msg" style="display:none; text-align:center; padding: 3rem 2rem; background: #eaf7f1; border-radius: 1rem; border: 1px solid #b5e5ce; margin-top: 1.5rem;">
+      <div style="font-size: 3rem; margin-bottom: 1rem;">✅</div>
+      <h3 style="font-family: 'Playfair Display', serif; font-size: 1.5rem; margin-bottom: 0.5rem;">Message Received!</h3>
+      <p style="color: var(--muted);">Thanks for reaching out. One of our specialists will reply to you within 2–4 hours.</p>
+    </div>
+  </div>
+
+  <!-- SIDEBAR -->
+  <div class="info-side">
+
+    <div class="info-block">
+      <h4>Business Hours</h4>
+      <table class="hours-table">
+        <tr class="today"><td>Monday</td><td>9:00 AM – 7:00 PM</td></tr>
+        <tr><td>Tuesday</td><td>9:00 AM – 7:00 PM</td></tr>
+        <tr><td>Wednesday</td><td>9:00 AM – 7:00 PM</td></tr>
+        <tr><td>Thursday</td><td>9:00 AM – 7:00 PM</td></tr>
+        <tr><td>Friday</td><td>9:00 AM – 7:00 PM</td></tr>
+        <tr><td>Saturday</td><td>10:00 AM – 5:00 PM</td></tr>
+        <tr><td style="color: var(--muted);">Sunday</td><td style="color: var(--muted);">Closed</td></tr>
+      </table>
+    </div>
+
+    <hr class="divider">
+
+    <div class="info-block">
+      <h4>We Typically Respond In</h4>
+      <div style="display: flex; flex-direction: column; gap: 0.6rem; margin-top: 0.5rem;">
+        <div style="display: flex; justify-content: space-between; font-size: 0.88rem;">
+          <span style="color: var(--muted);">Live Chat</span>
+          <strong style="color: #2ea06e;">Under 2 minutes</strong>
+        </div>
+        <div style="display: flex; justify-content: space-between; font-size: 0.88rem;">
+          <span style="color: var(--muted);">Email</span>
+          <strong>2–4 hours</strong>
+        </div>
+        <div style="display: flex; justify-content: space-between; font-size: 0.88rem;">
+          <span style="color: var(--muted);">Phone</span>
+          <strong>Immediate</strong>
+        </div>
+      </div>
+    </div>
+
+    <hr class="divider">
+
+    <div class="info-block">
+      <h4>Why Customers Love Us</h4>
+      <div class="trust-items">
+        <div class="trust-item"><div class="trust-check">✓</div>30-day hassle-free returns</div>
+        <div class="trust-item"><div class="trust-check">✓</div>Price-Match Guarantee</div>
+        <div class="trust-item"><div class="trust-check">✓</div>Free next-day delivery</div>
+        <div class="trust-item"><div class="trust-check">✓</div>Certified tech advisors</div>
+        <div class="trust-item"><div class="trust-check">✓</div>Secure checkout & payments</div>
+      </div>
+    </div>
+
+    <hr class="divider">
+
+    <div class="info-block">
+      <h4>Follow Us</h4>
+      <div class="social-links" style="margin-top: 0.75rem;">
+        <a href="#" class="social-link" title="Twitter/X">
+          <svg viewBox="0 0 24 24"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-4.714-6.231-5.401 6.231H2.744l7.73-8.835L1.254 2.25H8.08l4.253 5.622zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+        </a>
+        <a href="#" class="social-link" title="Instagram">
+          <svg viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/></svg>
+        </a>
+        <a href="#" class="social-link" title="LinkedIn">
+          <svg viewBox="0 0 24 24"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+        </a>
+        <a href="#" class="social-link" title="YouTube">
+          <svg viewBox="0 0 24 24"><path d="M23.498 6.186a3.016 3.016 0 00-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 00.502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 002.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 002.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>
+        </a>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- MAP / OFFICE -->
+<section class="map-section">
+  <div class="map-inner">
+    <div class="map-header">
+      <p style="font-size:0.72rem; font-weight:500; letter-spacing:0.18em; text-transform:uppercase; color:var(--accent); margin-bottom:0.4rem;">Our Location</p>
+      <h2>Visit Us at Our HQ</h2>
+      <p>Walk in and talk to one of our laptop specialists in person — no appointment needed.</p>
+    </div>
+    <div class="map-grid">
+      <div class="map-placeholder">
+        <svg class="map-svg" viewBox="0 0 600 280" xmlns="http://www.w3.org/2000/svg">
+          <!-- Stylized map -->
+          <rect width="600" height="280" fill="#e8e4dc"/>
+          <!-- Roads -->
+          <rect x="0" y="120" width="600" height="20" fill="#d4cfc6"/>
+          <rect x="0" y="60" width="600" height="14" fill="#d4cfc6"/>
+          <rect x="0" y="190" width="600" height="14" fill="#d4cfc6"/>
+          <rect x="180" y="0" width="18" height="280" fill="#d4cfc6"/>
+          <rect x="380" y="0" width="18" height="280" fill="#d4cfc6"/>
+          <rect x="90" y="0" width="12" height="280" fill="#dbd7ce"/>
+          <rect x="480" y="0" width="12" height="280" fill="#dbd7ce"/>
+          <!-- Blocks -->
+          <rect x="30" y="20" width="50" height="34" rx="3" fill="#ccc8bf"/>
+          <rect x="100" y="20" width="70" height="34" rx="3" fill="#ccc8bf"/>
+          <rect x="200" y="20" width="170" height="34" rx="3" fill="#ccc8bf"/>
+          <rect x="400" y="20" width="80" height="34" rx="3" fill="#ccc8bf"/>
+          <rect x="30" y="145" width="50" height="38" rx="3" fill="#ccc8bf"/>
+          <rect x="100" y="145" width="70" height="38" rx="3" fill="#ccc8bf"/>
+          <rect x="200" y="145" width="170" height="38" rx="3" fill="#ccc8bf"/>
+          <rect x="400" y="145" width="70" height="38" rx="3" fill="#ccc8bf"/>
+          <rect x="30" y="210" width="50" height="50" rx="3" fill="#ccc8bf"/>
+          <rect x="100" y="210" width="70" height="50" rx="3" fill="#ccc8bf"/>
+          <rect x="200" y="210" width="170" height="50" rx="3" fill="#ccc8bf"/>
+          <rect x="400" y="210" width="70" height="50" rx="3" fill="#ccc8bf"/>
+          <!-- Pin -->
+          <ellipse cx="290" cy="148" rx="18" ry="6" fill="rgba(201,76,46,0.25)"/>
+          <circle cx="290" cy="120" r="20" fill="#c94c2e"/>
+          <circle cx="290" cy="120" r="8" fill="white"/>
+          <polygon points="290,148 280,128 300,128" fill="#c94c2e"/>
+          <!-- Label -->
+          <rect x="200" y="155" width="180" height="30" rx="6" fill="white" opacity="0.9"/>
+          <text x="290" y="175" fill="#0f0e0d" font-size="11" text-anchor="middle" font-family="sans-serif" font-weight="600">LaptopVault HQ, Mumbai</text>
+        </svg>
+      </div>
+      <div class="office-info">
+        <div class="office-row">
+          <div class="office-row-icon">
+            <svg viewBox="0 0 24 24"><path d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/><path d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
+          </div>
+          <div class="office-row-text">
+            <strong>Address</strong>
+            <span>LaptopVault HQ, 42 Tech Park, Bandra Kurla Complex, Mumbai 400051, India</span>
+          </div>
+        </div>
+        <div class="office-row">
+          <div class="office-row-icon">
+            <svg viewBox="0 0 24 24"><path d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+          </div>
+          <div class="office-row-text">
+            <strong>Walk-in Hours</strong>
+            <span>Mon–Sat: 10:00 AM – 6:00 PM</span>
+          </div>
+        </div>
+        <div class="office-row">
+          <div class="office-row-icon">
+            <svg viewBox="0 0 24 24"><path d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"/></svg>
+          </div>
+          <div class="office-row-text">
+            <strong>Helpline</strong>
+            <span>+91 1800-123-456 (Toll Free)</span>
+          </div>
+        </div>
+        <div class="office-row">
+          <div class="office-row-icon">
+            <svg viewBox="0 0 24 24"><path d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>
+          </div>
+          <div class="office-row-text">
+            <strong>General Email</strong>
+            <span>hello@laptopvault.com</span>
+          </div>
+        </div>
+        <a href="#" style="display:inline-block; background:var(--accent); color:white; padding: 0.75rem 1.5rem; border-radius: 0.6rem; font-size: 0.9rem; font-weight: 500; text-decoration: none; text-align: center; transition: background 0.2s;" onmouseover="this.style.background='#a83e22'" onmouseout="this.style.background='var(--accent)'">
+          Get Directions →
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section class="faq-section">
+  <div class="faq-inner">
+    <p style="font-size:0.72rem; font-weight:500; letter-spacing:0.18em; text-transform:uppercase; color:var(--accent); margin-bottom:0.5rem;">FAQ</p>
+    <h2>Common Questions</h2>
+
+    <div class="faq-item open">
+      <button class="faq-question" onclick="toggleFAQ(this)">
+        How long does it take to process a return? <span class="arrow">+</span>
+      </button>
+      <div class="faq-answer">Returns are processed within 3–5 business days after we receive your item. Refunds are credited to your original payment method within 7 days of processing. You'll receive an email confirmation at each step.</div>
+    </div>
+
+    <div class="faq-item">
+      <button class="faq-question" onclick="toggleFAQ(this)">
+        Do you offer a price-match guarantee? <span class="arrow">+</span>
+      </button>
+      <div class="faq-answer">Yes! If you find the same model at a lower price on any authorised retailer within 14 days of purchase, we'll match it. Simply email us with a link to the competing listing and your order number.</div>
+    </div>
+
+    <div class="faq-item">
+      <button class="faq-question" onclick="toggleFAQ(this)">
+        What is the warranty on laptops? <span class="arrow">+</span>
+      </button>
+      <div class="faq-answer">All new laptops come with the manufacturer's warranty (typically 1–3 years). Refurbished laptops include a LaptopVault Certified 1-Year Warranty. Extended warranty plans of up to 3 years are also available at checkout.</div>
+    </div>
+
+    <div class="faq-item">
+      <button class="faq-question" onclick="toggleFAQ(this)">
+        Can I speak to a specialist before buying? <span class="arrow">+</span>
+      </button>
+      <div class="faq-answer">Absolutely. Our tech advisors are available via live chat, phone, or email Monday through Saturday. You can also book a free 15-minute video consultation with a specialist from your product page.</div>
+    </div>
+
+    <div class="faq-item">
+      <button class="faq-question" onclick="toggleFAQ(this)">
+        Do you ship internationally? <span class="arrow">+</span>
+      </button>
+      <div class="faq-answer">We currently ship to 28 countries across Asia, Europe, and North America. International delivery takes 5–10 business days. Duties and taxes may apply depending on your destination country.</div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <p>© 2024 <strong>LaptopVault</strong> — All rights reserved. Your trusted laptop partner.</p>
+</footer>
+
+<script>
+  function toggleChip(el) {
+    el.classList.toggle('selected');
+  }
+
+  function toggleFAQ(btn) {
+    const item = btn.closest('.faq-item');
+    const wasOpen = item.classList.contains('open');
+    document.querySelectorAll('.faq-item').forEach(i => i.classList.remove('open'));
+    if (!wasOpen) item.classList.add('open');
+  }
+
+  function handleSubmit(e) {
+    e.preventDefault();
+    const form = e.target;
+    form.style.display = 'none';
+    document.getElementById('success-msg').style.display = 'block';
+  }
+
+  document.getElementById('file-input').addEventListener('change', function() {
+    if (this.files[0]) {
+      const p = this.closest('.file-upload').querySelector('p');
+      p.innerHTML = '📄 <strong>' + this.files[0].name + '</strong> attached';
+    }
+  });
+</script>
+</body>
+</html>

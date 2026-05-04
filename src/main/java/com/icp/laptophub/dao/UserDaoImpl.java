@@ -51,7 +51,7 @@ public class UserDaoImpl implements UserDao {
             ResultSet rs = statement.executeQuery();
             if (rs.next()) {
                 return new User(
-                        rs.getInt("id"),
+                        rs.getInt("user_id"),
                         rs.getString("username"),
                         rs.getString("email"),
                         rs.getString("password"),
@@ -78,7 +78,7 @@ public class UserDaoImpl implements UserDao {
             ResultSet rs = statement.executeQuery();
             if (rs.next()) {
                 return new User(
-                        rs.getInt("id"),
+                        rs.getInt("user_id"),
                         rs.getString("username"),
                         rs.getString("email"),
                         rs.getString("password"),

@@ -3,7 +3,7 @@ header {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    height: 5.5rem;
+    height: 4.5rem;
     padding: 4px 40px;
     background-color: #eef2f6;
     color: #1f2d3a;
@@ -17,25 +17,28 @@ header {
 .login-icon a {
     background-color: #ff9800;
 }
-nav{
-    margin: 12px 20px;
+.navbar{
     display: flex;
     justify-content: center;
     position: relative;
+    width: 800%;
+
 }
 
 
-.navbar > ul {
+.navbar  ul {
     display: flex;
-    justify-content: space-between;
+    justify-content: normal;
     align-items: center;
     padding: 4px 32px;
     list-style: none;
+
 }
 .navbar > ul li {
     display: inline;
     align-items: center;
-    margin-left: 18px;
+    /*margin-top: 98px;*/
+    margin-right: 78px;
     text-decoration: none;
     position: relative;
 }

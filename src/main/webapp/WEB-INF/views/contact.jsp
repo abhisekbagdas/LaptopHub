@@ -14,7 +14,7 @@
 <body>
 <%@ include file="/WEB-INF/views/includes/navbar.jsp" %>
 
-<h1>This is Contact Section</h1>
+
 <%@ include file="/WEB-INF/views/includes/footer.jsp" %>
 </body>
 </html>
