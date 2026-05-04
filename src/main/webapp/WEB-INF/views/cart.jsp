@@ -9,7 +9,7 @@
 </head>
 <body>
 
-<%@ include file="/WEB-INF/views/includes/navbar.jsp" %>
+<%--<%@ include file="/WEB-INF/views/includes/navbar.jsp" %>--%>
 <!-- TOP BAR -->
 <div class="topbar">
     <div class="topbar-left">
@@ -22,29 +22,30 @@
         <a href="tel:+97798011000037">Customer service: +977-9801100037</a>
     </div>
 </div>
+<%@ include file="/WEB-INF/views/includes/navbar.jsp" %>
 
-<!-- NAVBAR -->
-<nav class="navbar">
-    <a href="${pageContext.request.contextPath}/" class="logo">laptop<span>hub</span></a>
-    <div class="nav-links">
-        <a href="${pageContext.request.contextPath}/">Home</a>
-        <c:choose>
-            <c:when test="${not empty sessionScope.user}">
-                <a href="${pageContext.request.contextPath}/user">${sessionScope.user.name}</a>
-                <a href="${pageContext.request.contextPath}/logout" class="logout"
-                   onclick="return confirm('Are you sure you want to logout?');">Logout</a>
-            </c:when>
-            <c:otherwise>
-                <a href="${pageContext.request.contextPath}login.jsp">My account</a>
-            </c:otherwise>
-        </c:choose>
-        <a href="${pageContext.request.contextPath}cart">
-            <button class="cart-btn">&#128722; My cart
-                <c:if test="${not empty sessionScope.cartCount}">(${sessionScope.cartCount})</c:if>
-            </button>
-        </a>
-    </div>
-</nav>
+<%--<!-- NAVBAR -->--%>
+<%--<nav class="navbar">--%>
+<%--    <a href="${pageContext.request.contextPath}/" class="logo">laptop<span>hub</span></a>--%>
+<%--    <div class="nav-links">--%>
+<%--        <a href="${pageContext.request.contextPath}/">Home</a>--%>
+<%--        <c:choose>--%>
+<%--            <c:when test="${not empty sessionScope.user}">--%>
+<%--                <a href="${pageContext.request.contextPath}/user">${sessionScope.user.name}</a>--%>
+<%--                <a href="${pageContext.request.contextPath}/logout" class="logout"--%>
+<%--                   onclick="return confirm('Are you sure you want to logout?');">Logout</a>--%>
+<%--            </c:when>--%>
+<%--            <c:otherwise>--%>
+<%--                <a href="${pageContext.request.contextPath}login.jsp">My account</a>--%>
+<%--            </c:otherwise>--%>
+<%--        </c:choose>--%>
+<%--        <a href="${pageContext.request.contextPath}cart">--%>
+<%--            <button class="cart-btn">&#128722; My cart--%>
+<%--                <c:if test="${not empty sessionScope.cartCount}">(${sessionScope.cartCount})</c:if>--%>
+<%--            </button>--%>
+<%--        </a>--%>
+<%--    </div>--%>
+<%--</nav>--%>
 
 <!-- BREADCRUMB -->
 <div class="breadcrumb">
