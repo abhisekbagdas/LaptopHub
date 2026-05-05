@@ -1,4 +1,5 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<link rel="stylesheet" href="${pageContext.request.contextPath}/static/css/main.css"/>
 <footer>
     <div class="footer-container">
         <div class="footer-section about">
@@ -19,8 +20,10 @@
         <div class="footer-section connect">
             <h3>Connect With Us</h3>
             <div class="contact-info">
-                <p><strong>📍 Location:</strong> Pokhara, Nepal</p>
-                <p><strong>📞 Phone:</strong> 9846221453 <strong>Abishek Ko Phone Number</strong></p>
+                <p><strong>📍Location:</strong> Pokhara, Nepal</p>
+                <p><strong>📞 Phone:</strong> +977-98765453210 </p>
+                <p><strong> Location:</strong> Pokhara, Nepal</p>
+                <p><strong> Phone:</strong> 98XXXXXXXX</p>
                 <p><strong>✉ Email:</strong> info@laptophub.com</p>
             </div>
             <div class="social-links">

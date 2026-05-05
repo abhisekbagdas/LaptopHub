@@ -1,0 +1,545 @@
+/* =====================================================
+   LaptopHub — Homepage Stylesheet
+   ===================================================== */
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: 'Segoe UI', Arial, sans-serif;
+    background-color: #f3f4f6;
+    color: #111827;
+    font-size: 14px;
+}
+
+a {
+    text-decoration: none;
+    color: inherit;
+}
+
+/* =====================================================
+   TOP BAR
+   ===================================================== */
+
+/*.topbar {*/
+/*    background-color: #1a56db;*/
+/*    color: #fff;*/
+/*    font-size: 12px;*/
+/*    display: flex;*/
+/*    justify-content: space-between;*/
+/*    align-items: center;*/
+/*    padding: 6px 32px;*/
+/*}*/
+
+/*.topbar a {*/
+/*    color: #fff;*/
+/*    opacity: 0.9;*/
+/*}*/
+
+/*.topbar a:hover {*/
+/*    opacity: 1;*/
+/*    text-decoration: underline;*/
+/*}*/
+
+/*.topbar-left,*/
+/*.topbar-right {*/
+/*    display: flex;*/
+/*    gap: 20px;*/
+/*}*/
+
+/* =====================================================
+   NAVBAR
+   ===================================================== */
+
+/*.navbar {*/
+/*    background-color: #ffffff;*/
+/*    border-bottom: 1px solid #e5e7eb;*/
+/*    padding: 12px 32px;*/
+/*    display: flex;*/
+/*    align-items: center;*/
+/*    gap: 24px;*/
+/*}*/
+
+/*.logo {*/
+/*    font-size: 22px;*/
+/*    font-weight: 600;*/
+/*    color: #1a56db;*/
+/*    letter-spacing: -0.5px;*/
+/*    white-space: nowrap;*/
+/*}*/
+
+/*.logo span {*/
+/*    color: #111827;*/
+/*}*/
+
+.search-bar {
+    flex: 1;
+    max-width: 480px;
+    display: flex;
+    border: 1px solid #d1d5db;
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+.search-bar input {
+    flex: 1;
+    border: none;
+    padding: 9px 14px;
+    font-size: 13px;
+    background-color: #f9fafb;
+    color: #111827;
+    outline: none;
+}
+
+.search-bar input::placeholder {
+    color: #9ca3af;
+}
+
+.search-bar button {
+    background-color: #1a56db;
+    color: #fff;
+    border: none;
+    padding: 9px 18px;
+    font-size: 13px;
+    cursor: pointer;
+    font-weight: 500;
+    transition: background-color 0.2s;
+}
+
+.search-bar button:hover {
+    background-color: #1648c5;
+}
+
+.nav-links {
+    display: flex;
+    gap: 20px;
+    margin-left: auto;
+    align-items: center;
+}
+
+.nav-links a {
+    font-size: 13px;
+    color: #4b5563;
+}
+
+.nav-links a:hover {
+    color: #1a56db;
+}
+
+.cart-btn {
+    background-color: #1a56db;
+    color: #fff;
+    border: none;
+    padding: 9px 18px;
+    border-radius: 8px;
+    font-size: 13px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+.cart-btn:hover {
+    background-color: #1648c5;
+}
+
+/* =====================================================
+   CATEGORY NAV
+   ===================================================== */
+
+.categories {
+    background-color: #ffffff;
+    border-bottom: 1px solid #e5e7eb;
+    padding: 0 32px;
+    display: flex;
+    overflow-x: auto;
+}
+
+.cat-item {
+    padding: 13px 20px;
+    font-size: 13px;
+    cursor: pointer;
+    border-bottom: 2px solid transparent;
+    color: #6b7280;
+    white-space: nowrap;
+    transition: color 0.15s, border-color 0.15s;
+}
+
+.cat-item:hover {
+    color: #1a56db;
+}
+
+.cat-item.active {
+    color: #1a56db;
+    border-bottom-color: #1a56db;
+    font-weight: 500;
+}
+
+/* =====================================================
+   HERO SECTION
+   ===================================================== */
+
+.hero {
+    margin: 24px 32px;
+    display: grid;
+    grid-template-columns: 1.2fr 1fr;
+    gap: 16px;
+}
+
+.hero-main {
+    background: linear-gradient(135deg, #0d1b4b 0%, #1a3a8f 100%);
+    border-radius: 12px;
+    padding: 40px 36px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    min-height: 260px;
+    position: relative;
+    overflow: hidden;
+}
+
+.hero-tag {
+    font-size: 11px;
+    color: #93c5fd;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: 10px;
+}
+
+.hero-main h1 {
+    font-size: 28px;
+    font-weight: 600;
+    color: #fff;
+    line-height: 1.3;
+    margin-bottom: 8px;
+}
+
+.hero-main h1 span {
+    color: #60a5fa;
+}
+
+.hero-main p {
+    font-size: 13px;
+    color: #93c5fd;
+    margin-bottom: 20px;
+}
+
+.hero-price {
+    font-size: 22px;
+    font-weight: 600;
+    color: #fff;
+    margin-bottom: 20px;
+}
+
+.hero-price small {
+    font-size: 13px;
+    color: #93c5fd;
+    margin-left: 8px;
+    font-weight: 400;
+}
+
+.btn-white {
+    display: inline-block;
+    background-color: #fff;
+    color: #1a56db;
+    border: none;
+    padding: 10px 28px;
+    border-radius: 8px;
+    font-size: 13px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.2s, transform 0.1s;
+    width: fit-content;
+}
+
+.btn-white:hover {
+    background-color: #e0e7ff;
+    transform: translateY(-1px);
+}
+
+.hero-side {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.hero-card {
+    border-radius: 12px;
+    padding: 24px;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+}
+
+.hero-card.card1 {
+    background-color: #f0f4ff;
+}
+
+.hero-card.card2 {
+    background-color: #fff7ed;
+}
+
+.hero-card h3 {
+    font-size: 15px;
+    font-weight: 600;
+    color: #1a1a2e;
+    margin-bottom: 4px;
+}
+
+.hero-card p {
+    font-size: 12px;
+    color: #6b7280;
+    margin-bottom: 12px;
+}
+
+.hero-card-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.hero-card .price {
+    font-size: 16px;
+    font-weight: 600;
+    color: #1a56db;
+}
+
+.hero-card .view-link {
+    font-size: 12px;
+    color: #1a56db;
+    cursor: pointer;
+}
+
+.hero-card .view-link:hover {
+    text-decoration: underline;
+}
+
+/* =====================================================
+   SECTIONS (shared)
+   ===================================================== */
+
+.section {
+    margin: 0 32px 28px;
+}
+
+.section-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 16px;
+}
+
+.section-header h2 {
+    font-size: 18px;
+    font-weight: 600;
+}
+
+.section-header a {
+    font-size: 13px;
+    color: #1a56db;
+}
+
+.section-header a:hover {
+    text-decoration: underline;
+}
+
+/* =====================================================
+   BRAND FILTER
+   ===================================================== */
+
+.brand-tag {
+    display: inline-block;
+    font-size: 11px;
+    padding: 3px 10px;
+    background-color: #e0e7ff;
+    color: #3730a3;
+    border-radius: 4px;
+    font-weight: 500;
+}
+
+.brands {
+    display: flex;
+    gap: 12px;
+    flex-wrap: wrap;
+}
+
+.brand-chip {
+    background-color: #ffffff;
+    border: 1px solid #e5e7eb;
+    border-radius: 8px;
+    padding: 10px 20px;
+    font-size: 13px;
+    font-weight: 500;
+    color: #4b5563;
+    cursor: pointer;
+    flex: 1;
+    text-align: center;
+    transition: border-color 0.15s, color 0.15s;
+}
+
+.brand-chip:hover {
+    border-color: #1a56db;
+    color: #1a56db;
+}
+
+/* =====================================================
+   PRODUCT CARDS GRID
+   ===================================================== */
+
+.products-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 16px;
+}
+
+.product-card {
+    background-color: #ffffff;
+    border: 1px solid #e5e7eb;
+    border-radius: 12px;
+    padding: 16px;
+    cursor: pointer;
+    transition: border-color 0.15s, box-shadow 0.15s;
+}
+
+.product-card:hover {
+    border-color: #1a56db;
+    box-shadow: 0 2px 12px rgba(26, 86, 219, 0.08);
+}
+
+.product-img {
+    background-color: #f9fafb;
+    border-radius: 8px;
+    height: 140px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 12px;
+    font-size: 52px;
+}
+
+.badge {
+    display: inline-block;
+    font-size: 10px;
+    padding: 2px 8px;
+    border-radius: 4px;
+    margin-bottom: 8px;
+    font-weight: 600;
+}
+
+.badge-off {
+    background-color: #fee2e2;
+    color: #991b1b;
+}
+
+.badge-new {
+    background-color: #d1fae5;
+    color: #065f46;
+}
+
+.product-name {
+    font-size: 13px;
+    font-weight: 600;
+    margin-bottom: 4px;
+    color: #111827;
+}
+
+.product-spec {
+    font-size: 11px;
+    color: #6b7280;
+    margin-bottom: 10px;
+}
+
+.product-price {
+    font-size: 16px;
+    font-weight: 600;
+    color: #1a56db;
+}
+
+.product-old {
+    font-size: 12px;
+    color: #9ca3af;
+    text-decoration: line-through;
+    margin-left: 6px;
+}
+
+.add-btn {
+    width: 100%;
+    margin-top: 12px;
+    background-color: #1a56db;
+    color: #fff;
+    border: none;
+    padding: 9px;
+    border-radius: 8px;
+    font-size: 13px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+.add-btn:hover {
+    background-color: #1648c5;
+}
+
+/* =====================================================
+   FOOTER BAR
+   ===================================================== */
+
+.footer-bar {
+    background-color: #0d1b4b;
+    color: #93c5fd;
+    font-size: 12px;
+    text-align: center;
+    padding: 14px 32px;
+    margin-top: 8px;
+}
+
+/* =====================================================
+   RESPONSIVE
+   ===================================================== */
+
+@media (max-width: 1024px) {
+    .products-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 768px) {
+    .topbar,
+    .navbar,
+    .hero,
+    .section {
+        padding-left: 16px;
+        padding-right: 16px;
+        margin-left: 0;
+        margin-right: 0;
+    }
+
+    .hero {
+        grid-template-columns: 1fr;
+    }
+
+    .products-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .brands {
+        flex-wrap: wrap;
+    }
+
+    .brand-chip {
+        flex: 0 0 calc(50% - 6px);
+    }
+
+    .nav-links {
+        display: none;
+    }
+}
+
+@media (max-width: 480px) {
+    .products-grid {
+        grid-template-columns: 1fr;
+    }
+}

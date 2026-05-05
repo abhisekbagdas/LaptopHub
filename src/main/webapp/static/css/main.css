@@ -40,21 +40,22 @@ nav {
     position: relative;
 }
 
-.navbar > ul {
+.navbar  ul {
     display: flex;
     justify-content: space-between;
     align-items: center;
     padding: 5px 40px;
     list-style: none;
+
 }
 
-.navbar > ul li {
+.navbar ul li {
     display: inline;
     align-items: center;
     margin-right: 9px;
 }
 
-.navbar > ul li a {
+.navbar ul li a {
     text-decoration: none;
     color: #1f2d3a;
     font-weight: bold;
@@ -62,7 +63,7 @@ nav {
     font-size: large;
 }
 
-.navbar > ul li a:hover {
+.navbar ul li a:hover {
     text-decoration: underline;
 }
 
