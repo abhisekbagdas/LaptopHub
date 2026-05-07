@@ -14,8 +14,8 @@
 <c:if test="${not empty error}">
     <p class="error">${error}</p>
 </c:if>
-
-<form method="post" action="${pageContext.request.contextPath}/products?action=create">
+<h1>Check</h1>
+<form method="post" action="${pageContext.request.contextPath}/products?entry=create">
     <div>
         <label for="name">Name</label>
         <input type="text" id="name" name="name" required />
