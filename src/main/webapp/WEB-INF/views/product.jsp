@@ -1,7 +1,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="jakarta.tags.core" %>
 <html>
-
+<!-- check -->
 <head>
     <title>Product</title>
     <link rel="stylesheet" href="${pageContext.request.contextPath}/static/css/main.css"/>
