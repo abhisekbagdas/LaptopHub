@@ -24,7 +24,7 @@
                 <div class="product-grid">
                     <c:forEach var="productItem" items="${products}">
                         <div class="product-card">
-                            <div class="image-placeholder"></div>
+                            <div class="image-placeholder"><img src="${productItem.image}"></div>
                             <div class="product-details">
                                 <h3>${productItem.name}</h3>
                                 <p class="product-price">${productItem.price}</p>
