@@ -23,10 +23,10 @@
 .Products input {
     padding: 10px;
     border-radius: 6px;
-    border: 1px solid #555;
+    border: 1px solid #ccc;
     box-sizing: border-box; /* prevents overflow */
-    background-color: #333;
-    color: white;
+    background-color: #fff;
+    color: #333;
 }
 .Product-Actions{
     display: flex;
@@ -53,9 +53,9 @@
 
 .product-list th,.product-list td{
     padding:8px 10px;
-    border-bottom:1px solid #444;
+    border-bottom:1px solid #ddd;
     text-align:left;
-    color: white;
+    color: #333;
 }
 .product-list{
     width:100%;
@@ -75,10 +75,10 @@
 .user input {
     padding: 10px;
     border-radius: 6px;
-    border: 1px solid #555;
+    border: 1px solid #ccc;
     box-sizing: border-box; /* prevents overflow */
-    background-color: #333;
-    color: white;
+    background-color: #fff;
+    color: #333;
 }
 .User-Actions{
     display: flex;
@@ -103,4 +103,4 @@
     border-radius: 6px;
     cursor: pointer;
 }
-.user-list{list-style:none;padding:0;margin:8px 0; color: white;}
+.user-list{list-style:none;padding:0;margin:8px 0; color: #333;}
