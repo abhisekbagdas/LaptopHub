@@ -194,5 +194,5 @@ public class AdminServlet extends HttpServlet {
         public String getEmail() { return email; }
         public String getRole() { return role; }
     }
-//    Branches are distributed and check
+//    My Changes test
 }
