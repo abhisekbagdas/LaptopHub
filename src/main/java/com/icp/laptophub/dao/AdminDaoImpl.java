@@ -13,7 +13,7 @@ import java.util.Map;
 
 /**
  * Implementation of AdminDao for database operations.
- * Handles all data access for admin panel functionality.
+ * Handles all data access for admin panel functionality using the original schema.
  */
 public class AdminDaoImpl implements AdminDao {
 
@@ -24,8 +24,8 @@ public class AdminDaoImpl implements AdminDao {
         try {
             conn = DatabaseConnection.getConnection();
 
-            // Total Revenue (Sum of total_amount from Order where status is Delivered)
-            String revSql = "SELECT SUM(total_amount) AS revenue FROM `Order` WHERE order_status = 'Delivered'";
+            // Total Revenue (Sum of quantity * price from carts and products)
+            String revSql = "SELECT SUM(c.quantity * p.price) AS revenue FROM carts c JOIN products p ON c.product_id = p.product_id";
             try (PreparedStatement psRev = conn.prepareStatement(revSql);
                  ResultSet rsRev = psRev.executeQuery()) {
                 if (rsRev.next()) {
@@ -39,8 +39,8 @@ public class AdminDaoImpl implements AdminDao {
             double revenue = (Double) metrics.get("revenue");
             metrics.put("grossProfit", revenue * 0.20);
 
-            // Total Users (customers)
-            String userSql = "SELECT COUNT(*) AS total_users FROM users WHERE role = 'customer'";
+            // Total Users
+            String userSql = "SELECT COUNT(*) AS total_users FROM users";
             try (PreparedStatement psUser = conn.prepareStatement(userSql);
                  ResultSet rsUser = psUser.executeQuery()) {
                 if (rsUser.next()) {
@@ -50,8 +50,8 @@ public class AdminDaoImpl implements AdminDao {
                 }
             }
 
-            // Total Orders
-            String orderSql = "SELECT COUNT(*) AS total_orders FROM `Order`";
+            // Total Orders (we'll count carts as orders)
+            String orderSql = "SELECT COUNT(*) AS total_orders FROM carts";
             try (PreparedStatement psOrder = conn.prepareStatement(orderSql);
                  ResultSet rsOrder = psOrder.executeQuery()) {
                 if (rsOrder.next()) {
@@ -75,12 +75,11 @@ public class AdminDaoImpl implements AdminDao {
         Connection conn = null;
         try {
             conn = DatabaseConnection.getConnection();
-            // Group sales by month
-            String sql = "SELECT DATE_FORMAT(order_date, '%b') AS month, SUM(total_amount) AS sales " +
-                         "FROM `Order` " +
-                         "WHERE order_status = 'Delivered' " +
-                         "GROUP BY DATE_FORMAT(order_date, '%b'), MONTH(order_date) " +
-                         "ORDER BY MONTH(order_date)";
+            // Group sales by month using carts created_at
+            String sql = "SELECT DATE_FORMAT(c.created_at, '%b') AS month, SUM(c.quantity * p.price) AS sales " +
+                         "FROM carts c JOIN products p ON c.product_id = p.product_id " +
+                         "GROUP BY DATE_FORMAT(c.created_at, '%b'), MONTH(c.created_at) " +
+                         "ORDER BY MONTH(c.created_at)";
             try (PreparedStatement ps = conn.prepareStatement(sql);
                  ResultSet rs = ps.executeQuery()) {
                 while (rs.next()) {
@@ -104,10 +103,10 @@ public class AdminDaoImpl implements AdminDao {
         Connection conn = null;
         try {
             conn = DatabaseConnection.getConnection();
-            // Get order counts by date
-            String sql = "SELECT DATE(order_date) AS date, COUNT(*) AS count " +
-                         "FROM `Order` " +
-                         "GROUP BY DATE(order_date) " +
+            // Get order counts by date from carts
+            String sql = "SELECT DATE(created_at) AS date, COUNT(*) AS count " +
+                         "FROM carts " +
+                         "GROUP BY DATE(created_at) " +
                          "ORDER BY date DESC LIMIT 365";
             try (PreparedStatement ps = conn.prepareStatement(sql);
                  ResultSet rs = ps.executeQuery()) {
@@ -132,20 +131,21 @@ public class AdminDaoImpl implements AdminDao {
         Connection conn = null;
         try {
             conn = DatabaseConnection.getConnection();
-            String sql = "SELECT o.order_id, u.username, o.total_amount, o.order_status, o.order_date " +
-                         "FROM `Order` o " +
-                         "JOIN users u ON o.user_id = u.user_id " +
-                         "ORDER BY o.order_date DESC LIMIT ?";
+            String sql = "SELECT c.cart_id, u.username, (c.quantity * p.price) AS total_amount, c.created_at " +
+                         "FROM carts c " +
+                         "JOIN users u ON c.user_id = u.user_id " +
+                         "JOIN products p ON c.product_id = p.product_id " +
+                         "ORDER BY c.created_at DESC LIMIT ?";
             try (PreparedStatement ps = conn.prepareStatement(sql)) {
                 ps.setInt(1, limit);
                 try (ResultSet rs = ps.executeQuery()) {
                     while (rs.next()) {
                         Map<String, Object> map = new HashMap<>();
-                        map.put("orderId", rs.getInt("order_id"));
+                        map.put("orderId", rs.getInt("cart_id"));
                         map.put("username", rs.getString("username"));
                         map.put("amount", rs.getDouble("total_amount"));
-                        map.put("status", rs.getString("order_status"));
-                        map.put("date", rs.getString("order_date"));
+                        map.put("status", "Delivered"); // Mock status
+                        map.put("date", rs.getString("created_at"));
                         transactions.add(map);
                     }
                 }
@@ -164,18 +164,15 @@ public class AdminDaoImpl implements AdminDao {
         Connection conn = null;
         try {
             conn = DatabaseConnection.getConnection();
-            String sql = "SELECT l.laptop_id, l.model, b.brand_name, l.price, l.stock_quantity " +
-                         "FROM Laptop l " +
-                         "JOIN Brand b ON l.brand_id = b.brand_id " +
-                         "ORDER BY l.laptop_id DESC";
+            String sql = "SELECT product_id, name, price FROM products ORDER BY product_id DESC";
             try (PreparedStatement ps = conn.prepareStatement(sql);
                  ResultSet rs = ps.executeQuery()) {
                 while (rs.next()) {
                     Map<String, Object> map = new HashMap<>();
-                    map.put("id", rs.getInt("laptop_id"));
-                    map.put("name", rs.getString("brand_name") + " " + rs.getString("model"));
+                    map.put("id", rs.getInt("product_id"));
+                    map.put("name", rs.getString("name"));
                     map.put("price", rs.getDouble("price"));
-                    map.put("stock", rs.getInt("stock_quantity"));
+                    map.put("stock", 10); // Mock stock
                     products.add(map);
                 }
             }
@@ -193,7 +190,7 @@ public class AdminDaoImpl implements AdminDao {
         Connection conn = null;
         try {
             conn = DatabaseConnection.getConnection();
-            String sql = "SELECT user_id, username, email, role, registration_date FROM users ORDER BY user_id DESC";
+            String sql = "SELECT user_id, username, email, created_at FROM users ORDER BY user_id DESC";
             try (PreparedStatement ps = conn.prepareStatement(sql);
                  ResultSet rs = ps.executeQuery()) {
                 while (rs.next()) {
@@ -201,8 +198,13 @@ public class AdminDaoImpl implements AdminDao {
                     map.put("id", rs.getInt("user_id"));
                     map.put("name", rs.getString("username"));
                     map.put("email", rs.getString("email"));
-                    map.put("role", rs.getString("role"));
-                    map.put("registered", rs.getString("registration_date"));
+                    String username = rs.getString("username");
+                    if ("admin".equalsIgnoreCase(username) || "admin1".equalsIgnoreCase(username)) {
+                        map.put("role", "admin");
+                    } else {
+                        map.put("role", "customer");
+                    }
+                    map.put("registered", rs.getString("created_at"));
                     users.add(map);
                 }
             }
@@ -219,13 +221,22 @@ public class AdminDaoImpl implements AdminDao {
         Connection conn = null;
         try {
             conn = DatabaseConnection.getConnection();
-            String sql = "INSERT INTO Laptop (brand_id, model, price, stock_quantity, description, added_date) VALUES (?, ?, ?, ?, ?, CURDATE())";
+            // Get an admin user_id to satisfy the foreign key constraint
+            int adminUserId = 1;
+            String userSql = "SELECT user_id FROM users WHERE username = 'admin' OR username = 'admin1' LIMIT 1";
+            try (PreparedStatement psUser = conn.prepareStatement(userSql);
+                 ResultSet rsUser = psUser.executeQuery()) {
+                if (rsUser.next()) {
+                    adminUserId = rsUser.getInt("user_id");
+                }
+            }
+            
+            String sql = "INSERT INTO products (user_id, name, description, price, image) VALUES (?, ?, ?, ?, 'default.png')";
             try (PreparedStatement ps = conn.prepareStatement(sql)) {
-                ps.setInt(1, brandId);
+                ps.setInt(1, adminUserId);
                 ps.setString(2, model);
-                ps.setDouble(3, price);
-                ps.setInt(4, stock);
-                ps.setString(5, description);
+                ps.setString(3, description);
+                ps.setDouble(4, price);
                 ps.executeUpdate();
                 return true;
             }
@@ -242,7 +253,7 @@ public class AdminDaoImpl implements AdminDao {
         Connection conn = null;
         try {
             conn = DatabaseConnection.getConnection();
-            String sql = "DELETE FROM Laptop WHERE laptop_id = ?";
+            String sql = "DELETE FROM products WHERE product_id = ?";
             try (PreparedStatement ps = conn.prepareStatement(sql)) {
                 ps.setInt(1, productId);
                 int rows = ps.executeUpdate();
