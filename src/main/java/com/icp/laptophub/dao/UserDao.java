@@ -1,6 +1,6 @@
 package com.icp.laptophub.dao;
 
-import com.icp.laptophub.entity.User;
+import com.icp.laptophub.model.User;
 
 public interface UserDao {
 
