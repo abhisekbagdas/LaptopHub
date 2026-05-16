@@ -29,8 +29,11 @@
                                 <h3>${productItem.name}</h3>
                                 <p class="product-price">${productItem.price}</p>
                                 <div class="product-rating">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
-                                    <%-- Start --%>
-                                <button class="add-to-cart-btn">Add to Cart</button>
+                                <form action="${pageContext.request.contextPath}/cart" method="POST" style="margin-top: 10px;">
+                                    <input type="hidden" name="action" value="add" />
+                                    <input type="hidden" name="productId" value="${productItem.id}" />
+                                    <button type="submit" class="add-to-cart-btn" style="width: 100%;">Add to Cart</button>
+                                </form>
                             </div>
                         </div>
                     </c:forEach>
