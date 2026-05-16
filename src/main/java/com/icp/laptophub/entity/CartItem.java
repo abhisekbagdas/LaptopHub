@@ -3,19 +3,24 @@ package com.icp.laptophub.entity;
 import java.math.BigDecimal;
 
 public class CartItem {
+    private int cartId;
     private int productId;
     private String name;
     private String imageUrl;
     private BigDecimal price;
     private int quantity;
     
-    public CartItem(int productId, String name, String imageUrl, BigDecimal price, int quantity) {
+    public CartItem(int cartId, int productId, String name, String imageUrl, BigDecimal price, int quantity) {
+        this.cartId = cartId;
         this.productId = productId;
         this.name = name;
         this.imageUrl = imageUrl;
         this.price = price;
         this.quantity = quantity;
     }
+    
+    public int getCartId() { return cartId; }
+    public void setCartId(int cartId) { this.cartId = cartId; }
     
     public int getProductId() { return productId; }
     public void setProductId(int productId) { this.productId = productId; }

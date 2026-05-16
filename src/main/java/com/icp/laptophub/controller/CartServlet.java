@@ -1,9 +1,9 @@
 package com.icp.laptophub.controller;
 
-import com.icp.laptophub.dao.ProductDao;
-import com.icp.laptophub.dao.ProductDaoImpl;
+import com.icp.laptophub.dao.CartDao;
+import com.icp.laptophub.dao.CartDaoImpl;
 import com.icp.laptophub.entity.CartItem;
-import com.icp.laptophub.entity.Product;
+import com.icp.laptophub.entity.User;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
@@ -13,28 +13,27 @@ import jakarta.servlet.http.HttpSession;
 
 import java.io.IOException;
 import java.math.BigDecimal;
-import java.util.ArrayList;
 import java.util.List;
 
 @WebServlet("/cart")
 public class CartServlet extends HttpServlet {
 
-    private final ProductDao productDao = new ProductDaoImpl();
+    private final CartDao cartDao = new CartDaoImpl();
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
             
         HttpSession session = request.getSession();
+        User user = (User) session.getAttribute("user");
         
-        // Suppress unchecked cast warning as we know what we put in session
-        @SuppressWarnings("unchecked")
-        List<CartItem> cartItems = (List<CartItem>) session.getAttribute("cartItems");
-        
-        if (cartItems == null) {
-            cartItems = new ArrayList<>();
-            session.setAttribute("cartItems", cartItems);
+        if (user == null) {
+            response.sendRedirect(request.getContextPath() + "/login");
+            return;
         }
+        
+        // Fetch cart from database
+        List<CartItem> cartItems = cartDao.fetchAllCartItemsByUser(user.getId());
         
         // Calculate totals
         BigDecimal subtotal = BigDecimal.ZERO;
@@ -44,6 +43,10 @@ public class CartServlet extends HttpServlet {
         
         BigDecimal discount = BigDecimal.ZERO; // Simple logic: no discount by default
         BigDecimal total = subtotal.subtract(discount);
+        
+        // Update session cart count for navbar
+        int cartCount = cartDao.getCartItemCount(user.getId());
+        session.setAttribute("cartCount", cartCount);
         
         // Make these available to the JSP
         request.setAttribute("cartItems", cartItems);
@@ -59,6 +62,15 @@ public class CartServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) 
             throws ServletException, IOException {
             
+        HttpSession session = request.getSession();
+        User user = (User) session.getAttribute("user");
+        
+        if (user == null) {
+            // Must be logged in to add to cart
+            response.sendRedirect(request.getContextPath() + "/login");
+            return;
+        }
+            
         String action = request.getParameter("action");
         String productIdStr = request.getParameter("productId");
         
@@ -68,77 +80,20 @@ public class CartServlet extends HttpServlet {
         }
         
         int productId = Integer.parseInt(productIdStr);
-        HttpSession session = request.getSession();
-        
-        @SuppressWarnings("unchecked")
-        List<CartItem> cartItems = (List<CartItem>) session.getAttribute("cartItems");
-        if (cartItems == null) {
-            cartItems = new ArrayList<>();
-            session.setAttribute("cartItems", cartItems);
-        }
+        int userId = user.getId();
         
         if (action == null || action.equals("add")) {
-            // Find if item already exists in cart
-            boolean found = false;
-            for (CartItem item : cartItems) {
-                if (item.getProductId() == productId) {
-                    item.setQuantity(item.getQuantity() + 1);
-                    found = true;
-                    break;
-                }
-            }
-            
-            // If not found, fetch from DB and add new
-            if (!found) {
-                Product product = productDao.findProductById(productId);
-                if (product != null) {
-                    CartItem newItem = new CartItem(
-                        product.getId(),
-                        product.getName(),
-                        product.getImage(),
-                        product.getPrice(),
-                        1
-                    );
-                    cartItems.add(newItem);
-                }
-            }
+            cartDao.addProductToCart(userId, productId);
         } 
         else if (action.equals("increase")) {
-            for (CartItem item : cartItems) {
-                if (item.getProductId() == productId) {
-                    item.setQuantity(item.getQuantity() + 1);
-                    break;
-                }
-            }
+            cartDao.increaseQuantity(userId, productId);
         }
         else if (action.equals("decrease")) {
-            for (int i = 0; i < cartItems.size(); i++) {
-                CartItem item = cartItems.get(i);
-                if (item.getProductId() == productId) {
-                    if (item.getQuantity() > 1) {
-                        item.setQuantity(item.getQuantity() - 1);
-                    } else {
-                        cartItems.remove(i);
-                    }
-                    break;
-                }
-            }
+            cartDao.decreaseQuantity(userId, productId);
         }
         else if (action.equals("remove")) {
-            for (int i = 0; i < cartItems.size(); i++) {
-                if (cartItems.get(i).getProductId() == productId) {
-                    cartItems.remove(i);
-                    break;
-                }
-            }
+            cartDao.removeProductFromCart(userId, productId);
         }
-        
-        // Update cart count for the navbar
-        int cartCount = 0;
-        for (CartItem item : cartItems) {
-            cartCount += item.getQuantity();
-        }
-        session.setAttribute("cartCount", cartCount);
         
         // Redirect back to cart page
         response.sendRedirect(request.getContextPath() + "/cart");
