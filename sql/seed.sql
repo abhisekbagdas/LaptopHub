@@ -9,6 +9,7 @@ USE laptophub;
 -- Clear existing data before seeding
 DELETE FROM users;
 DELETE FROM products;
+DELETE FROM carts;
 ALTER TABLE users AUTO_INCREMENT = 1;
 
 -- ========== Users ==========
@@ -44,3 +45,36 @@ INSERT INTO products (user_id, name, description, price, image) VALUES
                                                                     (3, 'MSI Creator Z16', 'A powerful laptop for professionals.', 999.99, 'static/images/laptop_b.png'),
                                                                     (3, 'Razer Blade 17', 'A powerful laptop for professionals.', 999.99, 'static/images/laptop_c.png'),
                                                                     (3, 'Alienware M18', 'A powerful laptop for professionals.', 999.99, 'static/images/laptop_d.png');
+
+-- Clear existing cart data if re-running
+TRUNCATE TABLE carts;
+
+-- Insert into carts using product_id instead of duplicating product details
+INSERT INTO carts (user_id, product_id, quantity) VALUES
+-- User 2 (Gaming Laptops - IDs 1 to 7)
+(2, 1, 1),
+(2, 2, 1),
+(2, 3, 1),
+(2, 4, 1),
+(2, 5, 1),
+(2, 6, 1),
+(2, 7, 1),
+
+-- User 3 (Budget & Professional Laptops - IDs 8 to 24)
+(3, 8, 1),
+(3, 9, 1),
+(3, 10, 1),
+(3, 11, 1),
+(3, 12, 1),
+(3, 13, 1),
+(3, 14, 1),
+(3, 15, 1),
+(3, 16, 1),
+(3, 17, 1),
+(3, 18, 1),
+(3, 19, 1),
+(3, 20, 1),
+(3, 21, 1),
+(3, 22, 1),
+(3, 23, 1),
+(3, 24, 1);
