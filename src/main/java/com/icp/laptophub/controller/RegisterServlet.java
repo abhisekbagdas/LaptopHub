@@ -2,7 +2,7 @@ package com.icp.laptophub.controller;
 
 import com.icp.laptophub.dao.UserDao;
 import com.icp.laptophub.dao.UserDaoImpl;
-import com.icp.laptophub.entity.User;
+import com.icp.laptophub.model.User;
 import com.icp.laptophub.utils.PasswordUtil;
 import com.icp.laptophub.utils.ValidationUtil;
 
