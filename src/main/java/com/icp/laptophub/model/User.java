@@ -1,4 +1,4 @@
-package com.icp.laptophub.entity;
+package com.icp.laptophub.model;
 
 import java.sql.Timestamp;
 

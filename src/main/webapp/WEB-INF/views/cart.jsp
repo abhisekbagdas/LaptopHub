@@ -76,7 +76,7 @@
                 <c:forEach var="item" items="${requestScope.cartItems}">
                     <div class="cart-row">
                         <div class="item-img">
-                            <img src="${item.imageUrl}" alt="${item.name}" style="max-height:60px;object-fit:contain;" />
+                            <img src="${pageContext.request.contextPath}/${item.imageUrl}" alt="${item.name}" style="max-height:60px;object-fit:contain;" />
                         </div>
                         <div class="item-info">
                             <div class="item-name">${item.name}</div>

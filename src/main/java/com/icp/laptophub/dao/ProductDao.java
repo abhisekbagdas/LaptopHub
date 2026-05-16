@@ -1,6 +1,6 @@
 package com.icp.laptophub.dao;
 
-import com.icp.laptophub.entity.Product;
+import com.icp.laptophub.model.Product;
 
 import java.util.ArrayList;
 

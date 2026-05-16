@@ -216,4 +216,5 @@ public class AdminServlet extends HttpServlet {
 
         out.print("{\"success\":" + success + ",\"message\":\"" + (success ? "User removed successfully" : "Failed to remove user") + "\"}");
     }
+//    My Changes test
 }

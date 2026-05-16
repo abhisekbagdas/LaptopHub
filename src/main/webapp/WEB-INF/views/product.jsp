@@ -1,7 +1,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="jakarta.tags.core" %>
 <html>
-
+<!-- check -->
 <head>
     <title>Product</title>
     <link rel="stylesheet" href="${pageContext.request.contextPath}/static/css/main.css"/>
@@ -24,7 +24,7 @@
                 <div class="product-grid">
                     <c:forEach var="productItem" items="${products}">
                         <div class="product-card">
-                            <div class="image-placeholder"></div>
+                            <div class="image-placeholder"><img src="${productItem.image}"></div>
                             <div class="product-details">
                                 <h3>${productItem.name}</h3>
                                 <p class="product-price">${productItem.price}</p>
