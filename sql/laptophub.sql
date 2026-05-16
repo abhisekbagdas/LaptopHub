@@ -3,9 +3,9 @@ CREATE DATABASE IF NOT EXISTS laptophub;
 USE laptophub;
 
 -- Drop existing tables for a clean install
+DROP TABLE IF EXISTS carts;
 DROP TABLE IF EXISTS products;
 DROP TABLE IF EXISTS users;
-DROP TABLE IF EXISTS carts;
 
 -- ========== NEW for Week 5 ==========
 -- Users table — stores registered accounts

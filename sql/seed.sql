@@ -46,8 +46,6 @@ INSERT INTO products (user_id, name, description, price, image) VALUES
                                                                     (3, 'Razer Blade 17', 'A powerful laptop for professionals.', 999.99, 'static/images/laptop_c.png'),
                                                                     (3, 'Alienware M18', 'A powerful laptop for professionals.', 999.99, 'static/images/laptop_d.png');
 
--- Clear existing cart data if re-running
-TRUNCATE TABLE carts;
 
 -- Insert into carts using product_id instead of duplicating product details
 INSERT INTO carts (user_id, product_id, quantity) VALUES
