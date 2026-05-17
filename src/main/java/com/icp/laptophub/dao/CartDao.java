@@ -3,7 +3,7 @@ package com.icp.laptophub.dao;
 import com.icp.laptophub.entity.CartItem;
 
 import java.util.List;
-//
+
 public interface CartDao {
     boolean addProductToCart(int userId, int productId);
     boolean increaseQuantity(int userId, int productId);
