@@ -140,7 +140,6 @@ public class CartDaoImpl implements CartDao {
                         quantity
                 );
                 item.setShortSpec(rs.getString("description"));
-                item.setTotalPrice(unitPrice == null ? null : unitPrice.multiply(BigDecimal.valueOf(quantity)));
                 cartItems.add(item);
             }
         } catch (SQLException e) {
