@@ -77,9 +77,9 @@ public class AdminDaoImpl implements AdminDao {
             conn = DatabaseConnection.getConnection();
             // Group sales by month using carts created_at
             String sql = "SELECT DATE_FORMAT(c.created_at, '%b') AS month, SUM(c.quantity * p.price) AS sales " +
-                         "FROM carts c JOIN products p ON c.product_id = p.product_id " +
-                         "GROUP BY DATE_FORMAT(c.created_at, '%b'), MONTH(c.created_at) " +
-                         "ORDER BY MONTH(c.created_at)";
+                    "FROM carts c JOIN products p ON c.product_id = p.product_id " +
+                    "GROUP BY DATE_FORMAT(c.created_at, '%b'), MONTH(c.created_at) " +
+                    "ORDER BY MONTH(c.created_at)";
             try (PreparedStatement ps = conn.prepareStatement(sql);
                  ResultSet rs = ps.executeQuery()) {
                 while (rs.next()) {
@@ -105,9 +105,9 @@ public class AdminDaoImpl implements AdminDao {
             conn = DatabaseConnection.getConnection();
             // Get order counts by date from carts
             String sql = "SELECT DATE(created_at) AS date, COUNT(*) AS count " +
-                         "FROM carts " +
-                         "GROUP BY DATE(created_at) " +
-                         "ORDER BY date DESC LIMIT 365";
+                    "FROM carts " +
+                    "GROUP BY DATE(created_at) " +
+                    "ORDER BY date DESC LIMIT 365";
             try (PreparedStatement ps = conn.prepareStatement(sql);
                  ResultSet rs = ps.executeQuery()) {
                 while (rs.next()) {
@@ -132,10 +132,10 @@ public class AdminDaoImpl implements AdminDao {
         try {
             conn = DatabaseConnection.getConnection();
             String sql = "SELECT c.cart_id, u.username, (c.quantity * p.price) AS total_amount, c.created_at " +
-                         "FROM carts c " +
-                         "JOIN users u ON c.user_id = u.user_id " +
-                         "JOIN products p ON c.product_id = p.product_id " +
-                         "ORDER BY c.created_at DESC LIMIT ?";
+                    "FROM carts c " +
+                    "JOIN users u ON c.user_id = u.user_id " +
+                    "JOIN products p ON c.product_id = p.product_id " +
+                    "ORDER BY c.created_at DESC LIMIT ?";
             try (PreparedStatement ps = conn.prepareStatement(sql)) {
                 ps.setInt(1, limit);
                 try (ResultSet rs = ps.executeQuery()) {
@@ -230,7 +230,7 @@ public class AdminDaoImpl implements AdminDao {
                     adminUserId = rsUser.getInt("user_id");
                 }
             }
-            
+
             String sql = "INSERT INTO products (user_id, name, description, price, image) VALUES (?, ?, ?, ?, 'default.png')";
             try (PreparedStatement ps = conn.prepareStatement(sql)) {
                 ps.setInt(1, adminUserId);
