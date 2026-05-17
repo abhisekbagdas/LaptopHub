@@ -63,13 +63,13 @@
      CATEGORY NAV
      =================================================== -->
 <div class="categories">
-    <a href="index.jsp"><div class="cat-item active">All categories</div></a>
-    <a href="category.jsp?type=gaming"><div class="cat-item">Gaming laptops</div></a>
-    <a href="category.jsp?type=business"><div class="cat-item">Business laptops</div></a>
-    <a href="category.jsp?type=ultrabook"><div class="cat-item">Ultrabooks</div></a>
-    <a href="category.jsp?type=workstation"><div class="cat-item">Workstations</div></a>
-    <a href="category.jsp?type=accessories"><div class="cat-item">Accessories</div></a>
-    <a href="pc-build.jsp"><div class="cat-item">PC build</div></a>
+    <a href="${pageContext.request.contextPath}/index.jsp"><div class="cat-item active">All categories</div></a>
+    <a href="${pageContext.request.contextPath}/category.jsp?type=gaming"><div class="cat-item">Gaming laptops</div></a>
+    <a href="${pageContext.request.contextPath}/category.jsp?type=business"><div class="cat-item">Business laptops</div></a>
+    <a href="${pageContext.request.contextPath}/category.jsp?type=ultrabook"><div class="cat-item">Ultrabooks</div></a>
+    <a href="${pageContext.request.contextPath}/category.jsp?type=workstation"><div class="cat-item">Workstations</div></a>
+    <a href="${pageContext.request.contextPath}/category.jsp?type=accessories"><div class="cat-item">Accessories</div></a>
+    <a href="${pageContext.request.contextPath}/pc-build.jsp"><div class="cat-item">PC build</div></a>
 </div>
 
 <!-- ===================================================
@@ -88,7 +88,7 @@
             <del>Rs. 3,99,999</del>
             </small>
         </div>
-        <a href="product.jsp?id=1"><button class="btn-white">Shop now</button></a>
+        <a href="${pageContext.request.contextPath}/product.jsp?id=1"><button class="btn-white">Shop now</button></a>
     </div>
 
     <!-- Side cards -->
@@ -98,7 +98,7 @@
             <p>Intel Core Ultra 7 &middot; 16GB &middot; 512GB SSD</p>
             <div class="hero-card-footer">
                 <span class="price">Rs. 1,89,999</span>
-                <a href="product.jsp?id=2" class="view-link">View &rarr;</a>
+                <a href="${pageContext.request.contextPath}/product?id=2" class="view-link">View &rarr;</a>
             </div>
         </div>
         <div class="hero-card card2">
@@ -106,7 +106,7 @@
             <p>Apple M3 chip &middot; 8GB &middot; 256GB &middot; 18hr battery</p>
             <div class="hero-card-footer">
                 <span class="price"><del>Rs. 1,54,990</del></span>
-                <a href="product.jsp?id=3" class="view-link">View &rarr;</a>
+                <a href="${pageContext.request.contextPath}/product.jsp?id=3" class="view-link">View &rarr;</a>
             </div>
         </div>
     </div>
@@ -121,13 +121,13 @@
         <span class="brand-tag">Popular brands</span>
     </div>
     <div class="brands">
-        <a href="brand.jsp?name=apple"><div class="brand-chip">Apple</div></a>
-        <a href="brand.jsp?name=asus"><div class="brand-chip">ASUS ROG</div></a>
-        <a href="brand.jsp?name=lenovo"><div class="brand-chip">Lenovo</div></a>
-        <a href="brand.jsp?name=dell"><div class="brand-chip">Dell XPS</div></a>
-        <a href="brand.jsp?name=hp"><div class="brand-chip">HP Spectre</div></a>
-        <a href="brand.jsp?name=msi"><div class="brand-chip">MSI</div></a>
-        <a href="brand.jsp?name=acer"><div class="brand-chip">Acer</div></a>
+        <a href="${pageContext.request.contextPath}/brand.jsp?name=apple"><div class="brand-chip">Apple</div></a>
+        <a href="${pageContext.request.contextPath}/brand.jsp?name=asus"><div class="brand-chip">ASUS ROG</div></a>
+        <a href="${pageContext.request.contextPath}/brand.jsp?name=lenovo"><div class="brand-chip">Lenovo</div></a>
+        <a href="${pageContext.request.contextPath}/brand.jsp?name=dell"><div class="brand-chip">Dell XPS</div></a>
+        <a href="${pageContext.request.contextPath}/brand.jsp?name=hp"><div class="brand-chip">HP Spectre</div></a>
+        <a href="${pageContext.request.contextPath}/brand.jsp?name=msi"><div class="brand-chip">MSI</div></a>
+        <a href="${pageContext.request.contextPath}/brand.jsp?name=acer"><div class="brand-chip">Acer</div></a>
     </div>
 </div>
 
@@ -139,7 +139,7 @@
 <div class="section">
     <div class="section-header">
         <h2>Featured laptops</h2>
-        <a href="products.jsp?type=featured">View all &rarr;</a>
+        <a href="${pageContext.request.contextPath}/products.jsp?type=featured">View all &rarr;</a>
     </div>
 
     <div class="products-grid">
@@ -167,7 +167,7 @@
                                 <span class="product-old">Rs. ${product.originalPrice}</span>
                             </c:if>
                         </div>
-                        <form action="cart.jsp" method="POST">
+                        <form action="${pageContext.request.contextPath}/cart" method="POST">
                             <input type="hidden" name="productId" value="${product.id}" />
                             <button type="submit" class="add-btn">Add to cart</button>
                         </form>
@@ -175,54 +175,7 @@
                 </c:forEach>
             </c:when>
 
-            <%-- Static fallback cards shown when no DB data is available --%>
-            <c:otherwise>
-                <div class="product-card">
-                    <div class="product-img">&#128187;</div>
-                    <span class="badge badge-off">17% OFF</span>
-                    <div class="product-name">Lenovo LOQ 15 2024</div>
-                    <div class="product-spec">Intel 13th Gen &middot; RTX 4050 &middot; 16GB RAM</div>
-                    <div>
-                        <span class="product-price">Rs. 1,33,999</span>
-                        <span class="product-old">Rs. 1,59,900</span>
-                    </div>
-                    <a href="product.jsp?id=4"><button class="add-btn">Add to cart</button></a>
-                </div>
 
-                <div class="product-card">
-                    <div class="product-img">&#128187;</div>
-                    <span class="badge badge-new">New</span>
-                    <div class="product-name">ASUS Vivobook 16X</div>
-                    <div class="product-spec">AMD Ryzen 7 &middot; RX 7600S &middot; 16GB RAM</div>
-                    <div>
-                        <span class="product-price">Rs. 1,09,999</span>
-                    </div>
-                    <a href="product.jsp?id=5"><button class="add-btn">Add to cart</button></a>
-                </div>
-
-                <div class="product-card">
-                    <div class="product-img">&#128187;</div>
-                    <span class="badge badge-off">12% OFF</span>
-                    <div class="product-name">Dell Inspiron 15 3000</div>
-                    <div class="product-spec">Intel i5 13th Gen &middot; 8GB &middot; 512GB SSD</div>
-                    <div>
-                        <span class="product-price">Rs. 79,999</span>
-                        <span class="product-old">Rs. 90,000</span>
-                    </div>
-                    <a href="product.jsp?id=6"><button class="add-btn">Add to cart</button></a>
-                </div>
-
-                <div class="product-card">
-                    <div class="product-img">&#128187;</div>
-                    <span class="badge badge-new">New</span>
-                    <div class="product-name">HP Spectre x360 14</div>
-                    <div class="product-spec">Intel Core Ultra 5 &middot; 16GB &middot; OLED touch</div>
-                    <div>
-                        <span class="product-price">Rs. 1,64,990</span>
-                    </div>
-                    <a href="product.jsp?id=7"><button class="add-btn">Add to cart</button></a>
-                </div>
-            </c:otherwise>
         </c:choose>
 
     </div>
@@ -234,7 +187,7 @@
 <div class="section">
     <div class="section-header">
         <h2>Gaming laptops</h2>
-        <a href="category.jsp?type=gaming">View all &rarr;</a>
+        <a href="${pageContext.request.contextPath}/category.jsp?type=gaming">View all &rarr;</a>
     </div>
 
     <div class="products-grid">
@@ -261,7 +214,7 @@
                                 <span class="product-old">Rs. ${product.originalPrice}</span>
                             </c:if>
                         </div>
-                        <form action="cart.jsp" method="POST">
+                        <form action="${pageContext.request.contextPath}/cart" method="POST">
                             <input type="hidden" name="productId" value="${product.id}" />
                             <button type="submit" class="add-btn">Add to cart</button>
                         </form>
@@ -269,49 +222,7 @@
                 </c:forEach>
             </c:when>
 
-            <c:otherwise>
-                <div class="product-card">
-                    <div class="product-img">&#127918;</div>
-                    <span class="badge badge-new">New</span>
-                    <div class="product-name">MSI Titan GT77 HX</div>
-                    <div class="product-spec">Intel i9 &middot; RTX 4090 &middot; 64GB &middot; 4K 144Hz</div>
-                    <div><span class="product-price">Rs. 5,49,999</span></div>
-                    <a href="product.jsp?id=8"><button class="add-btn">Add to cart</button></a>
-                </div>
 
-                <div class="product-card">
-                    <div class="product-img">&#127918;</div>
-                    <span class="badge badge-off">10% OFF</span>
-                    <div class="product-name">ASUS TUF Gaming A15</div>
-                    <div class="product-spec">Ryzen 7 &middot; RTX 4060 &middot; 16GB &middot; 144Hz</div>
-                    <div>
-                        <span class="product-price">Rs. 99,999</span>
-                        <span class="product-old">Rs. 1,09,999</span>
-                    </div>
-                    <a href="product.jsp?id=9"><button class="add-btn">Add to cart</button></a>
-                </div>
-
-                <div class="product-card">
-                    <div class="product-img">&#127918;</div>
-                    <span class="badge badge-new">New</span>
-                    <div class="product-name">Acer Predator Helios 16</div>
-                    <div class="product-spec">Intel i7 &middot; RTX 4070 &middot; 16GB &middot; 240Hz</div>
-                    <div><span class="product-price">Rs. 1,79,999</span></div>
-                    <a href="product.jsp?id=10"><button class="add-btn">Add to cart</button></a>
-                </div>
-
-                <div class="product-card">
-                    <div class="product-img">&#127918;</div>
-                    <span class="badge badge-off">8% OFF</span>
-                    <div class="product-name">Lenovo Legion 5 Pro</div>
-                    <div class="product-spec">Ryzen 7 7745HX &middot; RTX 4070 &middot; 32GB</div>
-                    <div>
-                        <span class="product-price">Rs. 1,55,000</span>
-                        <span class="product-old">Rs. 1,69,000</span>
-                    </div>
-                    <a href="product.jsp?id=11"><button class="add-btn">Add to cart</button></a>
-                </div>
-            </c:otherwise>
         </c:choose>
 
     </div>

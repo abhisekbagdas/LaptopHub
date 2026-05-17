@@ -4,12 +4,12 @@ import com.icp.laptophub.dao.CartDao;
 import com.icp.laptophub.dao.CartDaoImpl;
 import com.icp.laptophub.model.CartItem;
 import com.icp.laptophub.model.User;
-import com.icp.laptophub.utils.SessionUtil;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 
 import java.io.IOException;
 import java.math.BigDecimal;
@@ -24,15 +24,17 @@ public class CartServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
-        User user = (User) SessionUtil.getAttribute(request, "user");
+        HttpSession session = request.getSession();
+        User user = (User) session.getAttribute("user");
+
         if (user == null) {
             response.sendRedirect(request.getContextPath() + "/login");
             return;
         }
 
-        List<CartItem> cartItems = cartDao.findCartItemsByUserId(user.getId());
-        BigDecimal subtotal = BigDecimal.ZERO;
+        List<CartItem> cartItems = cartDao.fetchAllCartItemsByUser(user.getId());
 
+        BigDecimal subtotal = BigDecimal.ZERO;
         for (CartItem item : cartItems) {
             if (item.getTotalPrice() != null) {
                 subtotal = subtotal.add(item.getTotalPrice());
@@ -42,13 +44,50 @@ public class CartServlet extends HttpServlet {
         BigDecimal discount = BigDecimal.ZERO;
         BigDecimal total = subtotal.subtract(discount);
 
+        int cartCount = cartDao.getCartItemCount(user.getId());
+        session.setAttribute("cartCount", cartCount);
+
         request.setAttribute("cartItems", cartItems);
         request.setAttribute("subtotal", subtotal);
         request.setAttribute("discount", discount);
         request.setAttribute("total", total);
 
-        request.getRequestDispatcher("/WEB-INF/views/cart.jsp")
-                .forward(request, response);
+        request.getRequestDispatcher("/WEB-INF/views/cart.jsp").forward(request, response);
     }
 
+    @Override
+    protected void doPost(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+
+        HttpSession session = request.getSession();
+        User user = (User) session.getAttribute("user");
+
+        if (user == null) {
+            response.sendRedirect(request.getContextPath() + "/login");
+            return;
+        }
+
+        String action = request.getParameter("action");
+        String productIdStr = request.getParameter("productId");
+
+        if (productIdStr == null || productIdStr.trim().isEmpty()) {
+            response.sendRedirect(request.getContextPath() + "/cart");
+            return;
+        }
+
+        int productId = Integer.parseInt(productIdStr);
+        int userId = user.getId();
+
+        if (action == null || action.equals("add")) {
+            cartDao.addProductToCart(userId, productId);
+        } else if (action.equals("increase")) {
+            cartDao.increaseQuantity(userId, productId);
+        } else if (action.equals("decrease")) {
+            cartDao.decreaseQuantity(userId, productId);
+        } else if (action.equals("remove")) {
+            cartDao.removeProductFromCart(userId, productId);
+        }
+
+        response.sendRedirect(request.getContextPath() + "/cart");
+    }
 }

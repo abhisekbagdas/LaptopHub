@@ -3,15 +3,30 @@ package com.icp.laptophub.model;
 import java.math.BigDecimal;
 
 public class CartItem {
+    private int cartId;
     private int productId;
     private String name;
-    private String shortSpec; // e.g., description
+    private String shortSpec;
     private int quantity;
-    private BigDecimal price; // Unit price
+    private BigDecimal price;
     private String imageUrl;
-    private BigDecimal totalPrice; // Calculated: quantity * price
+    private BigDecimal totalPrice;
 
-    // Getters and Setters
+    public CartItem() {
+    }
+
+    public CartItem(int cartId, int productId, String name, String imageUrl, BigDecimal price, int quantity) {
+        this.cartId = cartId;
+        this.productId = productId;
+        this.name = name;
+        this.imageUrl = imageUrl;
+        this.price = price;
+        this.quantity = quantity;
+    }
+
+    public int getCartId() { return cartId; }
+    public void setCartId(int cartId) { this.cartId = cartId; }
+
     public int getProductId() { return productId; }
     public void setProductId(int productId) { this.productId = productId; }
 
@@ -30,6 +45,15 @@ public class CartItem {
     public String getImageUrl() { return imageUrl; }
     public void setImageUrl(String imageUrl) { this.imageUrl = imageUrl; }
 
-    public BigDecimal getTotalPrice() { return totalPrice; }
+    public BigDecimal getTotalPrice() {
+        if (totalPrice != null) {
+            return totalPrice;
+        }
+        if (price == null) {
+            return null;
+        }
+        return price.multiply(BigDecimal.valueOf(quantity));
+    }
+
     public void setTotalPrice(BigDecimal totalPrice) { this.totalPrice = totalPrice; }
 }
