@@ -1,4 +1,4 @@
-package com.icp.laptophub.entity;
+package com.icp.laptophub.model;
 
 import java.math.BigDecimal;
 import java.sql.Timestamp;
@@ -12,6 +12,10 @@ public class Product {
     private String image;
     private Timestamp createdAt;
     private Timestamp updatedAt;
+
+
+    public Product() {
+    }
 
     public Product(String name, String description, BigDecimal price, String image, int userId) {
         this.name = name;
@@ -47,10 +51,13 @@ public class Product {
     public void setDescription(String description) { this.description = description; }
     public void setPrice(BigDecimal price) { this.price = price; }
     public void setImage(String image) { this.image = image; }
+    public void setProductId(int productId) {this.product_id = productId;}
+    public void setCreatedAt(Timestamp createdAt) { this.createdAt = createdAt; }
 
     @Override
     public String toString() {
         return "[" + product_id + "] " + name + " (Created: " + createdAt + ")";
     }
+
 }
 

@@ -1,8 +1,9 @@
 package com.icp.laptophub.dao;
 
-import com.icp.laptophub.entity.CartItem;
+import com.icp.laptophub.model.CartItem;
 import com.icp.laptophub.utils.DatabaseConnection;
 
+import java.math.BigDecimal;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -17,18 +18,15 @@ public class CartDaoImpl implements CartDao {
         Connection conn = null;
         try {
             conn = DatabaseConnection.getConnection();
-            // Check if it already exists
             String checkSql = "SELECT cart_id FROM carts WHERE user_id = ? AND product_id = ?";
             PreparedStatement checkStmt = conn.prepareStatement(checkSql);
             checkStmt.setInt(1, userId);
             checkStmt.setInt(2, productId);
             ResultSet rs = checkStmt.executeQuery();
-            
+
             if (rs.next()) {
-                // If exists, just increase quantity
                 return increaseQuantity(userId, productId);
             } else {
-                // If not, insert new row
                 String insertSql = "INSERT INTO carts (user_id, product_id, quantity) VALUES (?, ?, 1)";
                 PreparedStatement insertStmt = conn.prepareStatement(insertSql);
                 insertStmt.setInt(1, userId);
@@ -68,14 +66,13 @@ public class CartDaoImpl implements CartDao {
         Connection conn = null;
         try {
             conn = DatabaseConnection.getConnection();
-            
-            // First check the current quantity
+
             String checkSql = "SELECT quantity FROM carts WHERE user_id = ? AND product_id = ?";
             PreparedStatement checkStmt = conn.prepareStatement(checkSql);
             checkStmt.setInt(1, userId);
             checkStmt.setInt(2, productId);
             ResultSet rs = checkStmt.executeQuery();
-            
+
             if (rs.next()) {
                 int quantity = rs.getInt("quantity");
                 if (quantity > 1) {
@@ -86,7 +83,6 @@ public class CartDaoImpl implements CartDao {
                     updateStmt.executeUpdate();
                     return true;
                 } else {
-                    // If quantity is 1, decreasing it removes it from cart
                     return removeProductFromCart(userId, productId);
                 }
             }
@@ -124,23 +120,27 @@ public class CartDaoImpl implements CartDao {
         Connection conn = null;
         try {
             conn = DatabaseConnection.getConnection();
-            String sql = "SELECT c.cart_id, c.product_id, c.quantity, p.name, p.image, p.price " +
-                         "FROM carts c " +
-                         "JOIN products p ON c.product_id = p.product_id " +
-                         "WHERE c.user_id = ?";
+            String sql = "SELECT c.cart_id, c.product_id, c.quantity, p.name, p.description, p.image, p.price " +
+                    "FROM carts c " +
+                    "JOIN products p ON c.product_id = p.product_id " +
+                    "WHERE c.user_id = ?";
             PreparedStatement stmt = conn.prepareStatement(sql);
             stmt.setInt(1, userId);
             ResultSet rs = stmt.executeQuery();
-            
+
             while (rs.next()) {
+                BigDecimal unitPrice = rs.getBigDecimal("price");
+                int quantity = rs.getInt("quantity");
                 CartItem item = new CartItem(
                         rs.getInt("cart_id"),
                         rs.getInt("product_id"),
                         rs.getString("name"),
                         rs.getString("image"),
-                        rs.getBigDecimal("price"),
-                        rs.getInt("quantity")
+                        unitPrice,
+                        quantity
                 );
+                item.setShortSpec(rs.getString("description"));
+                item.setTotalPrice(unitPrice == null ? null : unitPrice.multiply(BigDecimal.valueOf(quantity)));
                 cartItems.add(item);
             }
         } catch (SQLException e) {
@@ -152,6 +152,11 @@ public class CartDaoImpl implements CartDao {
     }
 
     @Override
+    public List<CartItem> findCartItemsByUserId(int userId) {
+        return fetchAllCartItemsByUser(userId);
+    }
+
+    @Override
     public int getCartItemCount(int userId) {
         Connection conn = null;
         try {
@@ -160,7 +165,7 @@ public class CartDaoImpl implements CartDao {
             PreparedStatement stmt = conn.prepareStatement(sql);
             stmt.setInt(1, userId);
             ResultSet rs = stmt.executeQuery();
-            
+
             if (rs.next()) {
                 return rs.getInt("total_items");
             }

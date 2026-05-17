@@ -1,6 +1,6 @@
 package com.icp.laptophub.dao;
 
-import com.icp.laptophub.entity.CartItem;
+import com.icp.laptophub.model.CartItem;
 
 import java.util.List;
 
@@ -10,5 +10,6 @@ public interface CartDao {
     boolean decreaseQuantity(int userId, int productId);
     boolean removeProductFromCart(int userId, int productId);
     List<CartItem> fetchAllCartItemsByUser(int userId);
+    List<CartItem> findCartItemsByUserId(int userId);
     int getCartItemCount(int userId);
 }
