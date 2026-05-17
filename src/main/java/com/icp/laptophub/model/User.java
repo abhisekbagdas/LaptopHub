@@ -8,6 +8,7 @@ public class User {
     private String username;
     private String email;
     private String password;
+    private String profileImage;
     private Timestamp createdAt;
     private Timestamp updatedAt;
 
@@ -18,11 +19,12 @@ public class User {
     }
 
     public User(int id, String username, String email, String password,
-                Timestamp createdAt, Timestamp updatedAt) {
+                String profileImage, Timestamp createdAt, Timestamp updatedAt) {
         this.id = id;
         this.username = username;
         this.email = email;
         this.password = password;
+        this.profileImage = profileImage;
         this.createdAt = createdAt;
         this.updatedAt = updatedAt;
     }
@@ -31,6 +33,7 @@ public class User {
     public String getUsername() { return username; }
     public String getEmail() { return email; }
     public String getPassword() { return password; }
+    public String getProfileImage() { return profileImage; }
     public Timestamp getCreatedAt() { return createdAt; }
     public Timestamp getUpdatedAt() { return updatedAt; }
 
@@ -38,6 +41,7 @@ public class User {
     public void setUsername(String username) { this.username = username; }
     public void setEmail(String email) { this.email = email; }
     public void setPassword(String password) { this.password = password; }
+    public void setProfileImage(String profileImage) { this.profileImage = profileImage; }
 
     @Override
     public String toString() {
