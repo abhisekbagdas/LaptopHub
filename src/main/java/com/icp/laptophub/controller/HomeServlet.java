@@ -2,7 +2,7 @@ package com.icp.laptophub.controller;
 
 import com.icp.laptophub.dao.ProductDao;
 import com.icp.laptophub.dao.ProductDaoImpl;
-import com.icp.laptophub.entity.Product;
+import com.icp.laptophub.model.Product;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
