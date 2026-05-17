@@ -1,0 +1,1 @@
+-- This file was emptied as the user requested to use only the original database schema.
