@@ -72,46 +72,138 @@
     <a href="${pageContext.request.contextPath}/pc-build.jsp"><div class="cat-item">PC build</div></a>
 </div>
 
-<!-- ===================================================
-     HERO SECTION
-     =================================================== -->
-<section class="hero">
+<style>
+/* Scoped styles for the hero slider to ensure it overrides defaults */
+.hero-slider {
+    position: relative;
+    width: 100%;
+    margin: 24px 0;
+    overflow: hidden;
+    border-radius: 12px;
+    background-color: #0d1b4b; /* Placeholder background */
+    min-height: 400px;
+    display: flex;
+    align-items: center;
+}
 
-    <!-- Main hero banner (can be driven by a DB featured product) -->
-    <div class="hero-main">
-        <div class="hero-tag">New arrival 2024</div>
-        <h1>ASUS ROG Zephyrus<br><span>16&quot; WQXGA OLED</span></h1>
-        <p>RTX 4080 &middot; AMD Ryzen 9 &middot; 32GB RAM</p>
-        <div class="hero-price">
-            Rs. 3,49,999
-            <small>
-            <del>Rs. 3,99,999</del>
-            </small>
+.slides {
+    display: flex;
+    transition: transform 0.5s ease-in-out;
+    width: 100%;
+    height: 100%;
+}
+
+.slide {
+    min-width: 100%;
+    flex-shrink: 0;
+    box-sizing: border-box;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+}
+
+.slide img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    max-height: 400px;
+    border-radius: 8px;
+}
+
+.slider-controls {
+    position: absolute;
+    bottom: 15px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    gap: 8px;
+}
+
+.dot {
+    height: 10px;
+    width: 10px;
+    margin: 0;
+    background-color: rgba(255, 255, 255, 0.5);
+    border-radius: 50%;
+    display: inline-block;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.dot.active, .dot:hover {
+    background-color: #fff;
+}
+</style>
+
+<section class="hero-slider">
+    <div class="slides" id="hero-slides">
+        <div class="slide">
+            <img src="${pageContext.request.contextPath}/static/images/hero1.jpeg" alt="Hero 1">
         </div>
-        <a href="${pageContext.request.contextPath}/product.jsp?id=1"><button class="btn-white">Shop now</button></a>
+        <div class="slide">
+            <img src="${pageContext.request.contextPath}/static/images/hero2.jpeg" alt="Hero 2">
+        </div>
+        <div class="slide">
+            <img src="${pageContext.request.contextPath}/static/images/hero3.jpeg" alt="Hero 3">
+        </div>
+        <div class="slide">
+            <img src="${pageContext.request.contextPath}/static/images/hero4.jpeg" alt="Hero 4">
+        </div>
+        <div class="slide">
+            <img src="${pageContext.request.contextPath}/static/images/hero5.jpeg" alt="Hero 5">
+        </div>
     </div>
-
-    <!-- Side cards -->
-    <div class="hero-side">
-        <div class="hero-card card1">
-            <h3>Lenovo ThinkPad X1 Carbon</h3>
-            <p>Intel Core Ultra 7 &middot; 16GB &middot; 512GB SSD</p>
-            <div class="hero-card-footer">
-                <span class="price">Rs. 1,89,999</span>
-                <a href="${pageContext.request.contextPath}/product?id=2" class="view-link">View &rarr;</a>
-            </div>
-        </div>
-        <div class="hero-card card2">
-            <h3>MacBook Air M3 &mdash; 15&quot;</h3>
-            <p>Apple M3 chip &middot; 8GB &middot; 256GB &middot; 18hr battery</p>
-            <div class="hero-card-footer">
-                <span class="price"><del>Rs. 1,54,990</del></span>
-                <a href="${pageContext.request.contextPath}/product.jsp?id=3" class="view-link">View &rarr;</a>
-            </div>
-        </div>
+    
+    <div class="slider-controls" id="slider-dots">
+        <span class="dot active" onclick="currentSlide(0)"></span>
+        <span class="dot" onclick="currentSlide(1)"></span>
+        <span class="dot" onclick="currentSlide(2)"></span>
+        <span class="dot" onclick="currentSlide(3)"></span>
+        <span class="dot" onclick="currentSlide(4)"></span>
     </div>
-
 </section>
+
+<script>
+    let slideIndex = 0;
+    const slides = document.getElementById('hero-slides');
+    const dots = document.getElementById('slider-dots').getElementsByClassName('dot');
+    let slideInterval;
+
+    function showSlide(index) {
+        if (index >= dots.length) { slideIndex = 0; }
+        if (index < 0) { slideIndex = dots.length - 1; }
+        
+        // Avoid ES6 template literals here because JSP parses the dollar sign and curly braces as EL on the server
+        slides.style.transform = 'translateX(-' + (slideIndex * 100) + '%)';
+        
+        for (let i = 0; i < dots.length; i++) {
+            dots[i].className = dots[i].className.replace(" active", "");
+        }
+        if (dots[slideIndex]) {
+            dots[slideIndex].className += " active";
+        }
+    }
+
+    function currentSlide(index) {
+        slideIndex = index;
+        showSlide(slideIndex);
+        resetInterval();
+    }
+
+    function autoSlide() {
+        slideIndex++;
+        showSlide(slideIndex);
+    }
+
+    function resetInterval() {
+        clearInterval(slideInterval);
+        slideInterval = setInterval(autoSlide, 5000);
+    }
+
+    // Start auto slide
+    slideInterval = setInterval(autoSlide, 5000);
+</script>
 
 <!-- ===================================================
      BRAND FILTER

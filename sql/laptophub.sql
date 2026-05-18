@@ -7,7 +7,6 @@ DROP TABLE IF EXISTS carts;
 DROP TABLE IF EXISTS products;
 DROP TABLE IF EXISTS users;
 
--- ========== NEW for Week 5 ==========
 -- Users table — stores registered accounts
 -- Password column stores BCrypt hash (60 chars), NOT plaintext
 CREATE TABLE users (
