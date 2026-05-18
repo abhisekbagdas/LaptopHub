@@ -10,7 +10,7 @@ DROP TABLE IF EXISTS users;
 -- Users table — stores registered accounts
 -- Password column stores BCrypt hash (60 chars), NOT plaintext
 CREATE TABLE users (
-                       user_id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+                       user_id INT  NOT NULL AUTO_INCREMENT PRIMARY KEY,
                        username VARCHAR(255) NOT NULL UNIQUE,
                        email VARCHAR(255) NOT NULL UNIQUE,
                        password VARCHAR(255) NOT NULL,
