@@ -71,7 +71,13 @@ public class AdminDaoImpl implements AdminDao {
 
     @Override
     public List<Map<String, Object>> getMonthlySales() {
-        List<Map<String, Object>> monthlySales = new ArrayList<>();
+        // Initialize all 12 calendar months in correct order with 0.0 sales
+        String[] months = {"Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"};
+        java.util.Map<String, Double> salesMap = new java.util.LinkedHashMap<>();
+        for (String m : months) {
+            salesMap.put(m, 0.0);
+        }
+
         Connection conn = null;
         try {
             conn = DatabaseConnection.getConnection();
@@ -83,10 +89,11 @@ public class AdminDaoImpl implements AdminDao {
             try (PreparedStatement ps = conn.prepareStatement(sql);
                  ResultSet rs = ps.executeQuery()) {
                 while (rs.next()) {
-                    Map<String, Object> map = new HashMap<>();
-                    map.put("month", rs.getString("month"));
-                    map.put("sales", rs.getDouble("sales"));
-                    monthlySales.add(map);
+                    String month = rs.getString("month");
+                    double sales = rs.getDouble("sales");
+                    if (month != null && salesMap.containsKey(month)) {
+                        salesMap.put(month, sales);
+                    }
                 }
             }
         } catch (SQLException e) {
@@ -94,7 +101,72 @@ public class AdminDaoImpl implements AdminDao {
         } finally {
             DatabaseConnection.closeConnection(conn);
         }
+
+        List<Map<String, Object>> monthlySales = new ArrayList<>();
+        for (java.util.Map.Entry<String, Double> entry : salesMap.entrySet()) {
+            Map<String, Object> map = new HashMap<>();
+            map.put("month", entry.getKey());
+            map.put("sales", entry.getValue());
+            monthlySales.add(map);
+        }
         return monthlySales;
+    }
+
+    @Override
+    public List<Map<String, Object>> getDailySalesForMonth(int month) {
+        // Generate all days of the selected month of the current year
+        java.time.LocalDate today = java.time.LocalDate.now();
+        int year = today.getYear();
+        java.time.YearMonth yearMonth = java.time.YearMonth.of(year, month);
+        int daysInMonth = yearMonth.lengthOfMonth();
+
+        java.time.format.DateTimeFormatter labelFormatter = java.time.format.DateTimeFormatter.ofPattern("MMM dd");
+        java.util.Map<String, String> dateToLabel = new java.util.LinkedHashMap<>();
+        java.util.Map<String, Double> salesMap = new java.util.LinkedHashMap<>();
+
+        for (int day = 1; day <= daysInMonth; day++) {
+            java.time.LocalDate d = java.time.LocalDate.of(year, month, day);
+            String dbStr = String.format("%04d-%02d-%02d", year, month, day);
+            String labelStr = d.format(labelFormatter);
+            dateToLabel.put(dbStr, labelStr);
+            salesMap.put(dbStr, 0.0);
+        }
+
+        Connection conn = null;
+        try {
+            conn = DatabaseConnection.getConnection();
+            String sql = "SELECT DATE(c.created_at) AS order_date, SUM(c.quantity * p.price) AS sales " +
+                    "FROM carts c JOIN products p ON c.product_id = p.product_id " +
+                    "WHERE YEAR(c.created_at) = ? AND MONTH(c.created_at) = ? " +
+                    "GROUP BY DATE(c.created_at) " +
+                    "ORDER BY DATE(c.created_at)";
+            try (PreparedStatement ps = conn.prepareStatement(sql)) {
+                ps.setInt(1, year);
+                ps.setInt(2, month);
+                try (ResultSet rs = ps.executeQuery()) {
+                    while (rs.next()) {
+                        String dbDate = rs.getString("order_date");
+                        double sales = rs.getDouble("sales");
+                        if (dbDate != null && salesMap.containsKey(dbDate)) {
+                            salesMap.put(dbDate, sales);
+                        }
+                    }
+                }
+            }
+        } catch (SQLException e) {
+            System.out.println("Error fetching daily sales for month: " + e.getMessage());
+        } finally {
+            DatabaseConnection.closeConnection(conn);
+        }
+
+        List<Map<String, Object>> dailySales = new ArrayList<>();
+        for (java.util.Map.Entry<String, Double> entry : salesMap.entrySet()) {
+            Map<String, Object> map = new HashMap<>();
+            map.put("date", dateToLabel.get(entry.getKey()));
+            map.put("sales", entry.getValue());
+            dailySales.add(map);
+        }
+        return dailySales;
     }
 
     @Override
@@ -164,15 +236,17 @@ public class AdminDaoImpl implements AdminDao {
         Connection conn = null;
         try {
             conn = DatabaseConnection.getConnection();
-            String sql = "SELECT product_id, name, price FROM products ORDER BY product_id DESC";
+            String sql = "SELECT product_id, name, description, price, image, stock FROM products ORDER BY product_id DESC";
             try (PreparedStatement ps = conn.prepareStatement(sql);
                  ResultSet rs = ps.executeQuery()) {
                 while (rs.next()) {
                     Map<String, Object> map = new HashMap<>();
                     map.put("id", rs.getInt("product_id"));
                     map.put("name", rs.getString("name"));
+                    map.put("description", rs.getString("description"));
                     map.put("price", rs.getDouble("price"));
-                    map.put("stock", 10); // Mock stock
+                    map.put("image", rs.getString("image"));
+                    map.put("stock", rs.getInt("stock"));
                     products.add(map);
                 }
             }
@@ -190,7 +264,7 @@ public class AdminDaoImpl implements AdminDao {
         Connection conn = null;
         try {
             conn = DatabaseConnection.getConnection();
-            String sql = "SELECT user_id, username, email, created_at FROM users ORDER BY user_id DESC";
+            String sql = "SELECT user_id, username, email, created_at, is_banned FROM users ORDER BY user_id DESC";
             try (PreparedStatement ps = conn.prepareStatement(sql);
                  ResultSet rs = ps.executeQuery()) {
                 while (rs.next()) {
@@ -198,6 +272,7 @@ public class AdminDaoImpl implements AdminDao {
                     map.put("id", rs.getInt("user_id"));
                     map.put("name", rs.getString("username"));
                     map.put("email", rs.getString("email"));
+                    map.put("isBanned", rs.getBoolean("is_banned"));
                     String username = rs.getString("username");
                     if ("admin".equalsIgnoreCase(username) || "admin1".equalsIgnoreCase(username)) {
                         map.put("role", "admin");
@@ -217,7 +292,7 @@ public class AdminDaoImpl implements AdminDao {
     }
 
     @Override
-    public boolean addProduct(String model, double price, int stock, int brandId, String description) {
+    public boolean addProduct(String model, double price, int stock, int brandId, String description, String imagePath) {
         Connection conn = null;
         try {
             conn = DatabaseConnection.getConnection();
@@ -231,17 +306,53 @@ public class AdminDaoImpl implements AdminDao {
                 }
             }
 
-            String sql = "INSERT INTO products (user_id, name, description, price, image) VALUES (?, ?, ?, ?, 'default.png')";
+            String sql = "INSERT INTO products (user_id, name, description, price, image, stock) VALUES (?, ?, ?, ?, ?, ?)";
             try (PreparedStatement ps = conn.prepareStatement(sql)) {
                 ps.setInt(1, adminUserId);
                 ps.setString(2, model);
                 ps.setString(3, description);
                 ps.setDouble(4, price);
+                ps.setString(5, (imagePath != null && !imagePath.trim().isEmpty()) ? imagePath : "default.png");
+                ps.setInt(6, stock);
                 ps.executeUpdate();
                 return true;
             }
         } catch (SQLException e) {
             System.out.println("Error adding product: " + e.getMessage());
+            return false;
+        } finally {
+            DatabaseConnection.closeConnection(conn);
+        }
+    }
+
+    @Override
+    public boolean editProduct(int productId, String name, double price, int stock, String description, String imagePath) {
+        Connection conn = null;
+        try {
+            conn = DatabaseConnection.getConnection();
+            String sql;
+            if (imagePath != null && !imagePath.trim().isEmpty()) {
+                sql = "UPDATE products SET name = ?, price = ?, stock = ?, description = ?, image = ? WHERE product_id = ?";
+            } else {
+                sql = "UPDATE products SET name = ?, price = ?, stock = ?, description = ? WHERE product_id = ?";
+            }
+            
+            try (PreparedStatement ps = conn.prepareStatement(sql)) {
+                ps.setString(1, name);
+                ps.setDouble(2, price);
+                ps.setInt(3, stock);
+                ps.setString(4, description);
+                if (imagePath != null && !imagePath.trim().isEmpty()) {
+                    ps.setString(5, imagePath);
+                    ps.setInt(6, productId);
+                } else {
+                    ps.setInt(5, productId);
+                }
+                int rows = ps.executeUpdate();
+                return rows > 0;
+            }
+        } catch (SQLException e) {
+            System.out.println("Error editing product: " + e.getMessage());
             return false;
         } finally {
             DatabaseConnection.closeConnection(conn);
@@ -261,6 +372,25 @@ public class AdminDaoImpl implements AdminDao {
             }
         } catch (SQLException e) {
             System.out.println("Error deleting product: " + e.getMessage());
+            return false;
+        } finally {
+            DatabaseConnection.closeConnection(conn);
+        }
+    }
+
+    @Override
+    public boolean banUser(int userId) {
+        Connection conn = null;
+        try {
+            conn = DatabaseConnection.getConnection();
+            String sql = "UPDATE users SET is_banned = TRUE WHERE user_id = ?";
+            try (PreparedStatement ps = conn.prepareStatement(sql)) {
+                ps.setInt(1, userId);
+                int rows = ps.executeUpdate();
+                return rows > 0;
+            }
+        } catch (SQLException e) {
+            System.out.println("Error banning user: " + e.getMessage());
             return false;
         } finally {
             DatabaseConnection.closeConnection(conn);

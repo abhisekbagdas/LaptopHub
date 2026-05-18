@@ -3,14 +3,17 @@ package com.icp.laptophub.controller;
 import com.icp.laptophub.dao.AdminDao;
 import com.icp.laptophub.dao.AdminDaoImpl;
 import jakarta.servlet.ServletException;
+import jakarta.servlet.annotation.MultipartConfig;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.Part;
 import jakarta.json.Json;
 import jakarta.json.JsonArrayBuilder;
 import jakarta.json.JsonObjectBuilder;
 
+import java.io.File;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.List;
@@ -21,6 +24,7 @@ import java.util.Map;
  * Provides endpoints for analytics, products, users management and product operations.
  */
 @WebServlet("/admin/*")
+@MultipartConfig(fileSizeThreshold = 1024 * 1024, maxFileSize = 1024 * 1024 * 5, maxRequestSize = 1024 * 1024 * 10)
 public class AdminServlet extends HttpServlet {
 
     private AdminDao adminDao;
@@ -47,9 +51,21 @@ public class AdminServlet extends HttpServlet {
         response.setCharacterEncoding("UTF-8");
         PrintWriter out = response.getWriter();
 
-        // Route to appropriate API handler based on path
         if (path.equals("/api/analytics")) {
             writeAnalyticsResponse(out);
+        } else if (path.equals("/api/dailySales")) {
+            String monthStr = request.getParameter("month");
+            int monthVal = 5; // Default to May or current month
+            try {
+                if (monthStr != null) {
+                    monthVal = Integer.parseInt(monthStr);
+                } else {
+                    monthVal = java.time.LocalDate.now().getMonthValue();
+                }
+            } catch (NumberFormatException e) {
+                monthVal = java.time.LocalDate.now().getMonthValue();
+            }
+            writeDailySalesResponse(monthVal, out);
         } else if (path.equals("/api/products")) {
             writeProductsResponse(out);
         } else if (path.equals("/api/users")) {
@@ -126,6 +142,8 @@ public class AdminServlet extends HttpServlet {
                     .add("id", (Integer) p.get("id"))
                     .add("name", (String) p.get("name"))
                     .add("price", (Double) p.get("price"))
+                    .add("description", p.get("description") != null ? (String) p.get("description") : "")
+                    .add("image", p.get("image") != null ? (String) p.get("image") : "default.png")
                     .add("stock", (Integer) p.get("stock")));
         }
         out.print(arrBuilder.build().toString());
@@ -143,6 +161,7 @@ public class AdminServlet extends HttpServlet {
                     .add("name", (String) u.get("name"))
                     .add("email", (String) u.get("email"))
                     .add("role", (String) u.get("role"))
+                    .add("isBanned", (Boolean) u.get("isBanned"))
                     .add("registered", (String) u.get("registered")));
         }
         out.print(arrBuilder.build().toString());
@@ -162,9 +181,17 @@ public class AdminServlet extends HttpServlet {
             if (path.equals("/api/addProduct")) {
                 handleAddProduct(request, out);
             }
+            // Handle product editing
+            else if (path.equals("/api/editProduct")) {
+                handleEditProduct(request, out);
+            }
             // Handle product deletion
             else if (path.equals("/api/deleteProduct")) {
                 handleDeleteProduct(request, out);
+            }
+            // Handle user banning
+            else if (path.equals("/api/banUser")) {
+                handleBanUser(request, out);
             }
             // Handle user deletion
             else if (path.equals("/api/deleteUser")) {
@@ -177,24 +204,72 @@ public class AdminServlet extends HttpServlet {
             }
         } catch (Exception e) {
             response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
-            out.print("{\"success\":false,\"message\":\"Error processing request\"}");
+            out.print("{\"success\":false,\"message\":\"Error processing request: " + e.getMessage() + "\"}");
         }
 
         out.flush();
     }
 
     /**
-     * Handles adding a new product via admin panel.
+     * Handles adding a new product with image upload via admin panel.
      */
-    private void handleAddProduct(HttpServletRequest request, PrintWriter out) {
+    private void handleAddProduct(HttpServletRequest request, PrintWriter out) throws ServletException, IOException {
         String name = request.getParameter("name");
+        String brand = request.getParameter("brand");
+        String description = request.getParameter("description");
         double price = Double.parseDouble(request.getParameter("price"));
         int stock = Integer.parseInt(request.getParameter("stock"));
-        int brandId = 1; // Default to Dell for demo if brand isn't specified
+        
+        String combinedName = (brand != null && !brand.trim().isEmpty()) ? brand + " " + name : name;
+        
+        String imagePath = handleImageUpload(request);
 
-        boolean success = adminDao.addProduct(name, price, stock, brandId, "Added from Admin Panel");
+        boolean success = adminDao.addProduct(combinedName, price, stock, 1, description, imagePath);
 
         out.print("{\"success\":" + success + ",\"message\":\"" + (success ? "Product added successfully" : "Failed to add product") + "\"}");
+    }
+
+    /**
+     * Handles editing an existing product with optional image replacement via admin panel.
+     */
+    private void handleEditProduct(HttpServletRequest request, PrintWriter out) throws ServletException, IOException {
+        int id = Integer.parseInt(request.getParameter("id"));
+        String name = request.getParameter("name");
+        String brand = request.getParameter("brand");
+        String description = request.getParameter("description");
+        double price = Double.parseDouble(request.getParameter("price"));
+        int stock = Integer.parseInt(request.getParameter("stock"));
+        
+        String combinedName = (brand != null && !brand.trim().isEmpty()) ? brand + " " + name : name;
+        
+        String imagePath = handleImageUpload(request);
+
+        boolean success = adminDao.editProduct(id, combinedName, price, stock, description, imagePath);
+
+        out.print("{\"success\":" + success + ",\"message\":\"" + (success ? "Product updated successfully" : "Failed to update product") + "\"}");
+    }
+
+    private String handleImageUpload(HttpServletRequest request) throws ServletException, IOException {
+        Part filePart = request.getPart("image");
+        if (filePart != null && filePart.getSize() > 0) {
+            String fileName = System.currentTimeMillis() + "_" + getFileName(filePart);
+            String uploadPath = getServletContext().getRealPath("") + File.separator + "static" + File.separator + "images";
+            File uploadDir = new File(uploadPath);
+            if (!uploadDir.exists()) uploadDir.mkdir();
+            
+            filePart.write(uploadPath + File.separator + fileName);
+            return "static/images/" + fileName;
+        }
+        return null;
+    }
+
+    private String getFileName(Part part) {
+        for (String cd : part.getHeader("content-disposition").split(";")) {
+            if (cd.trim().startsWith("filename")) {
+                return cd.substring(cd.indexOf('=') + 1).trim().replace("\"", "");
+            }
+        }
+        return "default.png";
     }
 
     /**
@@ -208,6 +283,16 @@ public class AdminServlet extends HttpServlet {
     }
 
     /**
+     * Handles banning a user by ID.
+     */
+    private void handleBanUser(HttpServletRequest request, PrintWriter out) {
+        int id = Integer.parseInt(request.getParameter("id"));
+        boolean success = adminDao.banUser(id);
+
+        out.print("{\"success\":" + success + ",\"message\":\"" + (success ? "User banned successfully" : "Failed to ban user") + "\"}");
+    }
+
+    /**
      * Handles deleting a user by ID.
      */
     private void handleDeleteUser(HttpServletRequest request, PrintWriter out) {
@@ -216,5 +301,17 @@ public class AdminServlet extends HttpServlet {
 
         out.print("{\"success\":" + success + ",\"message\":\"" + (success ? "User removed successfully" : "Failed to remove user") + "\"}");
     }
-//    My Changes test
+    /**
+     * Writes daily sales data for a specific month as JSON array.
+     */
+    private void writeDailySalesResponse(int month, PrintWriter out) {
+        List<Map<String, Object>> dailySales = adminDao.getDailySalesForMonth(month);
+        JsonArrayBuilder dsBuilder = Json.createArrayBuilder();
+        for (Map<String, Object> ds : dailySales) {
+            dsBuilder.add(Json.createObjectBuilder()
+                    .add("date", (String) ds.get("date"))
+                    .add("sales", (Double) ds.get("sales")));
+        }
+        out.print(dsBuilder.build().toString());
+    }
 }
