@@ -1,5 +1,5 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<%@ taglib prefix="c" uri="jakarta.tags.core" %>
+<%--<%@ taglib prefix="c" uri="jakarta.tags.core" %>--%>
 <html>
 <!-- check -->
 <head>
@@ -9,27 +9,8 @@
 </head>
 
 <body>
-<div class="custom-header">
-    <div class="logo">TECHSPEC</div>
-    <div class="nav-links">
-        <a href="#" class="active">Laptops</a>
-        <a href="#">Workstations</a>
-        <a href="#">Accessories</a>
-        <a href="#">Support</a>
-    </div>
-    <div class="nav-icons">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="9" cy="21" r="1"></circle><circle cx="20" cy="21" r="1"></circle><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path></svg>
-    </div>
-</div>
+<%@ include file="/WEB-INF/views/includes/navbar.jsp" %>
 <div class="product-page-container">
-    <!-- Hero Section -->
-    <div class="hero-section">
-        <div class="hero-content">
-            <h1>Engineered for<br>Excellence.</h1>
-            <p>Discover the next generation of professional hardware designed for creators and engineers.</p>
-        </div>
-    </div>
 
     <!-- Section Header -->
     <div class="section-header">
@@ -88,39 +69,7 @@
 
     <!-- Newsletter Section Removed -->
 </div>
-<footer class="custom-footer">
-    <div class="footer-grid">
-        <div class="footer-brand">
-            <h3>TECHSPEC</h3>
-            <p>Precision engineered hardware for the modern professional. Performance without compromise.</p>
-        </div>
-        <div class="footer-links">
-            <h4>Product</h4>
-            <a href="#">Laptops</a>
-            <a href="#">Workstations</a>
-            <a href="#">Accessories</a>
-        </div>
-        <div class="footer-links">
-            <h4>Support</h4>
-            <a href="#">Support</a>
-            <a href="#">Warranty</a>
-            <a href="#">Contact</a>
-        </div>
-        <div class="footer-links">
-            <h4>Legal</h4>
-            <a href="#">Privacy Policy</a>
-            <a href="#">Terms of Service</a>
-        </div>
-    </div>
-    <div class="footer-bottom">
-        <p>&copy; 2024 TECHSPEC Engineering. All rights reserved.</p>
-        <div class="social-icons">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><path d="M8 14s1.5 2 4 2 4-2 4-2"></path><line x1="9" y1="9" x2="9.01" y2="9"></line><line x1="15" y1="9" x2="15.01" y2="9"></line></svg>
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"></path></svg>
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M23 3a10.9 10.9 0 0 1-3.14 1.53 4.48 4.48 0 0 0-7.86 3v1A10.66 10.66 0 0 1 3 4s-4 9 5 13a11.64 11.64 0 0 1-7 2c9 5 20 0 20-11.5a4.5 4.5 0 0 0-.08-.83A7.72 7.72 0 0 0 23 3z"></path></svg>
-        </div>
-    </div>
-</footer>
+<%@ include file="/WEB-INF/views/includes/footer.jsp" %>
 </body>
 
 </html>
