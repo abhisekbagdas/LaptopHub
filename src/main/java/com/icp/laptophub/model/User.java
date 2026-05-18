@@ -9,6 +9,7 @@ public class User {
     private String email;
     private String password;
     private String profileImage;
+    private boolean isBanned;
     private Timestamp createdAt;
     private Timestamp updatedAt;
 
@@ -16,15 +17,17 @@ public class User {
         this.username = username;
         this.email = email;
         this.password = password;
+        this.isBanned = false;
     }
 
     public User(int id, String username, String email, String password,
-                String profileImage, Timestamp createdAt, Timestamp updatedAt) {
+                String profileImage, boolean isBanned, Timestamp createdAt, Timestamp updatedAt) {
         this.id = id;
         this.username = username;
         this.email = email;
         this.password = password;
         this.profileImage = profileImage;
+        this.isBanned = isBanned;
         this.createdAt = createdAt;
         this.updatedAt = updatedAt;
     }
@@ -34,6 +37,7 @@ public class User {
     public String getEmail() { return email; }
     public String getPassword() { return password; }
     public String getProfileImage() { return profileImage; }
+    public boolean isBanned() { return isBanned; }
     public Timestamp getCreatedAt() { return createdAt; }
     public Timestamp getUpdatedAt() { return updatedAt; }
 
@@ -42,9 +46,10 @@ public class User {
     public void setEmail(String email) { this.email = email; }
     public void setPassword(String password) { this.password = password; }
     public void setProfileImage(String profileImage) { this.profileImage = profileImage; }
+    public void setBanned(boolean banned) { isBanned = banned; }
 
     @Override
     public String toString() {
-        return "[" + id + "] " + username + " (" + email + ")";
+        return "[" + id + "] " + username + " (" + email + ") - Banned: " + isBanned;
     }
 }

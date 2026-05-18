@@ -26,6 +26,7 @@ CREATE TABLE products (
                           name VARCHAR(255) NOT NULL,
                           description TEXT NOT NULL,
                           price DECIMAL(10, 2) NOT NULL,
+                          stock INT NOT NULL,
                           image VARCHAR(500),
                           created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
                           updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,

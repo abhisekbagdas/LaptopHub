@@ -55,6 +55,13 @@ public class LoginServlet extends HttpServlet {
             return;
         }
 
+        if (user.isBanned()) {
+            request.setAttribute("error", "Your account has been banned. Please contact support.");
+            request.getRequestDispatcher("/WEB-INF/views/login.jsp")
+                    .forward(request, response);
+            return;
+        }
+
         SessionUtil.setAttribute(request, "user", user);
 
         CookieUtil.addCookie(response, "username", user.getUsername(), 24 * 60 * 60);

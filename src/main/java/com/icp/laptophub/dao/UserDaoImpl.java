@@ -41,12 +41,19 @@ public class UserDaoImpl implements UserDao {
     }
 
     private User mapUser(ResultSet rs) throws SQLException {
+        boolean isBanned = false;
+        try {
+            isBanned = rs.getBoolean("is_banned");
+        } catch (SQLException e) {
+            // is_banned column might not exist if db isn't fully migrated, default to false
+        }
         return new User(
                 rs.getInt("user_id"),
                 rs.getString("username"),
                 rs.getString("email"),
                 rs.getString("password"),
                 rs.getString("profile_image"),
+                isBanned,
                 rs.getTimestamp("created_at"),
                 rs.getTimestamp("updated_at")
         );
