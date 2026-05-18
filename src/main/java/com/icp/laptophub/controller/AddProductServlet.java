@@ -115,7 +115,17 @@ public class AddProductServlet  extends HttpServlet {
                 return;
             }
 
-            Product product = new Product(name.trim(), description.trim(), price, image, user.getId());
+            int stock = 10;
+            String stockParam = request.getParameter("stock");
+            if (stockParam != null && !stockParam.trim().isEmpty()) {
+                try {
+                    stock = Integer.parseInt(stockParam);
+                } catch (NumberFormatException e) {
+                    // ignore, use default stock
+                }
+            }
+
+            Product product = new Product(name.trim(), description.trim(), price, image, user.getId(), stock);
 
             if (productDao.insertProduct(product)) {
                 SessionUtil.setAttribute(request, "success", "Product created successfully.");

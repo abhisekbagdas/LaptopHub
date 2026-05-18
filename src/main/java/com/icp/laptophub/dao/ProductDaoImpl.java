@@ -21,13 +21,14 @@ public class ProductDaoImpl implements ProductDao {
         Connection conn = null;
         try{
             conn = DatabaseConnection.getConnection();
-            String sql = "INSERT INTO products (user_id, name, description, price, image) VALUES (?,?,?,?,?)";
+            String sql = "INSERT INTO products (user_id, name, description, price, image, stock) VALUES (?,?,?,?,?,?)";
             PreparedStatement ps = conn.prepareStatement(sql);
             ps.setInt(1, product.getUserId());
             ps.setString(2, product.getName());
             ps.setString(3, product.getDescription());
             ps.setBigDecimal(4, product.getPrice());
             ps.setString(5, product.getImage());
+            ps.setInt(6, product.getStock());
             ps.executeUpdate();
             return true;
         } catch (SQLException e) {
@@ -56,6 +57,7 @@ public class ProductDaoImpl implements ProductDao {
                         rs.getString("description"),
                         rs.getBigDecimal("price"),
                         rs.getString("image"),
+                        rs.getInt("stock"),
                         rs.getTimestamp("created_at"),
                         rs.getTimestamp("updated_at")
                 );
@@ -87,6 +89,7 @@ public class ProductDaoImpl implements ProductDao {
                 rs.getString("description"),
                 rs.getBigDecimal("price"),
                 rs.getString("image"),
+                rs.getInt("stock"),
                 rs.getTimestamp("created_at"),
                 rs.getTimestamp("updated_at")
                 );
@@ -116,6 +119,7 @@ public class ProductDaoImpl implements ProductDao {
                         rs.getString("description"),
                         rs.getBigDecimal("price"),
                         rs.getString("image"),
+                        rs.getInt("stock"),
                         rs.getTimestamp("created_at"),
                         rs.getTimestamp("updated_at")
                 );
@@ -133,13 +137,14 @@ public class ProductDaoImpl implements ProductDao {
         Connection conn = null;
         try {
             conn = DatabaseConnection.getConnection();
-            String sql = "UPDATE products SET name = ?, description = ?, price = ?, image = ? WHERE product_id = ?";
+            String sql = "UPDATE products SET name = ?, description = ?, price = ?, image = ?, stock = ? WHERE product_id = ?";
             PreparedStatement ps = conn.prepareStatement(sql);
             ps.setString(1, product.getName());
             ps.setString(2, product.getDescription());
             ps.setBigDecimal(3, product.getPrice());
             ps.setString(4, product.getImage());
-            ps.setInt(5, product.getId());
+            ps.setInt(5, product.getStock());
+            ps.setInt(6, product.getId());
             ps.executeUpdate();
             return true;
         } catch (SQLException e) {
@@ -186,6 +191,7 @@ public class ProductDaoImpl implements ProductDao {
                         rs.getString("description"),
                         rs.getBigDecimal("price"),
                         rs.getString("image"),
+                        rs.getInt("stock"),
                         rs.getTimestamp("created_at"),
                         rs.getTimestamp("updated_at")
                 );
@@ -217,6 +223,7 @@ public class ProductDaoImpl implements ProductDao {
                         rs.getString("description"),
                         rs.getBigDecimal("price"),
                         rs.getString("image"),
+                        rs.getInt("stock"),
                         rs.getTimestamp("created_at"),
                         rs.getTimestamp("updated_at")
                 );
@@ -249,6 +256,7 @@ public class ProductDaoImpl implements ProductDao {
                         rs.getString("description"),
                         rs.getBigDecimal("price"),
                         rs.getString("image"),
+                        rs.getInt("stock"),
                         rs.getTimestamp("created_at"),
                         rs.getTimestamp("updated_at")
                 );

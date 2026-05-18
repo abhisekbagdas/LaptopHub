@@ -35,6 +35,11 @@ public class LoginServlet extends HttpServlet {
         String password = request.getParameter("password");
 
         User user = userDao.findByUsername(username);
+        
+        // If not found by username, try searching by email
+        if (user == null) {
+            user = userDao.findByEmail(username);
+        }
 
         if (user == null) {
             request.setAttribute("error", "Invalid username or password.");
@@ -50,10 +55,22 @@ public class LoginServlet extends HttpServlet {
             return;
         }
 
+        if (user.isBanned()) {
+            request.setAttribute("error", "Your account has been banned. Please contact support.");
+            request.getRequestDispatcher("/WEB-INF/views/login.jsp")
+                    .forward(request, response);
+            return;
+        }
+
         SessionUtil.setAttribute(request, "user", user);
 
         CookieUtil.addCookie(response, "username", user.getUsername(), 24 * 60 * 60);
 
-        response.sendRedirect(request.getContextPath() + "/home");
+        // Redirect admin directly to the dashboard, others to home
+        if ("admin@example.com".equals(user.getEmail())) {
+            response.sendRedirect(request.getContextPath() + "/admin");
+        } else {
+            response.sendRedirect(request.getContextPath() + "/home");
+        }
     }
 }

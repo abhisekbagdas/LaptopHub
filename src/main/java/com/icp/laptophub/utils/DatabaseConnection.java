@@ -13,6 +13,19 @@ public class DatabaseConnection {
     static {
         try {
             Class.forName("com.mysql.cj.jdbc.Driver");
+            // Temporary migration to add profile_image column
+            try (Connection conn = DriverManager.getConnection(DB_URL, DB_USER, DB_PASSWORD)) {
+                java.sql.DatabaseMetaData md = conn.getMetaData();
+                java.sql.ResultSet rs = md.getColumns(null, null, "users", "profile_image");
+                if (!rs.next()) {
+                    try (java.sql.Statement stmt = conn.createStatement()) {
+                        stmt.execute("ALTER TABLE users ADD COLUMN profile_image VARCHAR(500) DEFAULT NULL");
+                        System.out.println("Migration successful: added profile_image column.");
+                    }
+                }
+            } catch (Exception e) {
+                System.out.println("Migration skipped or failed: " + e.getMessage());
+            }
         } catch (ClassNotFoundException e) {
             System.out.println("MySQL Driver not found: " + e.getMessage());
         }

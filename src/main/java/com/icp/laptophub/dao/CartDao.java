@@ -5,7 +5,11 @@ import com.icp.laptophub.model.CartItem;
 import java.util.List;
 
 public interface CartDao {
+    boolean addProductToCart(int userId, int productId);
+    boolean increaseQuantity(int userId, int productId);
+    boolean decreaseQuantity(int userId, int productId);
+    boolean removeProductFromCart(int userId, int productId);
+    List<CartItem> fetchAllCartItemsByUser(int userId);
     List<CartItem> findCartItemsByUserId(int userId);
-
-    boolean addToCart(int userId, int productId);
+    int getCartItemCount(int userId);
 }

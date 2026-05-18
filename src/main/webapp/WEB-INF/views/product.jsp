@@ -73,7 +73,11 @@
                                 &#9733;&#9733;&#9733;&#9733;&#9733; <span style="color: #888; font-size: 12px; letter-spacing: 0;">(5.0)</span>
                             </div>
                             <div class="product-actions">
-                                <button class="btn btn-primary">Add to cart</button>
+                                <form action="${pageContext.request.contextPath}/cart" method="POST" style="width: 100%;">
+                                    <input type="hidden" name="action" value="add" />
+                                    <input type="hidden" name="productId" value="${productItem.id}" />
+                                    <button type="submit" class="btn btn-primary" style="width: 100%;">Add to cart</button>
+                                </form>
                             </div>
                         </div>
                     </div>
