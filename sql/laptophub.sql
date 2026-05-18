@@ -12,29 +12,10 @@ START TRANSACTION;
 SET time_zone = "+00:00";
 
 
-<<<<<<< Updated upstream
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
 /*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
 /*!40101 SET NAMES utf8mb4 */;
-=======
-CREATE TABLEproducts (
-                          product_id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
-                          user_id INT NOT NULL,
-                          name VARCHAR(255) NOT NULL,
-                          description TEXT NOT NULL,
-                          price DECIMAL(10, 2) NOT NULL,
-                          stock INT NOT NULL,
-                          image VARCHAR(500),
-                          created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-                          updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-                          CONSTRAINT fk_products_user
-                              FOREIGN KEY (user_id)
-                                  REFERENCES users(user_id)
-                                  ON DELETE CASCADE
-                                  ON UPDATE CASCADE
-);
->>>>>>> Stashed changes
 
 --
 -- Database: `laptophub`
@@ -46,7 +27,6 @@ CREATE TABLEproducts (
 -- Table structure for table `carts`
 --
 
-<<<<<<< Updated upstream
 CREATE TABLE `carts` (
                          `cart_id` int(11) NOT NULL,
                          `user_id` int(11) NOT NULL,
@@ -218,44 +198,3 @@ COMMIT;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
-=======
-                       CONSTRAINT fk_carts_product
-                           FOREIGN KEY (product_id)
-                               REFERENCES products(product_id)
-                               ON DELETE CASCADE
-                               ON UPDATE CASCADE
-);
--- Orders table
-CREATE TABLE orders (
-                        order_id     INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
-                        user_id      INT NOT NULL,
-                        full_name    VARCHAR(255) NOT NULL,
-                        phone        VARCHAR(20)  NOT NULL,
-                        address      TEXT         NOT NULL,
-                        city         VARCHAR(100) NOT NULL,
-                        payment_method VARCHAR(50) NOT NULL DEFAULT 'COD',
-                        subtotal     DECIMAL(10,2) NOT NULL,
-                        discount     DECIMAL(10,2) NOT NULL DEFAULT 0,
-                        total        DECIMAL(10,2) NOT NULL,
-                        status       VARCHAR(50)  NOT NULL DEFAULT 'Pending',
-                        created_at   TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-                        CONSTRAINT fk_orders_user
-                            FOREIGN KEY (user_id) REFERENCES users(user_id)
-                                ON DELETE CASCADE ON UPDATE CASCADE
-);
-
--- Order items table (snapshot of cart at time of order)
-CREATE TABLE order_items (
-                             item_id      INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
-                             order_id     INT NOT NULL,
-                             product_id   INT NOT NULL,
-                             product_name VARCHAR(255) NOT NULL,
-                             image        VARCHAR(500),
-                             unit_price   DECIMAL(10,2) NOT NULL,
-                             quantity     INT NOT NULL,
-                             total_price  DECIMAL(10,2) NOT NULL,
-                             CONSTRAINT fk_order_items_order
-                                 FOREIGN KEY (order_id) REFERENCES orders(order_id)
-                                     ON DELETE CASCADE ON UPDATE CASCADE
-);
->>>>>>> Stashed changes
