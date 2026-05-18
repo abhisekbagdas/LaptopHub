@@ -213,13 +213,13 @@
         <span class="brand-tag">Popular brands</span>
     </div>
     <div class="brands">
-        <a href="${pageContext.request.contextPath}/brand.jsp?name=apple"><div class="brand-chip">Apple</div></a>
-        <a href="${pageContext.request.contextPath}/brand.jsp?name=asus"><div class="brand-chip">ASUS ROG</div></a>
-        <a href="${pageContext.request.contextPath}/brand.jsp?name=lenovo"><div class="brand-chip">Lenovo</div></a>
-        <a href="${pageContext.request.contextPath}/brand.jsp?name=dell"><div class="brand-chip">Dell XPS</div></a>
-        <a href="${pageContext.request.contextPath}/brand.jsp?name=hp"><div class="brand-chip">HP Spectre</div></a>
-        <a href="${pageContext.request.contextPath}/brand.jsp?name=msi"><div class="brand-chip">MSI</div></a>
-        <a href="${pageContext.request.contextPath}/brand.jsp?name=acer"><div class="brand-chip">Acer</div></a>
+        <a href="${pageContext.request.contextPath}/brand?name=apple"><div class="brand-chip">Apple</div></a>
+        <a href="${pageContext.request.contextPath}/brand?name=asus"><div class="brand-chip">ASUS ROG</div></a>
+        <a href="${pageContext.request.contextPath}/brand?name=lenovo"><div class="brand-chip">Lenovo</div></a>
+        <a href="${pageContext.request.contextPath}/brand?name=dell"><div class="brand-chip">Dell XPS</div></a>
+        <a href="${pageContext.request.contextPath}/brand?name=hp"><div class="brand-chip">HP Spectre</div></a>
+        <a href="${pageContext.request.contextPath}/brand?name=msi"><div class="brand-chip">MSI</div></a>
+        <a href="${pageContext.request.contextPath}/brand?name=acer"><div class="brand-chip">Acer</div></a>
     </div>
 </div>
 
@@ -234,43 +234,78 @@
         <a href="${pageContext.request.contextPath}/products.jsp?type=featured">View all &rarr;</a>
     </div>
 
-    <div class="products-grid">
+<%--    <div class="products-grid">--%>
 
-        <%-- Dynamic products from servlet/DB --%>
-        <c:choose>
-            <c:when test="${not empty requestScope.featuredProducts}">
-                <c:forEach var="product" items="${requestScope.featuredProducts}">
+<%--        &lt;%&ndash; Dynamic products from servlet/DB &ndash;%&gt;--%>
+<%--        <c:choose>--%>
+<%--            <c:when test="${not empty requestScope.featuredProducts}">--%>
+<%--                <c:forEach var="product" items="${requestScope.featuredProducts}">--%>
+<%--                    <div class="product-card">--%>
+<%--                        <div class="product-img">--%>
+<%--                            <img src="${product.imageUrl}" alt="${product.name}"--%>
+<%--                                 style="max-height:120px; object-fit:contain;" />--%>
+<%--                        </div>--%>
+<%--                        <c:if test="${product.discountPercent > 0}">--%>
+<%--                            <span class="badge badge-off">${product.discountPercent}% OFF</span>--%>
+<%--                        </c:if>--%>
+<%--                        <c:if test="${product.isNew}">--%>
+<%--                            <span class="badge badge-new">New</span>--%>
+<%--                        </c:if>--%>
+<%--                        <div class="product-name">${product.name}</div>--%>
+<%--                        <div class="product-spec">${product.shortSpec}</div>--%>
+<%--                        <div>--%>
+<%--                            <span class="product-price">Rs. ${product.price}</span>--%>
+<%--                            <c:if test="${product.originalPrice > product.price}">--%>
+<%--                                <span class="product-old">Rs. ${product.originalPrice}</span>--%>
+<%--                            </c:if>--%>
+<%--                        </div>--%>
+<%--                        <form action="${pageContext.request.contextPath}/cart" method="POST">--%>
+<%--                            <input type="hidden" name="productId" value="${product.id}" />--%>
+<%--                            <button type="submit" class="add-btn">Add to cart</button>--%>
+<%--                        </form>--%>
+<%--                    </div>--%>
+<%--                </c:forEach>--%>
+<%--            </c:when>--%>
+
+
+<%--        </c:choose>--%>
+
+<%--    </div>--%>
+
+    <c:choose>
+        <c:when test="${empty products}">
+            <div class="empty-state">
+                <p>No products found</p>
+            </div>
+        </c:when>
+        <c:otherwise>
+            <div class="product-grid">
+                <c:forEach var="productItem" items="${products}">
                     <div class="product-card">
-                        <div class="product-img">
-                            <img src="${product.imageUrl}" alt="${product.name}"
-                                 style="max-height:120px; object-fit:contain;" />
+                        <div class="image-container">
+                            <img src="${productItem.image}" alt="${productItem.name}">
                         </div>
-                        <c:if test="${product.discountPercent > 0}">
-                            <span class="badge badge-off">${product.discountPercent}% OFF</span>
-                        </c:if>
-                        <c:if test="${product.isNew}">
-                            <span class="badge badge-new">New</span>
-                        </c:if>
-                        <div class="product-name">${product.name}</div>
-                        <div class="product-spec">${product.shortSpec}</div>
-                        <div>
-                            <span class="product-price">Rs. ${product.price}</span>
-                            <c:if test="${product.originalPrice > product.price}">
-                                <span class="product-old">Rs. ${product.originalPrice}</span>
-                            </c:if>
+                        <div class="product-details">
+                            <h3 class="product-name">${productItem.name}</h3>
+                            <div class="product-price-wrap">
+                                <span class="product-price">RS. ${productItem.price}</span>
+                            </div>
+                            <div class="product-rating" style="color: #f5c518; font-size: 16px; margin-bottom: 16px; letter-spacing: 2px;">
+                                &#9733;&#9733;&#9733;&#9733;&#9733; <span style="color: #888; font-size: 12px; letter-spacing: 0;">(5.0)</span>
+                            </div>
+                            <div class="product-actions">
+                                <form action="${pageContext.request.contextPath}/cart" method="POST" style="width: 100%;">
+                                    <input type="hidden" name="action" value="add" />
+                                    <input type="hidden" name="productId" value="${productItem.id}" />
+                                    <button type="submit" class="btn btn-primary" style="width: 100%;">Add to cart</button>
+                                </form>
+                            </div>
                         </div>
-                        <form action="${pageContext.request.contextPath}/cart" method="POST">
-                            <input type="hidden" name="productId" value="${product.id}" />
-                            <button type="submit" class="add-btn">Add to cart</button>
-                        </form>
                     </div>
                 </c:forEach>
-            </c:when>
-
-
-        </c:choose>
-
-    </div>
+            </div>
+        </c:otherwise>
+    </c:choose>
 </div>
 
 <!-- ===================================================
@@ -284,38 +319,39 @@
 
     <div class="products-grid">
 
-        <c:choose>
-            <c:when test="${not empty requestScope.gamingProducts}">
-                <c:forEach var="product" items="${requestScope.gamingProducts}">
-                    <div class="product-card">
-                        <div class="product-img">
-                            <img src="${product.imageUrl}" alt="${product.name}"
-                                 style="max-height:120px; object-fit:contain;" />
-                        </div>
-                        <c:if test="${product.discountPercent > 0}">
-                            <span class="badge badge-off">${product.discountPercent}% OFF</span>
-                        </c:if>
-                        <c:if test="${product.isNew}">
-                            <span class="badge badge-new">New</span>
-                        </c:if>
-                        <div class="product-name">${product.name}</div>
-                        <div class="product-spec">${product.shortSpec}</div>
-                        <div>
-                            <span class="product-price">Rs. ${product.price}</span>
-                            <c:if test="${product.originalPrice > product.price}">
-                                <span class="product-old">Rs. ${product.originalPrice}</span>
-                            </c:if>
-                        </div>
-                        <form action="${pageContext.request.contextPath}/cart" method="POST">
-                            <input type="hidden" name="productId" value="${product.id}" />
-                            <button type="submit" class="add-btn">Add to cart</button>
-                        </form>
-                    </div>
-                </c:forEach>
-            </c:when>
+<%--        <c:choose>--%>
+<%--            <c:when test="${not empty requestScope.gamingProducts}">--%>
+<%--                <c:forEach var="product" items="${requestScope.gamingProducts}">--%>
+<%--                    <div class="product-card">--%>
+<%--                        <div class="product-img">--%>
+<%--                            <img src="${product.imageUrl}" alt="${product.name}"--%>
+<%--                                 style="max-height:120px; object-fit:contain;" />--%>
+<%--                        </div>--%>
+<%--                        <c:if test="${product.discountPercent > 0}">--%>
+<%--                            <span class="badge badge-off">${product.discountPercent}% OFF</span>--%>
+<%--                        </c:if>--%>
+<%--                        <c:if test="${product.isNew}">--%>
+<%--                            <span class="badge badge-new">New</span>--%>
+<%--                        </c:if>--%>
+<%--                        <div class="product-name">${product.name}</div>--%>
+<%--                        <div class="product-spec">${product.shortSpec}</div>--%>
+<%--                        <div>--%>
+<%--                            <span class="product-price">Rs. ${product.price}</span>--%>
+<%--                            <c:if test="${product.originalPrice > product.price}">--%>
+<%--                                <span class="product-old">Rs. ${product.originalPrice}</span>--%>
+<%--                            </c:if>--%>
+<%--                        </div>--%>
+<%--                        <form action="${pageContext.request.contextPath}/cart" method="POST">--%>
+<%--                            <input type="hidden" name="productId" value="${product.id}" />--%>
+<%--                            <button type="submit" class="add-btn">Add to cart</button>--%>
+<%--                        </form>--%>
+<%--                    </div>--%>
+<%--                </c:forEach>--%>
+<%--            </c:when>--%>
 
 
-        </c:choose>
+<%--        </c:choose>--%>
+
 
     </div>
 </div>

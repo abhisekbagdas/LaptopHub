@@ -7,9 +7,53 @@
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.0.30
 
+<<<<<<< Updated upstream
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
 SET time_zone = "+00:00";
+=======
+USE laptophub;
+
+-- Clear existing data before seeding
+DELETE FROM users;
+DELETE FROM products;
+DELETE FROM carts;
+ALTER TABLE users AUTO_INCREMENT = 1;
+
+-- ========== Users ==========
+-- Two test users for verifying topic isolation
+-- Both use password: "Test@123"
+INSERT INTO users (username, email, password) VALUES
+                                                  ('admin', 'admin@example.com', '$2a$10$yUK8SPXB.NwRSviTxcIVHOxtfvwjGEe600j9g2H5xi3Y4l54A5jLa'),
+                                                  ('testuser', 'test@example.com', '$2a$10$yUK8SPXB.NwRSviTxcIVHOxtfvwjGEe600j9g2H5xi3Y4l54A5jLa'),
+                                                  ('demouser', 'demo@example.com', '$2a$10$yUK8SPXB.NwRSviTxcIVHOxtfvwjGEe600j9g2H5xi3Y4l54A5jLa');
+
+INSERT INTO products (user_id, name, description, price, stock, image) VALUES
+                                                                    (2, 'Asus ROG Strix G16', 'A gaming laptop with high-end specs.', 1499.99, 10, 'static/images/laptop_a.png'),
+                                                                    (2, 'MSI Raider GE76', 'A gaming laptop with high-end specs.', 1499.99, 10, 'static/images/laptop_b.png'),
+                                                                    (2, 'Alienware x15 R2', 'A gaming laptop with high-end specs.', 1499.99, 10, 'static/images/laptop_c.png'),
+                                                                    (2, 'Razer Blade 15', 'A gaming laptop with high-end specs.', 1499.99, 10, 'static/images/laptop_d.png'),
+                                                                    (2, 'Lenovo Legion 7i', 'A gaming laptop with high-end specs.', 1499.99, 10, 'static/images/laptop_e.png'),
+                                                                    (2, 'Acer Predator Helios 300', 'A gaming laptop with high-end specs.', 1499.99, 10, 'static/images/laptop_f.png'),
+                                                                    (2, 'HP Omen 16', 'A gaming laptop with high-end specs.', 1499.99, 10, 'static/images/laptop_g.png'),
+                                                                    (3, 'Dell XPS 13', 'A budget-friendly laptop for students.', 499.99, 10, 'static/images/laptop_h.png'),
+                                                                    (3, 'Acer Aspire 5', 'A budget-friendly laptop for students.', 499.99, 10, 'static/images/laptop_i.png'),
+                                                                    (3, 'Lenovo IdeaPad 3', 'A budget-friendly laptop for students.', 499.99, 10, 'static/images/laptop_j.png'),
+                                                                    (3, 'HP Pavilion 15', 'A budget-friendly laptop for students.', 499.99, 10, 'static/images/laptop_a.png'),
+                                                                    (3, 'Asus Vivobook 15', 'A budget-friendly laptop for students.', 499.99, 10, 'static/images/laptop_b.png'),
+                                                                    (3, 'Dell Inspiron 15 3000', 'A budget-friendly laptop for students.', 499.99, 10, 'static/images/laptop_c.png'),
+                                                                    (3, 'MacBook Air M2', 'A powerful laptop for professionals.', 999.99, 10, 'static/images/laptop_d.png'),
+                                                                    (3, 'Dell XPS 15', 'A powerful laptop for professionals.', 999.99, 10, 'static/images/laptop_e.png'),
+                                                                    (3, 'Lenovo ThinkPad X1 Carbon', 'A powerful laptop for professionals.', 999.99, 10, 'static/images/laptop_f.png'),
+                                                                    (3, 'HP EliteBook 840 G9', 'A powerful laptop for professionals.', 999.99, 10, 'static/images/laptop_g.png'),
+                                                                    (3, 'MacBook Pro 14', 'A powerful laptop for professionals.', 999.99, 10, 'static/images/laptop_h.png'),
+                                                                    (3, 'Dell Precision 5570', 'A powerful laptop for professionals.', 999.99, 10, 'static/images/laptop_i.png'),
+                                                                    (3, 'Lenovo ThinkPad P1 Gen 5', 'A powerful laptop for professionals.', 999.99, 10, 'static/images/laptop_j.png'),
+                                                                    (3, 'Asus ProArt StudioBook', 'A powerful laptop for professionals.', 999.99, 10, 'static/images/laptop_a.png'),
+                                                                    (3, 'MSI Creator Z16', 'A powerful laptop for professionals.', 999.99, 10, 'static/images/laptop_b.png'),
+                                                                    (3, 'Razer Blade 17', 'A powerful laptop for professionals.', 999.99, 10, 'static/images/laptop_c.png'),
+                                                                    (3, 'Alienware M18', 'A powerful laptop for professionals.', 999.99, 10, 'static/images/laptop_d.png');
+>>>>>>> Stashed changes
 
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
