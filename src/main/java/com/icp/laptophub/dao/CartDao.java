@@ -6,5 +6,6 @@ import java.util.List;
 
 public interface CartDao {
     List<CartItem> findCartItemsByUserId(int userId);
-}
 
+    boolean addToCart(int userId, int productId);
+}

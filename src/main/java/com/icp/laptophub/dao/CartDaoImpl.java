@@ -48,6 +48,23 @@ public class CartDaoImpl implements CartDao {
         }
 
         return items;
+    @Override
+    public boolean addToCart(int userId, int productId) {
+        String sql = "INSERT INTO carts (user_id, product_id, quantity) VALUES (?, ?, 1) " +
+                     "ON DUPLICATE KEY UPDATE quantity = quantity + 1";
+
+        try (Connection conn = DatabaseConnection.getConnection();
+             PreparedStatement ps = conn.prepareStatement(sql)) {
+
+            ps.setInt(1, userId);
+            ps.setInt(2, productId);
+
+            int affectedRows = ps.executeUpdate();
+            return affectedRows > 0;
+        } catch (SQLException e) {
+            System.out.println("Error while adding to cart: " + e.getMessage());
+            return false;
+        }
     }
 }
 

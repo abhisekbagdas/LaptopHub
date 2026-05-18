@@ -20,12 +20,33 @@ public class ProductServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
+        String search = request.getParameter("search");
+        String sort = request.getParameter("sort");
+
         List<Product> products = new ArrayList<>();
-        String sql = "SELECT product_id, user_id, name, description, price, image, created_at FROM products ORDER BY created_at DESC";
+        StringBuilder sql = new StringBuilder("SELECT product_id, user_id, name, description, price, image, created_at FROM products");
+
+        boolean hasSearch = (search != null && !search.trim().isEmpty());
+        if (hasSearch) {
+            sql.append(" WHERE LOWER(name) LIKE LOWER(?)");
+        }
+
+        if ("price_asc".equals(sort)) {
+            sql.append(" ORDER BY price ASC");
+        } else if ("price_desc".equals(sort)) {
+            sql.append(" ORDER BY price DESC");
+        } else {
+            sql.append(" ORDER BY created_at DESC");
+        }
 
         try (Connection conn = DatabaseConnection.getConnection();
-             PreparedStatement pstmt = conn.prepareStatement(sql);
-             ResultSet rs = pstmt.executeQuery()) {
+             PreparedStatement pstmt = conn.prepareStatement(sql.toString())) {
+
+            if (hasSearch) {
+                pstmt.setString(1, "%" + search.trim() + "%");
+            }
+
+            try (ResultSet rs = pstmt.executeQuery()) {
 
             while (rs.next()) {
                 Product product = new Product();
@@ -45,6 +66,7 @@ public class ProductServlet extends HttpServlet {
 
             // Forward to the JSP
             request.getRequestDispatcher("/WEB-INF/views/product.jsp").forward(request, response);
+            }
 
         } catch (SQLException e) {
             e.printStackTrace();
