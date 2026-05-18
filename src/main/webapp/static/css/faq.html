@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>FAQ — Laptop Store</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/tabler-icons.min.css" />
+  <link rel="stylesheet" href="faq.css" />
+</head>
+<body>
+
+  <div class="faq-wrap">
+
+    <!-- Hero -->
+    <div class="faq-hero">
+      <span class="faq-tag">Help center</span>
+      <h1>Frequently asked<br><em>questions</em></h1>
+      <p>Everything you need to know about buying a laptop from us. Can't find an answer? Reach out below.</p>
+    </div>
+
+    <!-- Category Filter -->
+    <div class="faq-cats">
+      <button class="cat-btn active" onclick="filterCat('all', this)">All</button>
+      <button class="cat-btn" onclick="filterCat('orders', this)">Orders &amp; shipping</button>
+      <button class="cat-btn" onclick="filterCat('products', this)">Products</button>
+      <button class="cat-btn" onclick="filterCat('warranty', this)">Warranty &amp; returns</button>
+      <button class="cat-btn" onclick="filterCat('payments', this)">Payments</button>
+    </div>
+
+    <!-- FAQ List (rendered by JS) -->
+    <div id="faq-list"></div>
+
+    <div class="divider"></div>
+
+    <!-- Contact / Submit Form -->
+    <div class="contact-card">
+      <h2>Still have a question?</h2>
+      <p>Our support team typically responds within 24 hours on business days.</p>
+
+      <div class="form-row">
+        <div class="form-group">
+          <label for="f-name">Full name</label>
+          <input type="text" id="f-name" placeholder="Alex Johnson" />
+        </div>
+        <div class="form-group">
+          <label for="f-email">Email address</label>
+          <input type="email" id="f-email" placeholder="alex@email.com" />
+        </div>
+      </div>
+
+      <div class="form-row">
+        <div class="form-group">
+          <label for="f-order">Order number (optional)</label>
+          <input type="text" id="f-order" placeholder="e.g. #LT-00482" />
+        </div>
+        <div class="form-group">
+          <label for="f-topic">Topic</label>
+          <select id="f-topic">
+            <option value="">Select a topic…</option>
+            <option>Order tracking</option>
+            <option>Product question</option>
+            <option>Warranty claim</option>
+            <option>Return or refund</option>
+            <option>Payment issue</option>
+            <option>Other</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="form-row">
+        <div class="form-group full">
+          <label for="f-msg">Your message</label>
+          <textarea id="f-msg" placeholder="Describe your issue or question in detail…"></textarea>
+        </div>
+      </div>
+
+      <div class="submit-row">
+        <span class="submit-note">
+          <i class="ti ti-lock" aria-hidden="true"></i> Your info is kept private
+        </span>
+        <button class="btn-submit" onclick="handleSubmit()">
+          Send message <i class="ti ti-send" aria-hidden="true"></i>
+        </button>
+      </div>
+
+      <div class="toast" id="toast">
+        <i class="ti ti-circle-check" aria-hidden="true"></i>
+        Message sent! We'll get back to you within 24 hours.
+      </div>
+    </div>
+
+  </div>
+
+  <script>
+    const faqs = [
+      { cat: 'orders', q: 'How long does delivery take?', a: 'Standard delivery takes 3–5 business days. Expedited shipping (1–2 days) is available at checkout for an additional fee. Orders placed before 2 PM on weekdays are dispatched the same day.' },
+      { cat: 'orders', q: 'Can I track my order?', a: 'Yes! Once your order ships, you\'ll receive a confirmation email with a tracking link. You can also check your order status anytime in your account dashboard under "My Orders".' },
+      { cat: 'orders', q: 'Do you ship internationally?', a: 'We currently ship to over 40 countries. International delivery times vary between 7–14 business days. Import duties and taxes may apply depending on your country.' },
+      { cat: 'products', q: 'How do I choose the right laptop for me?', a: 'It depends on your use case. For everyday tasks, an entry-level processor with 8GB RAM is sufficient. For creative work or gaming, we recommend 16GB+ RAM and a dedicated GPU. Our live chat can help you narrow it down.' },
+      { cat: 'products', q: 'Are all laptops covered by a manufacturer warranty?', a: 'Yes, every laptop we sell comes with the original manufacturer warranty — typically 1 year. We also offer extended warranty plans at checkout for up to 3 years of coverage.' },
+      { cat: 'products', q: 'Can I upgrade the RAM or storage after purchase?', a: 'Many of our laptops support user-upgradeable RAM and SSD. Product pages include a note on upgrade compatibility. Our support team can also advise before you buy.' },
+      { cat: 'warranty', q: 'What is your return policy?', a: 'We offer a 30-day hassle-free return policy. If you\'re not satisfied with your laptop, contact us within 30 days of delivery and we\'ll arrange a free return and full refund — no questions asked.' },
+      { cat: 'warranty', q: 'My laptop has a defect. What should I do?', a: 'Contact our support team with your order number and a description of the issue. We\'ll diagnose the problem and either arrange a repair, replacement, or refund depending on the circumstances.' },
+      { cat: 'payments', q: 'What payment methods do you accept?', a: 'We accept all major credit and debit cards (Visa, Mastercard, Amex), PayPal, Apple Pay, Google Pay, and bank transfers. Buy Now Pay Later options (Klarna, Afterpay) are also available at checkout.' },
+      { cat: 'payments', q: 'Is my payment information secure?', a: 'Absolutely. All transactions are encrypted with SSL and processed through PCI DSS-compliant payment gateways. We never store your full card details on our servers.' },
+    ];
+
+    function renderFaqs(cat) {
+      const list = document.getElementById('faq-list');
+      const cats = cat === 'all' ? [...new Set(faqs.map(f => f.cat))] : [cat];
+      const catLabels = {
+        orders: 'Orders & shipping',
+        products: 'Products',
+        warranty: 'Warranty & returns',
+        payments: 'Payments'
+      };
+
+      list.innerHTML = cats.map(c => {
+        const items = faqs.filter(f => f.cat === c);
+        return `
+          <div class="faq-section" data-cat="${c}">
+            ${cat === 'all' ? `<div class="faq-section-label">${catLabels[c]}</div>` : ''}
+            ${items.map(f => `
+              <div class="faq-item">
+                <button class="faq-q" onclick="toggle(this)" aria-expanded="false">
+                  <span>${f.q}</span>
+                  <span class="faq-icon" aria-hidden="true">+</span>
+                </button>
+                <div class="faq-a">
+                  <div class="faq-a-inner">${f.a}</div>
+                </div>
+              </div>
+            `).join('')}
+          </div>
+        `;
+      }).join('');
+    }
+
+    function toggle(btn) {
+      const isOpen = btn.classList.contains('open');
+      document.querySelectorAll('.faq-q.open').forEach(b => {
+        b.classList.remove('open');
+        b.nextElementSibling.classList.remove('open');
+        b.setAttribute('aria-expanded', 'false');
+      });
+      if (!isOpen) {
+        btn.classList.add('open');
+        btn.nextElementSibling.classList.add('open');
+        btn.setAttribute('aria-expanded', 'true');
+      }
+    }
+
+    function filterCat(cat, el) {
+      document.querySelectorAll('.cat-btn').forEach(b => b.classList.remove('active'));
+      el.classList.add('active');
+      renderFaqs(cat);
+    }
+
+    function handleSubmit() {
+      const name = document.getElementById('f-name').value.trim();
+      const email = document.getElementById('f-email').value.trim();
+      const msg = document.getElementById('f-msg').value.trim();
+
+      if (!name || !email || !msg) {
+        alert('Please fill in your name, email, and message before sending.');
+        return;
+      }
+
+      const toast = document.getElementById('toast');
+      toast.classList.add('show');
+
+      document.getElementById('f-name').value = '';
+      document.getElementById('f-email').value = '';
+      document.getElementById('f-order').value = '';
+      document.getElementById('f-topic').value = '';
+      document.getElementById('f-msg').value = '';
+
+      setTimeout(() => toast.classList.remove('show'), 5000);
+    }
+
+    renderFaqs('all');
+  </script>
+
+</body>
+</html>
