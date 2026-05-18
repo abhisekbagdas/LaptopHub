@@ -7,12 +7,6 @@
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.0.30
 
-DROP TABLE  carts;
-DROP TABLE  products;
-DROP TABLE users;
-
-
-
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
 SET time_zone = "+00:00";
