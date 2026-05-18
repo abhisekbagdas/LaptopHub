@@ -69,11 +69,12 @@ public interface AdminDao {
      * @param productId Product identifier
      * @param name New product name
      * @param price New product price
+     * @param stock New stock quantity
      * @param description New description
      * @param imagePath New image path (can be null to keep existing)
      * @return true if product was updated successfully, false otherwise
      */
-    boolean editProduct(int productId, String name, double price, String description, String imagePath);
+    boolean editProduct(int productId, String name, double price, int stock, String description, String imagePath);
 
     /**
      * Deletes a product by its ID.

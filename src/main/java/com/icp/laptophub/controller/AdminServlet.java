@@ -238,12 +238,13 @@ public class AdminServlet extends HttpServlet {
         String brand = request.getParameter("brand");
         String description = request.getParameter("description");
         double price = Double.parseDouble(request.getParameter("price"));
+        int stock = Integer.parseInt(request.getParameter("stock"));
         
         String combinedName = (brand != null && !brand.trim().isEmpty()) ? brand + " " + name : name;
         
         String imagePath = handleImageUpload(request);
 
-        boolean success = adminDao.editProduct(id, combinedName, price, description, imagePath);
+        boolean success = adminDao.editProduct(id, combinedName, price, stock, description, imagePath);
 
         out.print("{\"success\":" + success + ",\"message\":\"" + (success ? "Product updated successfully" : "Failed to update product") + "\"}");
     }

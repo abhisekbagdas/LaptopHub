@@ -236,7 +236,7 @@ public class AdminDaoImpl implements AdminDao {
         Connection conn = null;
         try {
             conn = DatabaseConnection.getConnection();
-            String sql = "SELECT product_id, name, description, price, image FROM products ORDER BY product_id DESC";
+            String sql = "SELECT product_id, name, description, price, image, stock FROM products ORDER BY product_id DESC";
             try (PreparedStatement ps = conn.prepareStatement(sql);
                  ResultSet rs = ps.executeQuery()) {
                 while (rs.next()) {
@@ -246,7 +246,7 @@ public class AdminDaoImpl implements AdminDao {
                     map.put("description", rs.getString("description"));
                     map.put("price", rs.getDouble("price"));
                     map.put("image", rs.getString("image"));
-                    map.put("stock", 10); // Mock stock
+                    map.put("stock", rs.getInt("stock"));
                     products.add(map);
                 }
             }
@@ -306,13 +306,14 @@ public class AdminDaoImpl implements AdminDao {
                 }
             }
 
-            String sql = "INSERT INTO products (user_id, name, description, price, image) VALUES (?, ?, ?, ?, ?)";
+            String sql = "INSERT INTO products (user_id, name, description, price, image, stock) VALUES (?, ?, ?, ?, ?, ?)";
             try (PreparedStatement ps = conn.prepareStatement(sql)) {
                 ps.setInt(1, adminUserId);
                 ps.setString(2, model);
                 ps.setString(3, description);
                 ps.setDouble(4, price);
                 ps.setString(5, (imagePath != null && !imagePath.trim().isEmpty()) ? imagePath : "default.png");
+                ps.setInt(6, stock);
                 ps.executeUpdate();
                 return true;
             }
@@ -325,26 +326,27 @@ public class AdminDaoImpl implements AdminDao {
     }
 
     @Override
-    public boolean editProduct(int productId, String name, double price, String description, String imagePath) {
+    public boolean editProduct(int productId, String name, double price, int stock, String description, String imagePath) {
         Connection conn = null;
         try {
             conn = DatabaseConnection.getConnection();
             String sql;
             if (imagePath != null && !imagePath.trim().isEmpty()) {
-                sql = "UPDATE products SET name = ?, price = ?, description = ?, image = ? WHERE product_id = ?";
+                sql = "UPDATE products SET name = ?, price = ?, stock = ?, description = ?, image = ? WHERE product_id = ?";
             } else {
-                sql = "UPDATE products SET name = ?, price = ?, description = ? WHERE product_id = ?";
+                sql = "UPDATE products SET name = ?, price = ?, stock = ?, description = ? WHERE product_id = ?";
             }
             
             try (PreparedStatement ps = conn.prepareStatement(sql)) {
                 ps.setString(1, name);
                 ps.setDouble(2, price);
-                ps.setString(3, description);
+                ps.setInt(3, stock);
+                ps.setString(4, description);
                 if (imagePath != null && !imagePath.trim().isEmpty()) {
-                    ps.setString(4, imagePath);
-                    ps.setInt(5, productId);
+                    ps.setString(5, imagePath);
+                    ps.setInt(6, productId);
                 } else {
-                    ps.setInt(4, productId);
+                    ps.setInt(5, productId);
                 }
                 int rows = ps.executeUpdate();
                 return rows > 0;
