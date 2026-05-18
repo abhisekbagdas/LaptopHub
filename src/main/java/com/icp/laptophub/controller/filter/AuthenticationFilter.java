@@ -1,5 +1,6 @@
 package com.icp.laptophub.controller.filter;
 
+import com.icp.laptophub.model.User;
 import com.icp.laptophub.utils.SessionUtil;
 import jakarta.servlet.*;
 import jakarta.servlet.annotation.WebFilter;
@@ -42,8 +43,18 @@ public class AuthenticationFilter implements Filter {
             return;
         }
 
-        boolean isLoggedIn = SessionUtil.getAttribute(req, "user") != null;
+        User user = (User) SessionUtil.getAttribute(req, "user");
+        boolean isLoggedIn = user != null;
         boolean isPublicPath = PUBLIC_PATHS.stream().anyMatch(path::startsWith);
+
+        // Restrict admin access to admin@example.com only
+        if (path.startsWith("/admin")) {
+            if (!isLoggedIn || !user.getEmail().equals("admin@example.com")) {
+                // Return 403 Forbidden or redirect to home. Let's send a 403 error.
+                res.sendError(HttpServletResponse.SC_FORBIDDEN, "Access Denied. Admin only.");
+                return;
+            }
+        }
 
         // 1. If NOT logged in and trying to access a protected page
         if (!isLoggedIn && !isPublicPath) {

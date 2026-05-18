@@ -40,6 +40,18 @@ public class UserDaoImpl implements UserDao {
         }
     }
 
+    private User mapUser(ResultSet rs) throws SQLException {
+        return new User(
+                rs.getInt("user_id"),
+                rs.getString("username"),
+                rs.getString("email"),
+                rs.getString("password"),
+                rs.getString("profile_image"),
+                rs.getTimestamp("created_at"),
+                rs.getTimestamp("updated_at")
+        );
+    }
+
     @Override
     public User findByUsername(String username) {
         Connection conn = null;
@@ -50,14 +62,7 @@ public class UserDaoImpl implements UserDao {
             statement.setString(1, username);
             ResultSet rs = statement.executeQuery();
             if (rs.next()) {
-                return new User(
-                        rs.getInt("user_id"),
-                        rs.getString("username"),
-                        rs.getString("email"),
-                        rs.getString("password"),
-                        rs.getTimestamp("created_at"),
-                        rs.getTimestamp("updated_at")
-                );
+                return mapUser(rs);
             }
         } catch (SQLException e) {
             System.out.println("Error finding user by username: " + e.getMessage());
@@ -77,14 +82,7 @@ public class UserDaoImpl implements UserDao {
             statement.setString(1, email);
             ResultSet rs = statement.executeQuery();
             if (rs.next()) {
-                return new User(
-                        rs.getInt("user_id"),
-                        rs.getString("username"),
-                        rs.getString("email"),
-                        rs.getString("password"),
-                        rs.getTimestamp("created_at"),
-                        rs.getTimestamp("updated_at")
-                );
+                return mapUser(rs);
             }
         } catch (SQLException e) {
             System.out.println("Error finding user by email: " + e.getMessage());
@@ -92,5 +90,63 @@ public class UserDaoImpl implements UserDao {
             DatabaseConnection.closeConnection(conn);
         }
         return null;
+    }
+
+    @Override
+    public boolean updateUser(int userId, String username, String email) {
+        Connection conn = null;
+        try {
+            conn = DatabaseConnection.getConnection();
+            String sql = "UPDATE users SET username = ?, email = ? WHERE user_id = ?";
+            PreparedStatement statement = conn.prepareStatement(sql);
+            statement.setString(1, username);
+            statement.setString(2, email);
+            statement.setInt(3, userId);
+            int rows = statement.executeUpdate();
+            return rows > 0;
+        } catch (SQLException e) {
+            System.out.println("Error updating user: " + e.getMessage());
+            return false;
+        } finally {
+            DatabaseConnection.closeConnection(conn);
+        }
+    }
+
+    @Override
+    public boolean updatePassword(int userId, String hashedPassword) {
+        Connection conn = null;
+        try {
+            conn = DatabaseConnection.getConnection();
+            String sql = "UPDATE users SET password = ? WHERE user_id = ?";
+            PreparedStatement statement = conn.prepareStatement(sql);
+            statement.setString(1, hashedPassword);
+            statement.setInt(2, userId);
+            int rows = statement.executeUpdate();
+            return rows > 0;
+        } catch (SQLException e) {
+            System.out.println("Error updating password: " + e.getMessage());
+            return false;
+        } finally {
+            DatabaseConnection.closeConnection(conn);
+        }
+    }
+
+    @Override
+    public boolean updateProfileImage(int userId, String imagePath) {
+        Connection conn = null;
+        try {
+            conn = DatabaseConnection.getConnection();
+            String sql = "UPDATE users SET profile_image = ? WHERE user_id = ?";
+            PreparedStatement statement = conn.prepareStatement(sql);
+            statement.setString(1, imagePath);
+            statement.setInt(2, userId);
+            int rows = statement.executeUpdate();
+            return rows > 0;
+        } catch (SQLException e) {
+            System.out.println("Error updating profile image: " + e.getMessage());
+            return false;
+        } finally {
+            DatabaseConnection.closeConnection(conn);
+        }
     }
 }
