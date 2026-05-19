@@ -15,4 +15,8 @@
         <error-code>403</error-code>
         <location>/403Page.jsp</location>
     </error-page>
+    <error-page>
+        <error-code>400</error-code>
+        <location>/400Page.jsp</location>
+    </error-page>
 </web-app>
