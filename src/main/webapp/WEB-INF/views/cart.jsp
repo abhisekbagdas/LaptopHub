@@ -1,5 +1,5 @@
-<!-- <%@ page contentType="text/html;charset=UTF-8" language="java" %> -->
-<%--<!-- <%@ taglib uri="jakarta.tags.core" prefix="c" %> -->--%>
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <html>
 <head>
     <title>My Cart - LaptopHub</title>
@@ -10,17 +10,6 @@
 <body>
 
 <!-- TOP BAR -->
-<div class="topbar">
-    <div class="topbar-left">
-        <a href="${pageContext.request.contextPath}/about">About us</a>
-        <a href="${pageContext.request.contextPath}/faqs">FAQ</a>
-        <a href="${pageContext.request.contextPath}/privacy">Privacy policy</a>
-    </div>
-    <div class="topbar-right">
-        <a href="${pageContext.request.contextPath}/warranty">Warranty</a>
-        <a href="tel:+97798011000037">Customer service: +977-9801100037</a>
-    </div>
-</div>
 <%@ include file="/WEB-INF/views/includes/navbar.jsp" %>
 
 <!-- BREADCRUMB -->
@@ -40,11 +29,6 @@
                     <!-- A SINGLE CART ITEM -->
                     <div class="cart-box">
                         
-                        <!-- Checkbox -->
-                        <div class="box-checkbox">
-                            <input type="checkbox" />
-                        </div>
-                        
                         <!-- Product Image -->
                         <div class="box-image">
                             <img src="${item.imageUrl}" alt="${item.name}" />
@@ -54,15 +38,9 @@
                         <div class="box-details">
                             <h3>${item.name}</h3>
                             <p class="price-text">
-                                Rs. <span class="old-price">5,999</span> 
-                                <span class="new-price">${item.totalPrice}</span>
+                                Rs. <span class="new-price">${item.totalPrice}</span>
                             </p>
-                            
-                            <p class="product-attributes">
-                                Color: <span class="color-box"></span> 
-                                Plug Type: <span class="plug-type">3.5 mm</span>
-                            </p>
-                            
+
                             <!-- Quantity Buttons -->
                             <div class="quantity-form-container">
                                 <form action="${pageContext.request.contextPath}/cart" method="POST">
