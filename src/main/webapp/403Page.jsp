@@ -6,13 +6,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/static/css/403Page.css">
     <title>403 - Access Forbidden</title>
-    <style>
-
-    </style>
 </head>
 <body>
-<%--<%@ include file="/WEB-INF/views/includes/navbar.jsp" %>--%>
-
     <main class="error-page" role="main" aria-labelledby="error-title">
         <div class="error-container">
             <div class="scene-wrap" tabindex="0" aria-labelledby="error-title">
@@ -29,8 +24,5 @@
             </div>
         </div>
     </main>
-
-<%--<%@ include file="/WEB-INF/views/includes/footer.jsp" %>--%>
-
 </body>
 </html>
