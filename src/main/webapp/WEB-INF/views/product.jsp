@@ -123,6 +123,101 @@
 <%--        </div>--%>
 <%--    </div>--%>
 <%--</footer>--%>
+
+<!-- Toast notification for cart success -->
+<div id="cart-toast" class="toast-notification" style="display: none;">
+    <span class="toast-icon">&#10003;</span>
+    <span class="toast-message">Your item has been added successfully!</span>
+    <button class="toast-close" onclick="closeToast()">&times;</button>
+</div>
+
+<style>
+    .toast-notification {
+        position: fixed;
+        top: 24px;
+        right: 24px;
+        background: #065f46;
+        color: #fff;
+        padding: 14px 22px;
+        border-radius: 10px;
+        box-shadow: 0 8px 24px rgba(0, 0, 0, 0.25);
+        z-index: 99999;
+        align-items: center;
+        gap: 12px;
+        font-size: 14px;
+        font-family: 'Segoe UI', Arial, sans-serif;
+        animation: slideInRight 0.4s ease-out;
+        max-width: 380px;
+    }
+    .toast-notification.show {
+        display: flex !important;
+    }
+    .toast-icon {
+        background: rgba(255,255,255,0.2);
+        border-radius: 50%;
+        width: 26px;
+        height: 26px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 14px;
+        font-weight: bold;
+        flex-shrink: 0;
+    }
+    .toast-message {
+        flex: 1;
+        font-weight: 500;
+    }
+    .toast-close {
+        background: none;
+        border: none;
+        color: rgba(255,255,255,0.7);
+        font-size: 20px;
+        cursor: pointer;
+        padding: 0 0 0 8px;
+        line-height: 1;
+        transition: color 0.2s;
+    }
+    .toast-close:hover {
+        color: #fff;
+    }
+    @keyframes slideInRight {
+        from { transform: translateX(100%); opacity: 0; }
+        to   { transform: translateX(0);    opacity: 1; }
+    }
+    @keyframes slideOutRight {
+        from { transform: translateX(0);    opacity: 1; }
+        to   { transform: translateX(100%); opacity: 0; }
+    }
+</style>
+
+<script>
+    function closeToast() {
+        var toast = document.getElementById('cart-toast');
+        if (toast) {
+            toast.style.animation = 'slideOutRight 0.3s ease-in forwards';
+            setTimeout(function() { toast.style.display = 'none'; }, 300);
+        }
+    }
+
+    (function() {
+        var params = new URLSearchParams(window.location.search);
+        if (params.get('cartSuccess') === 'true') {
+            var toast = document.getElementById('cart-toast');
+            if (toast) {
+                toast.classList.add('show');
+                setTimeout(closeToast, 3000);
+            }
+            params.delete('cartSuccess');
+            var cleanUrl = window.location.pathname;
+            if (params.toString()) {
+                cleanUrl += '?' + params.toString();
+            }
+            window.history.replaceState({}, '', cleanUrl);
+        }
+    })();
+</script>
+
 <%@ include file="/WEB-INF/views/includes/footer.jsp" %>
 </body>
 
