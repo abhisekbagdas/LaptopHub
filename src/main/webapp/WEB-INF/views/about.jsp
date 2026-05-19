@@ -2,8 +2,8 @@
 <html>
 <head>
     <title>About</title>
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/static/css/main.css" />
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/static/css/about.css" />
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/static/css/main.css"/>
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/static/css/about.css"/>
 </head>
 <body>
 <%@ include file="/WEB-INF/views/includes/navbar.jsp" %>
@@ -12,7 +12,8 @@
     <div class="hero-left">
         <p class="hero-eyebrow">Our Story</p>
         <h1>Powering <em>Dreams</em>,<br>One Laptop at a Time</h1>
-        <p>Since 2014, LaptopVault has been the trusted destination for professionals, students, and creatives who demand the very best from their machines.</p>
+        <p>Since 2014, LaptopVault has been the trusted destination for professionals, students, and creatives who
+            demand the very best from their machines.</p>
         <div class="hero-stats">
             <div class="hero-stat"><strong>120K+</strong><span>Happy Customers</span></div>
             <div class="hero-stat"><strong>500+</strong><span>Models in Stock</span></div>
@@ -50,15 +51,20 @@
         <div class="story-text">
             <p class="section-label">How It Started</p>
             <h2 class="section-title">Born from a Frustration, Built for You</h2>
-            <p>It was 2014 when our founder, Arjun Mehta, couldn't find a reliable, honest laptop retailer. Big-box stores pushed overpriced models he didn't need. Online marketplaces were flooded with dubious listings.</p>
-            <p>So he started LaptopVault — a curated online store focused on transparency, expert advice, and machines that truly match each buyer's needs. No fluff, no upsells, just the right laptop at the right price.</p>
-            <p>Today, we're a team of 40+ tech enthusiasts shipping laptops to customers across 28 countries, with the same philosophy we started with: <em>honest, human-first tech retail.</em></p>
+            <p>It was 2014 when our founder, Arjun Mehta, couldn't find a reliable, honest laptop retailer. Big-box
+                stores pushed overpriced models he didn't need. Online marketplaces were flooded with dubious
+                listings.</p>
+            <p>So he started LaptopVault - a curated online store focused on transparency, expert advice, and machines
+                that truly match each buyer's needs. No fluff, no upsells, just the right laptop at the right price.</p>
+            <p>Today, we're a team of 40+ tech enthusiasts shipping laptops to customers across 28 countries, with the
+                same philosophy we started with: <em>honest, human-first tech retail.</em></p>
         </div>
         <div class="story-image-wrap">
             <div class="story-img-box">
                 <svg viewBox="0 0 300 220" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <circle cx="150" cy="110" r="80" fill="#c94c2e" opacity="0.12"/>
-                    <rect x="70" y="60" width="160" height="110" rx="8" fill="#2d2d2d" stroke="#444" stroke-width="1.5"/>
+                    <rect x="70" y="60" width="160" height="110" rx="8" fill="#2d2d2d" stroke="#444"
+                          stroke-width="1.5"/>
                     <rect x="80" y="70" width="140" height="90" rx="4" fill="#1a1a1a"/>
                     <rect x="90" y="82" width="120" height="8" rx="2" fill="#444"/>
                     <rect x="90" y="98" width="90" height="6" rx="2" fill="#333"/>
@@ -78,28 +84,38 @@
     <div class="values">
         <p class="section-label">What Drives Us</p>
         <h2 class="section-title">Our Core Values</h2>
-        <p class="section-subtitle">Every decision we make comes back to three principles that have guided us since day one.</p>
+        <p class="section-subtitle">Every decision we make comes back to three principles that have guided us since day
+            one.</p>
         <div class="values-grid">
             <div class="value-card">
                 <div class="value-icon">
-                    <svg viewBox="0 0 24 24"><path d="M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138 3.42 3.42 0 00-.806-1.946 3.42 3.42 0 010-4.438 3.42 3.42 0 00.806-1.946 3.42 3.42 0 013.138-3.138z"/></svg>
+                    <svg viewBox="0 0 24 24">
+                        <path d="M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138 3.42 3.42 0 00-.806-1.946 3.42 3.42 0 010-4.438 3.42 3.42 0 00.806-1.946 3.42 3.42 0 013.138-3.138z"/>
+                    </svg>
                 </div>
                 <h3>Radical Transparency</h3>
-                <p>No hidden fees, no inflated specs, no paid recommendations. We tell you what you need to hear, not what sells the most margin.</p>
+                <p>No hidden fees, no inflated specs, no paid recommendations. We tell you what you need to hear, not
+                    what sells the most margin.</p>
             </div>
             <div class="value-card">
                 <div class="value-icon">
-                    <svg viewBox="0 0 24 24"><path d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0"/></svg>
+                    <svg viewBox="0 0 24 24">
+                        <path d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0"/>
+                    </svg>
                 </div>
                 <h3>Expert Guidance</h3>
-                <p>Our team of certified tech advisors help you find the perfect match — whether you're a gamer, designer, student, or business professional.</p>
+                <p>Our team of certified tech advisors help you find the perfect match - whether you're a gamer,
+                    designer, student, or business professional.</p>
             </div>
             <div class="value-card">
                 <div class="value-icon">
-                    <svg viewBox="0 0 24 24"><path d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"/></svg>
+                    <svg viewBox="0 0 24 24">
+                        <path d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"/>
+                    </svg>
                 </div>
                 <h3>Customer First, Always</h3>
-                <p>From a 30-day no-questions-asked return policy to lifetime tech support, we're with you long after checkout.</p>
+                <p>From a 30-day no-questions-asked return policy to lifetime tech support, we're with you long after
+                    checkout.</p>
             </div>
         </div>
     </div>
@@ -109,28 +125,49 @@
 <section class="section team">
     <div style="max-width: 1200px; margin: 0 auto;">
         <p class="section-label">The People Behind The Screen</p>
-        <h2 class="section-title">Meet Our Team</h2>
-        <p class="section-subtitle">Forty passionate humans who live and breathe technology — and genuinely love helping you find yours.</p>
+        <h2 class="section-title">Meet Our Dev. Team</h2>
         <div class="team-grid">
             <div class="team-card">
-                <div class="avatar c1">AM</div>
-                <h4>Shakti Sedai</h4>
-                <p>Founder & CEO</p>
+                <div class="avatar M1"><img src="${pageContext.request.contextPath}/static/images/dev/Abhisek.jpg"
+                                            style="width: 100px; height: 100px; border-radius: 50%; object-fit: cover;"
+                                            alt="Abhisek Bagdas  "></div>
+                <h4>Abhisek Bagdas</h4>
+                <p>Backend Developer</p>
             </div>
             <div class="team-card">
-                <div class="avatar c2">SL</div>
-                <h4>Lucky</h4>
-                <p>Head of Product</p>
+                <div class="avatar M2"><img src="${pageContext.request.contextPath}/static/images/dev/Lucky.jpeg"
+                                            style="width: 100px; height: 100px; border-radius: 50%; object-fit: cover;">
+                </div>
+                <h4>Lucky Gurung</h4>
+                <p>Database Developer</p>
             </div>
             <div class="team-card">
-                <div class="avatar c3">DK</div>
-                <h4>avishek</h4>
+                <div class="avatar M3"><img src="${pageContext.request.contextPath}/static/images/dev/Oasis.jpeg"
+                                            style="width: 100px; height: 100px; border-radius: 50%; object-fit: cover;">
+                </div>
+                <h4>Oasis Adhikari</h4>
+                <p>Marketing Expert</p>
+            </div>
+            <div class="team-card">
+                <div class="avatar M4"><img src="${pageContext.request.contextPath}/static/images/dev/Rahul.jpeg"
+                                            style="width: 100px; height: 100px; border-radius: 50%; object-fit: cover;">
+                </div>
+                <h4>Rahul Rasaily</h4>
                 <p>Lead Tech Advisor</p>
             </div>
             <div class="team-card">
-                <div class="avatar c4">PR</div>
-                <h4>Oasis</h4>
+                <div class="avatar M5"><img src="${pageContext.request.contextPath}/static/images/dev/Shakti.jpeg"
+                                            style="width: 100px; height: 100px; border-radius: 50%; object-fit: cover;">
+                </div>
+                <h4>Shakti Sedai</h4>
                 <p>Customer Experience</p>
+            </div>
+            <div class="team-card">
+                <div class="avatar M6"><img src="${pageContext.request.contextPath}/static/images/dev/Sobim.jpeg"
+                                            style="width: 100px; height: 100px; border-radius: 50%; object-fit: cover;">
+                </div>
+                <h4>Sobim Shrestha</h4>
+                <p>Frontend Developer and Designer</p>
             </div>
         </div>
     </div>
@@ -146,7 +183,8 @@
                 <div class="tl-dot">14</div>
                 <div class="tl-content">
                     <h4>Founded in 2014</h4>
-                    <p>Arjun Mehta launches LaptopVault from a small home office in Bangalore with just 12 laptop models.</p>
+                    <p>Arjun Mehta launches LaptopVault from a small home office in Bangalore with just 12 laptop
+                        models.</p>
                 </div>
             </div>
             <div class="tl-item">
@@ -167,14 +205,15 @@
                 <div class="tl-dot">22</div>
                 <div class="tl-content">
                     <h4>Certified Refurbished Program</h4>
-                    <p>Introduced our eco-conscious Certified Refurbished line, saving over 8,000 laptops from landfills.</p>
+                    <p>Introduced our eco-conscious Certified Refurbished line, saving over 8,000 laptops from
+                        landfills.</p>
                 </div>
             </div>
             <div class="tl-item">
                 <div class="tl-dot">24</div>
                 <div class="tl-content">
                     <h4>10 Years Strong</h4>
-                    <p>Celebrated a decade with 120,000+ customers, 40 team members, and a brand new HQ in Mumbai.</p>
+                    <p>Celebrated a decade with 120,000+ customers, 40 team members, and a brand new HQ in Pokhara.</p>
                 </div>
             </div>
         </div>
@@ -185,8 +224,8 @@
 <section class="cta-banner">
     <h2>Ready to Find Your Perfect Laptop?</h2>
     <p>Our experts are standing by to help you make the right choice, every time.</p>
-    <a href="#" class="btn-white">Shop Now</a>
-    <a href="contact-us.html" class="btn-outline">Talk to an Expert</a>
+    <a href="${pageContext.request.contextPath}/products" class="btn-white">Shop Now</a>
+    <a href="${pageContext.request.contextPath}/contact" class="btn-outline">Talk to an Expert</a>
 </section>
 
 <!-- FOOTER -->
