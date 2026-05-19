@@ -1,5 +1,5 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<!-- <%@ taglib uri="jakarta.tags.core" prefix="c" %> -->
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <html>
 <head>
     <title>My Cart - LaptopHub</title>
@@ -40,11 +40,6 @@
                     <!-- A SINGLE CART ITEM -->
                     <div class="cart-box">
                         
-                        <!-- Checkbox -->
-                        <div class="box-checkbox">
-                            <input type="checkbox" />
-                        </div>
-                        
                         <!-- Product Image -->
                         <div class="box-image">
                             <img src="${item.imageUrl}" alt="${item.name}" />
@@ -54,8 +49,7 @@
                         <div class="box-details">
                             <h3>${item.name}</h3>
                             <p class="price-text">
-                                Rs. <span class="old-price">5,999</span> 
-                                <span class="new-price">${item.totalPrice}</span>
+                                Rs. <span class="new-price">${item.totalPrice}</span>
                             </p>
                             
                             <p class="product-attributes">
