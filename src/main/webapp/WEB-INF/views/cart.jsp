@@ -10,17 +10,6 @@
 <body>
 
 <!-- TOP BAR -->
-<div class="topbar">
-    <div class="topbar-left">
-        <a href="${pageContext.request.contextPath}/about">About us</a>
-        <a href="${pageContext.request.contextPath}/faqs">FAQ</a>
-        <a href="${pageContext.request.contextPath}/privacy">Privacy policy</a>
-    </div>
-    <div class="topbar-right">
-        <a href="${pageContext.request.contextPath}/warranty">Warranty</a>
-        <a href="tel:+97798011000037">Customer service: +977-9801100037</a>
-    </div>
-</div>
 <%@ include file="/WEB-INF/views/includes/navbar.jsp" %>
 
 <!-- BREADCRUMB -->
@@ -51,12 +40,7 @@
                             <p class="price-text">
                                 Rs. <span class="new-price">${item.totalPrice}</span>
                             </p>
-                            
-                            <p class="product-attributes">
-                                Color: <span class="color-box"></span> 
-                                Plug Type: <span class="plug-type">3.5 mm</span>
-                            </p>
-                            
+
                             <!-- Quantity Buttons -->
                             <div class="quantity-form-container">
                                 <form action="${pageContext.request.contextPath}/cart" method="POST">
