@@ -150,7 +150,8 @@
         <c:otherwise>
             <div class="products-grid">
                 <c:forEach var="productItem" items="${products}" begin="0" end="11">
-                    <div class="product-card">
+                    <div class="product-card" onclick="window.location.href='${pageContext.request.contextPath}/product?id=${productItem.id}'" style="cursor: pointer;">
+<%--                    <div class="product-card">--%>
                         <div class="image-container">
                             <img src="${productItem.image}" alt="${productItem.name}">
                         </div>

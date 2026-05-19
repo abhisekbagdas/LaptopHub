@@ -158,7 +158,7 @@
                     <c:otherwise>
                         <div class="product-grid">
                             <c:forEach var="productItem" items="${products}">
-                                <div class="product-card">
+                                <div class="product-card" onclick="window.location.href='${pageContext.request.contextPath}/product?id=${productItem.id}'" style="cursor: pointer;">
                                     <div class="image-container">
                                         <img src="${productItem.image}" alt="${productItem.name}">
                                     </div>
@@ -174,7 +174,7 @@
                                         </div>
                                         <div class="product-actions">
                                             <form action="${pageContext.request.contextPath}/cart" method="POST"
-                                                style="width: 100%;">
+                                                style="width: 100%;" onclick="event.stopPropagation();">
                                                 <input type="hidden" name="action" value="add" />
                                                 <input type="hidden" name="productId" value="${productItem.id}" />
                                                 <button type="submit" class="btn btn-primary" style="width: 100%;">Add
