@@ -8,7 +8,7 @@
 }
 
 body {
-    background-color: #fafafa;
+    background-color: #f4f9fc;
     color: #1a1a1a;
     line-height: 1.5;
 }
@@ -36,14 +36,14 @@ body {
     margin-bottom: 60px;
     display: flex;
     align-items: center;
-    background: linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.7)), url('https://images.unsplash.com/photo-1593642632823-8f785ba67e45?ixlib=rb-1.2.1&auto=format&fit=crop&w=1600&q=80') center/cover;
+    background: linear-gradient(135deg, #e3f2fd 0%, #bbdefb 100%);
 }
 
 .hero-content {
     position: relative;
     z-index: 2;
     padding: 60px;
-    color: #ffffff;
+    color: #0d47a1;
     max-width: 600px;
 }
 
@@ -56,7 +56,7 @@ body {
 
 .hero-content p {
     font-size: 16px;
-    color: #e0e0e0;
+    color: #1565c0;
 }
 
 /* Header Section */
@@ -71,7 +71,7 @@ body {
     text-transform: uppercase;
     font-size: 12px;
     font-weight: 600;
-    color: #666;
+    color: #1976d2;
     letter-spacing: 1px;
     margin-bottom: 4px;
     display: block;
@@ -80,7 +80,7 @@ body {
 .section-title-wrap h2 {
     font-size: 28px;
     font-weight: 700;
-    color: #111;
+    color: #0d47a1;
 }
 
 .filter-actions {
@@ -89,23 +89,22 @@ body {
 }
 
 .filter-btn {
-    background: #f5f5f5;
-    border: 1px solid #e0e0e0;
+    background: #ffffff;
+    border: 1px solid #90caf9;
     padding: 8px 16px;
     border-radius: 6px;
     font-size: 14px;
     font-weight: 500;
     cursor: pointer;
-    color: #333;
+    color: #1565c0;
     display: flex;
     align-items: center;
     gap: 6px;
-    transition: all 0.2s ease;
 }
 
 .filter-btn:hover {
-    background: #e8e8e8;
-    border-color: #d0d0d0;
+    background: #e3f2fd;
+    border-color: #64b5f6;
 }
 
 /* Product Grid */
@@ -133,16 +132,18 @@ body {
     background: #ffffff;
     border-radius: 12px;
     overflow: hidden;
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-    border: 1px solid #f0f0f0;
+    border: 2px solid #90caf9;
     position: relative;
     display: flex;
     flex-direction: column;
+    box-shadow: 0 4px 12px rgba(144, 202, 249, 0.2);
+    transition: all 0.3s ease;
 }
 
 .product-card:hover {
+    border-color: #42a5f5;
+    box-shadow: 0 12px 24px rgba(66, 165, 245, 0.25);
     transform: translateY(-4px);
-    box-shadow: 0 12px 24px rgba(0,0,0,0.06);
 }
 
 .badge {
@@ -173,7 +174,7 @@ body {
 }
 
 .image-container {
-    background: #f8f9fa;
+    background: #f4f9fc;
     padding: 30px;
     display: flex;
     align-items: center;
@@ -215,7 +216,7 @@ body {
 .product-price {
     font-size: 18px;
     font-weight: 700;
-    color: #111;
+    color: #0d47a1;
 }
 
 .product-old-price {
@@ -251,17 +252,18 @@ body {
     font-size: 14px;
     font-weight: 600;
     cursor: pointer;
-    transition: all 0.2s ease;
     border: none;
 }
 
 .btn-primary {
-    background: #111;
-    color: #fff;
+    background: #42a5f5;
+    color: #ffffff;
+    transition: background 0.2s, transform 0.1s;
 }
 
 .btn-primary:hover {
-    background: #333;
+    background: #1e88e5;
+    transform: scale(1.02);
 }
 
 .btn-secondary {
