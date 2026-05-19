@@ -2,7 +2,7 @@
 <html>
 <head>
     <title>Contact</title>
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/static/css/main.css" />
+<%--    <link rel="stylesheet" href="${pageContext.request.contextPath}/static/css/main.css" />--%>
     <link rel="stylesheet" href="${pageContext.request.contextPath}/static/css/contact.css" />
 </head>
 <body>
@@ -27,7 +27,7 @@
                 <div class="badge-live"><span class="dot-live"></span> Available now</div>
                 <h3>Live Chat</h3>
                 <p>Chat with a tech expert in real time. No bots, just humans.</p>
-                <a href="#" class="method-link">Start a Chat →</a>
+                <a href="${pageContext.request.contextPath}/cart" class="method-link">Start a Chat →</a>
             </div>
         </div>
         <div class="method-card">

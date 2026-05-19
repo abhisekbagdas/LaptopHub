@@ -264,7 +264,7 @@ public class AdminDaoImpl implements AdminDao {
         Connection conn = null;
         try {
             conn = DatabaseConnection.getConnection();
-            String sql = "SELECT user_id, username, email, created_at, is_banned FROM users ORDER BY user_id DESC";
+            String sql = "SELECT * FROM users ORDER BY user_id DESC";
             try (PreparedStatement ps = conn.prepareStatement(sql);
                  ResultSet rs = ps.executeQuery()) {
                 while (rs.next()) {
@@ -272,14 +272,30 @@ public class AdminDaoImpl implements AdminDao {
                     map.put("id", rs.getInt("user_id"));
                     map.put("name", rs.getString("username"));
                     map.put("email", rs.getString("email"));
-                    map.put("isBanned", rs.getBoolean("is_banned"));
+                    
+                    boolean isBanned = false;
+                    try {
+                        isBanned = rs.getBoolean("is_banned");
+                    } catch (SQLException ex) {
+                        // is_banned might not exist in original schema
+                    }
+                    map.put("isBanned", isBanned);
+                    
                     String username = rs.getString("username");
                     if ("admin".equalsIgnoreCase(username) || "admin1".equalsIgnoreCase(username)) {
                         map.put("role", "admin");
                     } else {
                         map.put("role", "customer");
                     }
-                    map.put("registered", rs.getString("created_at"));
+                    
+                    String registered = "";
+                    try {
+                        registered = rs.getString("created_at");
+                    } catch (SQLException ex) {
+                        // created_at might not exist
+                    }
+                    map.put("registered", registered);
+                    
                     users.add(map);
                 }
             }

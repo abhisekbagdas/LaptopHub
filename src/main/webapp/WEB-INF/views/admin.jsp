@@ -157,8 +157,8 @@
                         </div>
                         <div style="display: flex; gap: 12px; align-items: center;">
                             <select id="productSort" class="form-control" style="width: auto; padding: 8px 12px;" onchange="sortProducts()">
-                                <option value="idDesc">ID (Descending)</option>
                                 <option value="idAsc">ID (Ascending)</option>
+                                <option value="idDesc">ID (Descending)</option>
                                 <option value="priceDesc">Highest Price</option>
                                 <option value="priceAsc">Lowest Price</option>
                                 <option value="stockDesc">Highest Stocks</option>

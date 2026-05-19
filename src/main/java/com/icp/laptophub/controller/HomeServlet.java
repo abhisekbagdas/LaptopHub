@@ -24,7 +24,7 @@ public class HomeServlet extends HttpServlet {
         List<Product> products = productDao.fetchAllProducts();
         
         // Set the products so home.jsp can loop through them
-        request.setAttribute("featuredProducts", products);
+        request.setAttribute("products", products);
         
         request.getRequestDispatcher("/WEB-INF/views/home.jsp").forward(request, response);
     }

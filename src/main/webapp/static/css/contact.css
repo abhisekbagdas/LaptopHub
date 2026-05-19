@@ -21,18 +21,18 @@ body {
 }
 
 /* NAV */
-nav {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 1.2rem 5vw;
-    border-bottom: 1px solid var(--border);
-    position: sticky;
-    top: 0;
-    background: rgba(255,255,255,0.95);
-    backdrop-filter: blur(8px);
-    z-index: 100;
-}
+/*nav {*/
+/*    display: flex;*/
+/*    justify-content: space-between;*/
+/*    align-items: center;*/
+/*    padding: 1.2rem 5vw;*/
+/*    border-bottom: 1px solid var(--border);*/
+/*    position: sticky;*/
+/*    top: 0;*/
+/*    background: rgba(255,255,255,0.95);*/
+/*    backdrop-filter: blur(8px);*/
+/*    z-index: 100;*/
+/*}*/
 .logo {
     font-family: 'Playfair Display', serif;
     font-size: 1.5rem;
@@ -42,17 +42,17 @@ nav {
     letter-spacing: -0.5px;
 }
 .logo span { color: var(--accent); }
-nav ul { list-style: none; display: flex; gap: 2rem; }
-nav ul a { color: var(--muted); text-decoration: none; font-size: 0.9rem; font-weight: 500; transition: color 0.2s; }
-nav ul a:hover, nav ul a.active { color: var(--ink); }
-.nav-cta {
-    background: var(--ink);
-    color: var(--white) !important;
-    padding: 0.5rem 1.2rem;
-    border-radius: 2rem;
-    transition: background 0.2s !important;
-}
-.nav-cta:hover { background: var(--accent) !important; color: var(--white) !important; }
+/*nav ul { list-style: none; display: flex; gap: 2rem; }*/
+/*nav ul a { color: var(--muted); text-decoration: none; font-size: 0.9rem; font-weight: 500; transition: color 0.2s; }*/
+/*nav ul a:hover, nav ul a.active { color: var(--ink); }*/
+/*.nav-cta {*/
+/*    background: var(--ink);*/
+/*    color: var(--white) !important;*/
+/*    padding: 0.5rem 1.2rem;*/
+/*    border-radius: 2rem;*/
+/*    transition: background 0.2s !important;*/
+/*}*/
+/*.nav-cta:hover { background: var(--accent) !important; color: var(--white) !important; }*/
 
 /* PAGE HEADER */
 .page-header {
@@ -428,5 +428,5 @@ footer strong { color: rgba(255,255,255,0.8); }
 }
 @media (max-width: 700px) {
     .form-row { grid-template-columns: 1fr; }
-    nav ul { display: none; }
+    /*nav ul { display: none; }*/
 }

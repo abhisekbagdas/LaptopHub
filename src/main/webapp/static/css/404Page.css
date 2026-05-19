@@ -1,0 +1,247 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+:root {
+    --ink: #1f2d3a;
+    --muted: #576574;
+    --accent: #f18930;
+    --bg: #ffffff;
+    --path: #6a6a6a;
+    --path-light: #9b9b9b;
+    --trail: #ece7df;
+}
+
+body {
+    font-family: Arial, Helvetica, sans-serif;
+    background: var(--bg);
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    color: var(--ink);
+}
+
+.error-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.scene-wrap {
+    position: relative;
+    width: min(1120px, 100%);
+    min-height: 600px;
+    outline: none;
+}
+
+.scene-wrap:focus-visible {
+    outline: 2px dashed var(--accent);
+    outline-offset: 10px;
+}
+
+.broken-path {
+    position: absolute;
+    inset: 0 0 auto 0;
+    height: 260px;
+    pointer-events: none;
+}
+
+.path-segment {
+    position: absolute;
+    top: 95px;
+    height: 8px;
+    background: linear-gradient(90deg, var(--path-light), var(--path));
+    border-radius: 999px;
+    box-shadow: 0 1px 0 rgba(0, 0, 0, 0.08);
+}
+
+.path-segment.left {
+    left: 0;
+    width: 38%;
+    transform: rotate(4deg);
+    transform-origin: left center;
+}
+
+.path-gap {
+    position: absolute;
+    top: 78px;
+    left: 38%;
+    width: 14%;
+    height: 42px;
+    border-top: 6px dashed var(--trail);
+    border-radius: 50%;
+    opacity: 0.95;
+}
+
+.path-segment.right {
+    right: -2%;
+    width: 50%;
+    top: 153px;
+    transform: rotate(7deg);
+    transform-origin: right center;
+}
+
+.error-content {
+    position: absolute;
+    left: 50%;
+    bottom: 20px;
+    transform: translateX(-50%);
+    text-align: center;
+    width: min(720px, 100%);
+    padding: 24px 18px 0;
+}
+
+.error-kicker {
+    font-size: 0.75rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--accent);
+    font-weight: 700;
+    margin-bottom: 12px;
+}
+
+.error-title {
+    font-size: clamp(2.1rem, 4vw, 3.5rem);
+    font-weight: 600;
+    letter-spacing: 0.06em;
+    color: var(--ink);
+    margin-bottom: 12px;
+}
+
+.error-message {
+    font-size: 1.1rem;
+    line-height: 1.55;
+    color: var(--muted);
+    margin-bottom: 6px;
+}
+
+.error-buttons {
+    display: flex;
+    gap: 14px;
+    justify-content: center;
+    flex-wrap: wrap;
+    opacity: 0;
+    transform: translateY(10px) scale(0.98);
+    pointer-events: none;
+    transition: opacity 0.25s ease, transform 0.25s ease;
+}
+
+.scene-wrap:hover .error-buttons,
+.scene-wrap:focus-within .error-buttons {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+    pointer-events: auto;
+}
+
+.btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 150px;
+    padding: 11px 24px;
+    font-size: 1rem;
+    border-radius: 6px;
+    cursor: pointer;
+    text-decoration: none;
+    transition: all 0.3s;
+    font-weight: 700;
+}
+
+.btn-primary {
+    background-color: var(--accent);
+    color: white;
+    box-shadow: 0 8px 20px rgba(241, 137, 48, 0.24);
+}
+
+.btn-primary:hover,
+.btn-primary:focus-visible {
+    background-color: #e07800;
+    transform: translateY(-2px);
+    box-shadow: 0 10px 24px rgba(241, 137, 48, 0.32);
+}
+
+.btn-secondary {
+    background-color: #eef2f6;
+    color: var(--ink);
+    border: 2px solid #d4dde6;
+}
+
+.btn-secondary:hover,
+.btn-secondary:focus-visible {
+    background-color: #e3eaf1;
+    border-color: #c0cad5;
+    transform: translateY(-2px);
+}
+
+@media (hover: none), (pointer: coarse) {
+    .error-buttons {
+        opacity: 1;
+        transform: none;
+        pointer-events: auto;
+    }
+}
+
+@media (max-width: 900px) {
+    .scene-wrap {
+        min-height: 700px;
+    }
+
+    .broken-path {
+        height: 230px;
+    }
+
+    .searching-user {
+        top: 204px;
+        left: 58%;
+        transform: translateX(-50%) scale(0.92);
+    }
+
+    .error-content {
+        width: min(640px, 100%);
+    }
+}
+
+@media (max-width: 640px) {
+    .error-container {
+        padding: 12px 12px 40px;
+    }
+
+    .scene-wrap {
+        min-height: 760px;
+    }
+
+    .path-segment.left {
+        width: 34%;
+    }
+
+    .path-gap {
+        left: 34%;
+        width: 18%;
+    }
+
+    .path-segment.right {
+        width: 54%;
+    }
+
+    .searching-user {
+        top: 184px;
+        left: 60%;
+        transform: translateX(-50%) scale(0.82);
+    }
+
+    .error-content {
+        bottom: 10px;
+        padding-top: 18px;
+    }
+
+    .error-message{
+        font-size: 1rem;
+    }
+
+    .btn {
+        width: 100%;
+        max-width: 290px;
+    }
+}

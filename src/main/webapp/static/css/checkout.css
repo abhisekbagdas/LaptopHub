@@ -1,0 +1,257 @@
+/* checkout.css */
+
+body {
+    background-color: #fafafa;
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+}
+
+/* ── Breadcrumb ─────────────────────────────────────── */
+.breadcrumb {
+    padding: 20px 40px;
+    font-size: 14px;
+    color: #888;
+}
+.breadcrumb a {
+    color: #888;
+    text-decoration: none;
+}
+.breadcrumb a:hover { color: #222; }
+
+/* ── Error banner ───────────────────────────────────── */
+.error-banner {
+    background-color: #fff3f3;
+    border: 1px solid #f5c6c6;
+    color: #c0392b;
+    padding: 14px 40px;
+    font-size: 14px;
+    margin: 0 40px 10px;
+    border-radius: 6px;
+}
+
+/* ── Main layout ────────────────────────────────────── */
+.checkout-container {
+    display: flex;
+    gap: 30px;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 40px 60px;
+    align-items: flex-start;
+}
+
+.checkout-form-section {
+    flex: 2;
+}
+
+.checkout-summary-section {
+    flex: 1;
+    position: sticky;
+    top: 20px;
+}
+
+/* ── Section title ──────────────────────────────────── */
+.section-title {
+    font-size: 20px;
+    font-weight: 700;
+    color: #222;
+    margin: 0 0 20px;
+    padding-bottom: 10px;
+    border-bottom: 2px solid #eaeaea;
+}
+
+/* ── Form fields ────────────────────────────────────── */
+.form-group {
+    margin-bottom: 20px;
+}
+
+.form-group label {
+    display: block;
+    font-size: 14px;
+    font-weight: 600;
+    color: #444;
+    margin-bottom: 6px;
+}
+
+.required { color: #e74c3c; }
+
+.form-group input,
+.form-group textarea {
+    width: 100%;
+    padding: 12px 14px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    font-size: 14px;
+    background-color: #fff;
+    box-sizing: border-box;
+    transition: border-color 0.2s;
+    outline: none;
+    font-family: inherit;
+}
+
+.form-group input:focus,
+.form-group textarea:focus {
+    border-color: #222;
+    box-shadow: 0 0 0 3px rgba(34, 34, 34, 0.08);
+}
+
+.form-group textarea { resize: vertical; }
+
+/* ── Payment method cards ───────────────────────────── */
+.payment-options {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    margin-bottom: 28px;
+}
+
+.payment-card {
+    border: 2px solid #eaeaea;
+    border-radius: 10px;
+    padding: 14px 18px;
+    cursor: pointer;
+    transition: border-color 0.2s, box-shadow 0.2s;
+    background-color: #fff;
+}
+
+.payment-card:hover {
+    border-color: #aaa;
+}
+
+.payment-card.selected {
+    border-color: #222;
+    box-shadow: 0 0 0 3px rgba(34, 34, 34, 0.1);
+}
+
+.payment-card input[type="radio"] {
+    display: none; /* hidden — card itself acts as selector */
+}
+
+.payment-card-inner {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+}
+
+.payment-icon {
+    font-size: 28px;
+    line-height: 1;
+}
+
+.payment-name {
+    font-size: 15px;
+    font-weight: 600;
+    color: #222;
+}
+
+.payment-desc {
+    font-size: 12px;
+    color: #888;
+    margin-top: 2px;
+}
+
+/* ── Place order button ─────────────────────────────── */
+.place-order-btn {
+    width: 100%;
+    padding: 16px;
+    background-color: #222;
+    color: #fff;
+    font-size: 16px;
+    font-weight: 600;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    letter-spacing: 0.5px;
+    transition: background-color 0.2s, transform 0.1s;
+}
+
+.place-order-btn:hover  { background-color: #444; }
+.place-order-btn:active { transform: scale(0.99); }
+
+/* ── Order summary box ──────────────────────────────── */
+.summary-box {
+    background-color: #fff;
+    border: 1px solid #eaeaea;
+    border-radius: 12px;
+    padding: 28px;
+}
+
+.summary-box h2 {
+    font-size: 18px;
+    font-weight: 700;
+    color: #222;
+    margin: 0 0 20px;
+}
+
+.summary-items {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    margin-bottom: 4px;
+}
+
+.summary-item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.summary-item-img {
+    width: 56px;
+    height: 56px;
+    object-fit: contain;
+    border: 1px solid #eee;
+    border-radius: 8px;
+    background: #f9f9f9;
+    flex-shrink: 0;
+}
+
+.summary-item-details { flex: 1; }
+
+.summary-item-name {
+    font-size: 13px;
+    font-weight: 600;
+    color: #333;
+    margin: 0 0 3px;
+    line-height: 1.4;
+}
+
+.summary-item-qty {
+    font-size: 12px;
+    color: #888;
+    margin: 0;
+}
+
+.summary-item-price {
+    font-size: 13px;
+    font-weight: 700;
+    color: #222;
+    white-space: nowrap;
+    margin: 0;
+}
+
+.summary-divider {
+    border: none;
+    border-top: 1px solid #eaeaea;
+    margin: 16px 0;
+}
+
+.summary-line {
+    display: flex;
+    justify-content: space-between;
+    font-size: 14px;
+    color: #555;
+    margin-bottom: 10px;
+}
+
+.free-shipping {
+    color: #27ae60;
+    font-weight: 600;
+}
+
+.total-line {
+    font-size: 16px;
+    font-weight: 700;
+    color: #222;
+    margin-top: 4px;
+}
