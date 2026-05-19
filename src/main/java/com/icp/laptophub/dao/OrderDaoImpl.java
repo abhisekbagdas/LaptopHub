@@ -47,11 +47,15 @@ public class OrderDaoImpl implements OrderDao {
             }
             int orderId = generatedKeys.getInt(1);
 
-            // 2) Insert each cart item as an order_item
+            // 2) Insert each cart item as an order_item and decrease stock
             String itemSql = "INSERT INTO order_items " +
                     "(order_id, product_id, product_name, image, unit_price, quantity, total_price) " +
                     "VALUES (?, ?, ?, ?, ?, ?, ?)";
             PreparedStatement itemStmt = conn.prepareStatement(itemSql);
+            
+            String stockSql = "UPDATE products SET stock = stock - ? WHERE product_id = ? AND stock >= ?";
+            PreparedStatement stockStmt = conn.prepareStatement(stockSql);
+            
             for (CartItem ci : cartItems) {
                 BigDecimal lineTotal = ci.getPrice().multiply(BigDecimal.valueOf(ci.getQuantity()));
                 itemStmt.setInt(1, orderId);
@@ -62,8 +66,23 @@ public class OrderDaoImpl implements OrderDao {
                 itemStmt.setInt(6, ci.getQuantity());
                 itemStmt.setBigDecimal(7, lineTotal);
                 itemStmt.addBatch();
+                
+                stockStmt.setInt(1, ci.getQuantity());
+                stockStmt.setInt(2, ci.getProductId());
+                stockStmt.setInt(3, ci.getQuantity());
+                stockStmt.addBatch();
             }
             itemStmt.executeBatch();
+            
+            int[] stockResults = stockStmt.executeBatch();
+            for (int res : stockResults) {
+                if (res == 0) {
+                    // Not enough stock for at least one item, rollback transaction
+                    conn.rollback();
+                    return -1;
+                }
+            }
+
 
             // 3) Clear the user's cart
             String clearCart = "DELETE FROM carts WHERE user_id = ?";
