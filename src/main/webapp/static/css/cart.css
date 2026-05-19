@@ -85,12 +85,6 @@ body {
     color: #333;
 }
 
-.old-price {
-    text-decoration: line-through;
-    color: #999;
-    margin-right: 10px;
-}
-
 .new-price {
     font-weight: bold;
     color: #000;

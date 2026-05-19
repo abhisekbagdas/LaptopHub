@@ -136,6 +136,7 @@ body.sidebar-collapsed {
     border-left: 3px solid #818cf8;
     border-radius: 0 10px 10px 0;
     margin-right: 12px;
+    width: calc(100% - 12px);
 }
 
 .global-sidebar .nav-item i {

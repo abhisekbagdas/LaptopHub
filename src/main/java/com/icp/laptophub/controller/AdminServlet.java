@@ -253,12 +253,12 @@ public class AdminServlet extends HttpServlet {
         Part filePart = request.getPart("image");
         if (filePart != null && filePart.getSize() > 0) {
             String fileName = System.currentTimeMillis() + "_" + getFileName(filePart);
-            String uploadPath = getServletContext().getRealPath("") + File.separator + "static" + File.separator + "images";
+            String uploadPath = getServletContext().getRealPath("") + File.separator + "static" + File.separator + "images" + File.separator + "productImage";
             File uploadDir = new File(uploadPath);
             if (!uploadDir.exists()) uploadDir.mkdir();
             
             filePart.write(uploadPath + File.separator + fileName);
-            return "static/images/" + fileName;
+            return "static/images/productImage/" + fileName;
         }
         return null;
     }

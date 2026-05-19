@@ -80,6 +80,17 @@ public class CartServlet extends HttpServlet {
 
         if (action == null || action.equals("add")) {
             cartDao.addProductToCart(userId, productId);
+
+            // Redirect back to the page the user came from with a success flag
+            String referer = request.getHeader("Referer");
+            if (referer != null && !referer.isEmpty()) {
+                // Append cartSuccess param to the referer URL
+                String separator = referer.contains("?") ? "&" : "?";
+                response.sendRedirect(referer + separator + "cartSuccess=true");
+            } else {
+                response.sendRedirect(request.getContextPath() + "/home?cartSuccess=true");
+            }
+            return;
         } else if (action.equals("increase")) {
             cartDao.increaseQuantity(userId, productId);
         } else if (action.equals("decrease")) {
