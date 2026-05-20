@@ -133,18 +133,38 @@ body {
     gap: 14px;
 }
 
+.payment-details {
+    display: flex;
+    flex-direction: column;
+}
+
 .payment-icon {
     font-size: 28px;
     line-height: 1;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 48px;
+    height: 48px;
+    flex: 0 0 48px;
+}
+
+.payment-icon img {
+    max-width: 48px;
+    max-height: 48px;
+    object-fit: contain;
+    display: block;
 }
 
 .payment-name {
+    display: block;
     font-size: 15px;
     font-weight: 600;
     color: #222;
 }
 
 .payment-desc {
+    display: block;
     font-size: 12px;
     color: #888;
     margin-top: 2px;

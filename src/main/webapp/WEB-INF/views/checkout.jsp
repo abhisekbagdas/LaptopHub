@@ -9,18 +9,6 @@
 </head>
 <body>
 
-<!-- TOP BAR -->
-<div class="topbar">
-    <div class="topbar-left">
-        <a href="${pageContext.request.contextPath}/about">About us</a>
-        <a href="${pageContext.request.contextPath}/faqs">FAQ</a>
-        <a href="${pageContext.request.contextPath}/privacy">Privacy policy</a>
-    </div>
-    <div class="topbar-right">
-        <a href="${pageContext.request.contextPath}/warranty">Warranty</a>
-        <a href="tel:+97798011000037">Customer service: +977-9801100037</a>
-    </div>
-</div>
 <%@ include file="/WEB-INF/views/includes/navbar.jsp" %>
 
 <!-- BREADCRUMB -->
@@ -47,7 +35,7 @@
             <div class="form-group">
                 <label for="fullName">Full Name <span class="required">*</span></label>
                 <input type="text" id="fullName" name="fullName"
-                       placeholder="e.g. Abhisek Bagdas" required
+                       placeholder="e.g. Sobim Shrestha" required
                        value="${not empty param.fullName ? param.fullName : (not empty sessionScope.user.username ? sessionScope.user.username : '')}"/>
             </div>
 
@@ -76,35 +64,35 @@
 
                 <label class="payment-card" id="label-cod">
                     <input type="radio" name="paymentMethod" value="COD" checked />
-                    <div class="payment-card-inner">
-                        <span class="payment-icon">💵</span>
-                        <div>
-                            <div class="payment-name">Cash on Delivery</div>
-                            <div class="payment-desc">Pay when your order arrives</div>
-                        </div>
-                    </div>
+                    <span class="payment-card-inner">
+                        <span class="payment-icon"><img src="${pageContext.request.contextPath}/static/images/Logo/money.png" alt="Cash on delivery"></span>
+                        <span class="payment-details">
+                            <span class="payment-name">Cash on Delivery</span>
+                            <span class="payment-desc">Pay when your order arrives</span>
+                        </span>
+                    </span>
                 </label>
 
                 <label class="payment-card" id="label-esewa">
                     <input type="radio" name="paymentMethod" value="eSewa" />
-                    <div class="payment-card-inner">
-                        <span class="payment-icon">📱</span>
-                        <div>
-                            <div class="payment-name">eSewa</div>
-                            <div class="payment-desc">Pay via eSewa digital wallet</div>
-                        </div>
-                    </div>
+                    <span class="payment-card-inner">
+                        <span class="payment-icon"><img src="${pageContext.request.contextPath}/static/images/Logo/esewa.png" alt="eSewa"></span>
+                        <span class="payment-details">
+                            <span class="payment-name">eSewa</span>
+                            <span class="payment-desc">Pay via eSewa digital wallet</span>
+                        </span>
+                    </span>
                 </label>
 
                 <label class="payment-card" id="label-khalti">
                     <input type="radio" name="paymentMethod" value="Khalti" />
-                    <div class="payment-card-inner">
-                        <span class="payment-icon">💜</span>
-                        <div>
-                            <div class="payment-name">Khalti</div>
-                            <div class="payment-desc">Pay via Khalti digital wallet</div>
-                        </div>
-                    </div>
+                    <span class="payment-card-inner">
+                        <span class="payment-icon"><img src="${pageContext.request.contextPath}/static/images/Logo/Khalti.png" alt="Khalti"></span>
+                        <span class="payment-details">
+                            <span class="payment-name">Khalti</span>
+                            <span class="payment-desc">Pay via Khalti digital wallet</span>
+                        </span>
+                    </span>
                 </label>
 
             </div>

@@ -772,6 +772,21 @@ body {
     color: #059669;
 }
 
+.status-bought {
+    background: #ecfdf5;
+    color: #059669;
+}
+
+.status-incart {
+    background: #fffbeb;
+    color: #d97706;
+}
+
+.product-icon-bought {
+    background: #ecfdf5;
+    color: #059669;
+}
+
 .amount-cell {
     font-weight: 700;
     color: #111827;

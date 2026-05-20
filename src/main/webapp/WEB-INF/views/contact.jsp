@@ -36,8 +36,8 @@
             </div>
             <div class="method-info">
                 <h3>Email Support</h3>
-                <p>Send us a detailed message and we'll reply within 2–4 hours on business days.</p>
-                <a href="mailto:hello@laptopvault.com" class="method-link">hello@laptopvault.com</a>
+                <p>Send us a detailed message and we'll reply within 2-4 hours on business days.</p>
+                <a href="mailto:hello@laptophub.com" class="method-link">hello@laptophub.com</a>
             </div>
         </div>
         <div class="method-card">
@@ -46,7 +46,7 @@
             </div>
             <div class="method-info">
                 <h3>Phone Support</h3>
-                <p>Mon–Sat, 9 AM–7 PM IST. Call our dedicated helpline for immediate support.</p>
+                <p>Mon-Sat, 9 AM-7 PM IST. Call our dedicated helpline for immediate support.</p>
                 <a href="tel:+911800123456" class="method-link">+91 1800-123-456</a>
             </div>
         </div>
@@ -105,11 +105,10 @@
                     <button type="button" class="chip" onclick="toggleChip(this)">Student</button>
                     <button type="button" class="chip" onclick="toggleChip(this)">Creative / Design</button>
                     <button type="button" class="chip" onclick="toggleChip(this)">Refurbished</button>
-                    <button type="button" class="chip" onclick="toggleChip(this)">Budget Under ₹50K</button>
+                    <button type="button" class="chip" onclick="toggleChip(this)">Budget from RS.50K</button>
                     <button type="button" class="chip" onclick="toggleChip(this)">Premium</button>
                 </div>
             </div>
-
             <div class="form-group">
                 <label for="message">Your Message</label>
                 <textarea id="message" placeholder="Tell us about your requirements, questions, or any issue you're facing…" required></textarea>
@@ -119,7 +118,7 @@
                 <label>Attach a File (Optional)</label>
                 <div class="file-upload" onclick="document.getElementById('file-input').click()">
                     <p>📎 <span>Browse file</span> or drag & drop here</p>
-                    <p style="font-size: 0.78rem; margin-top: 0.3rem;">Screenshots, invoices, receipts — up to 10MB</p>
+                    <p style="font-size: 0.78rem; margin-top: 0.3rem;">Screenshots, invoices, receipts - up to 10MB</p>
                     <input type="file" id="file-input" style="display:none" accept=".jpg,.png,.pdf,.docx">
                 </div>
             </div>
@@ -135,7 +134,7 @@
         <div id="success-msg" style="display:none; text-align:center; padding: 3rem 2rem; background: #eaf7f1; border-radius: 1rem; border: 1px solid #b5e5ce; margin-top: 1.5rem;">
             <div style="font-size: 3rem; margin-bottom: 1rem;">✅</div>
             <h3 style="font-family: 'Playfair Display', serif; font-size: 1.5rem; margin-bottom: 0.5rem;">Message Received!</h3>
-            <p style="color: var(--muted);">Thanks for reaching out. One of our specialists will reply to you within 2–4 hours.</p>
+            <p style="color: var(--muted);">Thanks for reaching out. One of our specialists will reply to you within 2-4 hours.</p>
         </div>
     </div>
 
@@ -145,12 +144,12 @@
         <div class="info-block">
             <h4>Business Hours</h4>
             <table class="hours-table">
-                <tr class="today"><td>Monday</td><td>9:00 AM – 7:00 PM</td></tr>
-                <tr><td>Tuesday</td><td>9:00 AM – 7:00 PM</td></tr>
-                <tr><td>Wednesday</td><td>9:00 AM – 7:00 PM</td></tr>
-                <tr><td>Thursday</td><td>9:00 AM – 7:00 PM</td></tr>
-                <tr><td>Friday</td><td>9:00 AM – 7:00 PM</td></tr>
-                <tr><td>Saturday</td><td>10:00 AM – 5:00 PM</td></tr>
+                <tr class="today"><td>Monday</td><td>9:00 AM - 7:00 PM</td></tr>
+                <tr><td>Tuesday</td><td>9:00 AM - 7:00 PM</td></tr>
+                <tr><td>Wednesday</td><td>9:00 AM - 7:00 PM</td></tr>
+                <tr><td>Thursday</td><td>9:00 AM - 7:00 PM</td></tr>
+                <tr><td>Friday</td><td>9:00 AM - 7:00 PM</td></tr>
+                <tr><td>Saturday</td><td>10:00 AM - 5:00 PM</td></tr>
                 <tr><td style="color: var(--muted);">Sunday</td><td style="color: var(--muted);">Closed</td></tr>
             </table>
         </div>
@@ -166,7 +165,7 @@
                 </div>
                 <div style="display: flex; justify-content: space-between; font-size: 0.88rem;">
                     <span style="color: var(--muted);">Email</span>
-                    <strong>2–4 hours</strong>
+                    <strong>2-4 hours</strong>
                 </div>
                 <div style="display: flex; justify-content: space-between; font-size: 0.88rem;">
                     <span style="color: var(--muted);">Phone</span>
@@ -211,13 +210,13 @@
     </div>
 </div>
 
-<!-- MAP / OFFICE -->
+<!-- MAP / OFFICE --><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
 <section class="map-section">
     <div class="map-inner">
         <div class="map-header">
             <p style="font-size:0.72rem; font-weight:500; letter-spacing:0.18em; text-transform:uppercase; color:var(--accent); margin-bottom:0.4rem;">Our Location</p>
             <h2>Visit Us at Our HQ</h2>
-            <p>Walk in and talk to one of our laptop specialists in person — no appointment needed.</p>
+            <p>Walk in and talk to one of our laptop specialists in person - no appointment needed.</p>
         </div>
         <div class="map-grid">
             <div class="map-placeholder">
@@ -252,7 +251,7 @@
                     <polygon points="290,148 280,128 300,128" fill="#c94c2e"/>
                     <!-- Label -->
                     <rect x="200" y="155" width="180" height="30" rx="6" fill="white" opacity="0.9"/>
-                    <text x="290" y="175" fill="#0f0e0d" font-size="11" text-anchor="middle" font-family="sans-serif" font-weight="600">LaptopVault HQ, Mumbai</text>
+                    <text x="290" y="175" fill="#0f0e0d" font-size="11" text-anchor="middle" font-family="sans-serif" font-weight="600">LaptopHub HQ, Pokhara</text>
                 </svg>
             </div>
             <div class="office-info">
@@ -262,7 +261,7 @@
                     </div>
                     <div class="office-row-text">
                         <strong>Address</strong>
-                        <span>LaptopVault HQ, 42 Tech Park, Bandra Kurla Complex, Mumbai 400051, India</span>
+                        <span>LaptopHub HQ, Pokhara - 12, Nepal</span>
                     </div>
                 </div>
                 <div class="office-row">
@@ -271,7 +270,7 @@
                     </div>
                     <div class="office-row-text">
                         <strong>Walk-in Hours</strong>
-                        <span>Mon–Sat: 10:00 AM – 6:00 PM</span>
+                        <span>Mon-Sat: 10:00 AM - 6:00 PM</span>
                     </div>
                 </div>
                 <div class="office-row">
@@ -289,7 +288,7 @@
                     </div>
                     <div class="office-row-text">
                         <strong>General Email</strong>
-                        <span>hello@laptopvault.com</span>
+                        <span>hello@laptophub.com</span>
                     </div>
                 </div>
                 <a href="#" style="display:inline-block; background:var(--accent); color:white; padding: 0.75rem 1.5rem; border-radius: 0.6rem; font-size: 0.9rem; font-weight: 500; text-decoration: none; text-align: center; transition: background 0.2s;" onmouseover="this.style.background='#a83e22'" onmouseout="this.style.background='var(--accent)'">
@@ -310,7 +309,7 @@
             <button class="faq-question" onclick="toggleFAQ(this)">
                 How long does it take to process a return? <span class="arrow">+</span>
             </button>
-            <div class="faq-answer">Returns are processed within 3–5 business days after we receive your item. Refunds are credited to your original payment method within 7 days of processing. You'll receive an email confirmation at each step.</div>
+            <div class="faq-answer">Returns are processed within 3-5 business days after we receive your item. Refunds are credited to your original payment method within 7 days of processing. You'll receive an email confirmation at each step.</div>
         </div>
 
         <div class="faq-item">
@@ -324,7 +323,7 @@
             <button class="faq-question" onclick="toggleFAQ(this)">
                 What is the warranty on laptops? <span class="arrow">+</span>
             </button>
-            <div class="faq-answer">All new laptops come with the manufacturer's warranty (typically 1–3 years). Refurbished laptops include a LaptopVault Certified 1-Year Warranty. Extended warranty plans of up to 3 years are also available at checkout.</div>
+            <div class="faq-answer">All new laptops come with the manufacturer's warranty (typically 1-3 years). Refurbished laptops include a laptophub Certified 1-Year Warranty. Extended warranty plans of up to 3 years are also available at checkout.</div>
         </div>
 
         <div class="faq-item">
@@ -338,14 +337,14 @@
             <button class="faq-question" onclick="toggleFAQ(this)">
                 Do you ship internationally? <span class="arrow">+</span>
             </button>
-            <div class="faq-answer">We currently ship to 28 countries across Asia, Europe, and North America. International delivery takes 5–10 business days. Duties and taxes may apply depending on your destination country.</div>
+            <div class="faq-answer">We currently ship to 28 countries across Asia, Europe, and North America. International delivery takes 5-10 business days. Duties and taxes may apply depending on your destination country.</div>
         </div>
     </div>
 </section>
 
 <!-- FOOTER -->
 <footer>
-    <p>© 2024 <strong>LaptopVault</strong> — All rights reserved. Your trusted laptop partner.</p>
+    <p>© 2024 <strong>LaptopHub</strong> - All rights reserved. Your trusted laptop partner.</p>
 </footer>
 
 <script>

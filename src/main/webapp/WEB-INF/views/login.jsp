@@ -17,7 +17,7 @@
             <h2>Welcome Back!!</h2>
             <form action="${pageContext.request.contextPath}/login" method="post">
                 <c:if test="${not empty error}">
-                    <p class="error"><c:out value="${error}"/></p><br>
+                    <p style="color: red" class="error"><c:out value="${error}"/></p><br>
                 </c:if>
 
                 <div class="form-group">

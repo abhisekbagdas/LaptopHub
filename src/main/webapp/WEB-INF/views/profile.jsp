@@ -13,56 +13,7 @@
 <div class="profile-layout">
 
     <!-- ===== LEFT SIDEBAR ===== -->
-    <aside class="sidebar">
-        <div class="sidebar-top">
-            <div class="sidebar-logo">
-                <span class="logo-badge">LaptopHub</span>
-                <span class="logo-subtitle">Enterprise Portal</span>
-            </div>
-            <nav class="sidebar-nav">
-                <a href="${pageContext.request.contextPath}/home" class="nav-item">
-                    <i class="fas fa-th-large"></i> <span>Overview</span>
-                </a>
-                <a href="${pageContext.request.contextPath}/products" class="nav-item">
-                    <i class="fas fa-laptop"></i> <span>Products</span>
-                </a>
-                <a href="${pageContext.request.contextPath}/cart" class="nav-item">
-                    <i class="fas fa-shopping-cart"></i> <span>My Cart</span>
-                </a>
-                <a href="${pageContext.request.contextPath}/profile" class="nav-item active">
-                    <i class="fas fa-cog"></i> <span>Settings</span>
-                </a>
-                <c:if test="${isAdmin}">
-                    <a href="${pageContext.request.contextPath}/admin" class="nav-item">
-                        <i class="fas fa-shield-alt"></i> <span>Admin Panel</span>
-                    </a>
-                </c:if>
-            </nav>
-        </div>
-        <div class="sidebar-bottom">
-            <div class="sidebar-user">
-                <div class="sidebar-user-avatar">
-                    <c:choose>
-                        <c:when test="${not empty profileUser.profileImage}">
-                            <img src="${pageContext.request.contextPath}/${profileUser.profileImage}" alt="Profile" style="width: 100%; height: 100%; object-fit: cover; border-radius: 50%;"/>
-                        </c:when>
-                        <c:otherwise>
-                            <c:out value="${profileUser.username.substring(0,1).toUpperCase()}"/>
-                        </c:otherwise>
-                    </c:choose>
-                </div>
-                <div class="sidebar-user-info">
-                    <span class="sidebar-user-name"><c:out value="${profileUser.username}"/></span>
-                    <span class="sidebar-user-role">
-                        <c:choose>
-                            <c:when test="${isAdmin}">Admin</c:when>
-                            <c:otherwise>Member</c:otherwise>
-                        </c:choose>
-                    </span>
-                </div>
-            </div>
-        </div>
-    </aside>
+    <%@ include file="/WEB-INF/views/includes/navbar.jsp" %>
 
     <!-- ===== MAIN CONTENT ===== -->
     <div class="main-wrapper">
@@ -222,13 +173,13 @@
 
             </div>
 
-            <!-- ===== RECENT ORDERS (Cart Items) ===== -->
+            <!-- ===== RECENT ORDERS ===== -->
             <div class="card card-orders">
                 <div class="card-title-row">
                     <div class="card-title">
                         <i class="fas fa-shopping-bag"></i> Recent Orders
                     </div>
-                    <a href="${pageContext.request.contextPath}/cart" class="view-all-link">VIEW ALL ORDERS <i class="fas fa-arrow-right"></i></a>
+                    <a href="${pageContext.request.contextPath}/cart" class="view-all-link">VIEW CART <i class="fas fa-arrow-right"></i></a>
                 </div>
 
                 <table class="orders-table">
@@ -243,8 +194,25 @@
                     </thead>
                     <tbody>
                         <c:choose>
-                            <c:when test="${not empty cartItems}">
-                                <c:forEach var="item" items="${cartItems}" varStatus="loop">
+                            <c:when test="${not empty recentOrders || not empty cartItems}">
+                                <%-- Show bought orders first (newest first) --%>
+                                <c:forEach var="order" items="${recentOrders}">
+                                    <tr>
+                                        <td class="product-cell">
+                                            <div class="product-icon product-icon-bought"><i class="fas fa-box"></i></div>
+                                            <div class="product-details">
+                                                <strong>Order #<c:out value="${order.orderId}"/></strong>
+                                                <span><c:out value="${order.paymentMethod}"/></span>
+                                            </div>
+                                        </td>
+                                        <td class="order-id-cell">#ORD-<c:out value="${order.orderId}"/></td>
+                                        <td><fmt:formatDate value="${order.createdAt}" pattern="MMM dd, yyyy"/></td>
+                                        <td><span class="status-badge status-bought">Bought</span></td>
+                                        <td class="amount-cell">Rs. <fmt:formatNumber value="${order.total}" pattern="#,##0.00"/></td>
+                                    </tr>
+                                </c:forEach>
+                                <%-- Show cart items with "In Cart" status --%>
+                                <c:forEach var="item" items="${cartItems}">
                                     <tr>
                                         <td class="product-cell">
                                             <div class="product-icon"><i class="fas fa-laptop"></i></div>
@@ -253,10 +221,10 @@
                                                 <span>Qty: <c:out value="${item.quantity}"/></span>
                                             </div>
                                         </td>
-                                        <td class="order-id-cell">#ORD-<c:out value="${profileUser.id}"/>0<c:out value="${item.cartId}"/></td>
+                                        <td class="order-id-cell">#CART-<c:out value="${item.cartId}"/></td>
                                         <td><fmt:formatDate value="${profileUser.createdAt}" pattern="MMM dd, yyyy"/></td>
-                                        <td><span class="status-badge status-delivered">In Cart</span></td>
-                                        <td class="amount-cell">$<fmt:formatNumber value="${item.totalPrice}" pattern="#,##0.00"/></td>
+                                        <td><span class="status-badge status-incart">In Cart</span></td>
+                                        <td class="amount-cell">Rs. <fmt:formatNumber value="${item.totalPrice}" pattern="#,##0.00"/></td>
                                     </tr>
                                 </c:forEach>
                             </c:when>
@@ -304,6 +272,8 @@
         </form>
     </div>
 </div>
+
+<%@ include file="/WEB-INF/views/includes/footer.jsp" %>
 
 </body>
 </html>
