@@ -30,10 +30,13 @@
             <a href="${pageContext.request.contextPath}/contact" class="nav-item">
                 <i class="fas fa-envelope"></i> <span>Contact</span>
             </a>
+            <a href="${pageContext.request.contextPath}/about-us" class="nav-item">
+                <i class="fa-solid fa-users"></i> <span>About-Us</span>
+            </a>
             <c:choose>
                 <c:when test="${not empty sessionScope.user}">
                     <a href="${pageContext.request.contextPath}/profile" class="nav-item">
-                        <i class="fas fa-cog"></i> <span>Settings</span>
+                        <i class="fas fa-user"></i> <span>Profile</span>
                     </a>
                 </c:when>
                 <c:otherwise>
@@ -64,7 +67,7 @@
                         <span class="sidebar-user-role">
                             <c:choose>
                                 <c:when test="${isAdmin}">Admin</c:when>
-                                <c:otherwise>Member</c:otherwise>
+                                <c:otherwise>User</c:otherwise>
                             </c:choose>
                         </span>
                     </div>

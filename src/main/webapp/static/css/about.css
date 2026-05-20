@@ -524,7 +524,7 @@ footer strong {
 /* RESPONSIVE */
 @media (max-width: 900px) {
     .hero {
-        grid-template-columns: 1fr;
+        grid-template-columns: 3fr;
     }
 
     .hero-right {
@@ -532,17 +532,17 @@ footer strong {
     }
 
     .story-grid {
-        grid-template-columns: 1fr;
+        grid-template-columns: 3fr;
         gap: 3rem;
     }
 
     .values-grid {
-        grid-template-columns: 1fr 1fr;
+        grid-template-columns: 3fr 2fr;
     }
 
     .team-grid {
             display: grid;
-            grid-template-columns: 1fr;
+            grid-template-columns: 3fr;
             /*grid-template-rows: repeat(2, 1fr);*/
     }
 
@@ -559,7 +559,7 @@ footer strong {
 
     .team-grid {
         display: grid;
-        grid-template-columns: 1fr;
+        grid-template-columns: 2fr;
     }
 
     .hero-stats {

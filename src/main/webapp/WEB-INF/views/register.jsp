@@ -1,5 +1,5 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<%@ taglib prefix="c" uri="jakarta.tags.core" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <html>
 <head>
     <title>Register - LaptopHub</title>
@@ -8,6 +8,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
 <body>
+<%@ include file="/WEB-INF/views/includes/navbar.jsp" %>
 
 <main>
     <div class="auth-container">
@@ -17,7 +18,7 @@
 
             <form id="registerForm" action="${pageContext.request.contextPath}/register" method="post">
                     <c:if test="${not empty error}">
-                        <p class="error"><c:out value="${error}" /></p>
+                        <p style="color: red" class="error"><c:out value="${error}" /></p>
                     </c:if>
                 <div class="name-group">
                     <div class="form-group">

@@ -143,7 +143,7 @@
     <div class="related-products-section">
         <div class="related-products-container">
             <div class="related-header">
-                <h2>Related Products</h2>
+                <h2>You may also like.</h2>
                 <a href="${pageContext.request.contextPath}/products" class="view-all-link">View All</a>
             </div>
             

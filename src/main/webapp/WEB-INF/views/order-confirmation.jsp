@@ -33,7 +33,7 @@
 
     <!-- SUCCESS BANNER -->
     <div class="success-banner">
-        <div class="success-icon">✔</div>
+        <div class="success-icon"><i class="fa-solid fa-circle-check"></i></div>
         <div class="success-text">
             <h1>Order Placed Successfully!</h1>
             <p>Thank you, <strong>${sessionScope.user.username}</strong>.
