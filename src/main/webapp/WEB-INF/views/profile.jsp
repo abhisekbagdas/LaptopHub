@@ -173,13 +173,13 @@
 
             </div>
 
-            <!-- ===== RECENT ORDERS (Cart Items) ===== -->
+            <!-- ===== RECENT ORDERS ===== -->
             <div class="card card-orders">
                 <div class="card-title-row">
                     <div class="card-title">
                         <i class="fas fa-shopping-bag"></i> Recent Orders
                     </div>
-                    <a href="${pageContext.request.contextPath}/cart" class="view-all-link">VIEW ALL ORDERS <i class="fas fa-arrow-right"></i></a>
+                    <a href="${pageContext.request.contextPath}/cart" class="view-all-link">VIEW CART <i class="fas fa-arrow-right"></i></a>
                 </div>
 
                 <table class="orders-table">
@@ -194,8 +194,25 @@
                     </thead>
                     <tbody>
                         <c:choose>
-                            <c:when test="${not empty cartItems}">
-                                <c:forEach var="item" items="${cartItems}" varStatus="loop">
+                            <c:when test="${not empty recentOrders || not empty cartItems}">
+                                <%-- Show bought orders first (newest first) --%>
+                                <c:forEach var="order" items="${recentOrders}">
+                                    <tr>
+                                        <td class="product-cell">
+                                            <div class="product-icon product-icon-bought"><i class="fas fa-box"></i></div>
+                                            <div class="product-details">
+                                                <strong>Order #<c:out value="${order.orderId}"/></strong>
+                                                <span><c:out value="${order.paymentMethod}"/></span>
+                                            </div>
+                                        </td>
+                                        <td class="order-id-cell">#ORD-<c:out value="${order.orderId}"/></td>
+                                        <td><fmt:formatDate value="${order.createdAt}" pattern="MMM dd, yyyy"/></td>
+                                        <td><span class="status-badge status-bought">Bought</span></td>
+                                        <td class="amount-cell">Rs. <fmt:formatNumber value="${order.total}" pattern="#,##0.00"/></td>
+                                    </tr>
+                                </c:forEach>
+                                <%-- Show cart items with "In Cart" status --%>
+                                <c:forEach var="item" items="${cartItems}">
                                     <tr>
                                         <td class="product-cell">
                                             <div class="product-icon"><i class="fas fa-laptop"></i></div>
@@ -204,10 +221,10 @@
                                                 <span>Qty: <c:out value="${item.quantity}"/></span>
                                             </div>
                                         </td>
-                                        <td class="order-id-cell">#ORD-<c:out value="${profileUser.id}"/>0<c:out value="${item.cartId}"/></td>
+                                        <td class="order-id-cell">#CART-<c:out value="${item.cartId}"/></td>
                                         <td><fmt:formatDate value="${profileUser.createdAt}" pattern="MMM dd, yyyy"/></td>
-                                        <td><span class="status-badge status-delivered">In Cart</span></td>
-                                        <td class="amount-cell">$<fmt:formatNumber value="${item.totalPrice}" pattern="#,##0.00"/></td>
+                                        <td><span class="status-badge status-incart">In Cart</span></td>
+                                        <td class="amount-cell">Rs. <fmt:formatNumber value="${item.totalPrice}" pattern="#,##0.00"/></td>
                                     </tr>
                                 </c:forEach>
                             </c:when>

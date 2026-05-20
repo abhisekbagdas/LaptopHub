@@ -2,9 +2,12 @@ package com.icp.laptophub.controller;
 
 import com.icp.laptophub.dao.CartDao;
 import com.icp.laptophub.dao.CartDaoImpl;
+import com.icp.laptophub.dao.OrderDao;
+import com.icp.laptophub.dao.OrderDaoImpl;
 import com.icp.laptophub.dao.UserDao;
 import com.icp.laptophub.dao.UserDaoImpl;
 import com.icp.laptophub.model.CartItem;
+import com.icp.laptophub.model.Order;
 import com.icp.laptophub.model.User;
 import com.icp.laptophub.utils.PasswordUtil;
 import com.icp.laptophub.utils.SessionUtil;
@@ -33,6 +36,7 @@ public class ProfileServlet extends HttpServlet {
 
     private final UserDao userDao = new UserDaoImpl();
     private final CartDao cartDao = new CartDaoImpl();
+    private final OrderDao orderDao = new OrderDaoImpl();
 
     private static final String UPLOAD_DIR = "static/uploads/profiles";
 
@@ -54,9 +58,13 @@ public class ProfileServlet extends HttpServlet {
             request.setAttribute("profileUser", sessionUser);
         }
 
-        // Fetch user's cart items for the "Recent Orders" section
+        // Fetch user's cart items for the "In Cart" section
         List<CartItem> cartItems = cartDao.fetchAllCartItemsByUser(sessionUser.getId());
         request.setAttribute("cartItems", cartItems);
+
+        // Fetch user's actual bought orders for the "Recent Orders" section
+        List<Order> recentOrders = orderDao.findOrdersByUserId(sessionUser.getId());
+        request.setAttribute("recentOrders", recentOrders);
 
         // Check if user is admin
         request.setAttribute("isAdmin", "admin@example.com".equals(sessionUser.getEmail()));
@@ -137,6 +145,8 @@ public class ProfileServlet extends HttpServlet {
 
             List<CartItem> cartItems = cartDao.fetchAllCartItemsByUser(updatedUser.getId());
             request.setAttribute("cartItems", cartItems);
+            List<Order> recentOrders = orderDao.findOrdersByUserId(updatedUser.getId());
+            request.setAttribute("recentOrders", recentOrders);
             request.setAttribute("isAdmin", "admin@example.com".equals(updatedUser.getEmail()));
         } else {
             request.setAttribute("error", "Failed to save profile photo.");
@@ -187,6 +197,8 @@ public class ProfileServlet extends HttpServlet {
 
             List<CartItem> cartItems = cartDao.fetchAllCartItemsByUser(updatedUser.getId());
             request.setAttribute("cartItems", cartItems);
+            List<Order> recentOrders = orderDao.findOrdersByUserId(updatedUser.getId());
+            request.setAttribute("recentOrders", recentOrders);
             request.setAttribute("isAdmin", "admin@example.com".equals(updatedUser.getEmail()));
         } else {
             request.setAttribute("error", "Failed to update profile. Please try again.");
@@ -241,6 +253,8 @@ public class ProfileServlet extends HttpServlet {
 
             List<CartItem> cartItems = cartDao.fetchAllCartItemsByUser(updatedUser.getId());
             request.setAttribute("cartItems", cartItems);
+            List<Order> recentOrders = orderDao.findOrdersByUserId(updatedUser.getId());
+            request.setAttribute("recentOrders", recentOrders);
             request.setAttribute("isAdmin", "admin@example.com".equals(updatedUser.getEmail()));
         } else {
             request.setAttribute("error", "Failed to change password. Please try again.");
@@ -257,6 +271,8 @@ public class ProfileServlet extends HttpServlet {
         request.setAttribute("profileUser", user);
         List<CartItem> cartItems = cartDao.fetchAllCartItemsByUser(user.getId());
         request.setAttribute("cartItems", cartItems);
+        List<Order> recentOrders = orderDao.findOrdersByUserId(user.getId());
+        request.setAttribute("recentOrders", recentOrders);
         request.setAttribute("isAdmin", "admin@example.com".equals(user.getEmail()));
         request.getRequestDispatcher("/WEB-INF/views/profile.jsp")
                 .forward(request, response);
