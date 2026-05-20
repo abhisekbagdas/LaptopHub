@@ -13,56 +13,7 @@
 <div class="profile-layout">
 
     <!-- ===== LEFT SIDEBAR ===== -->
-    <aside class="sidebar">
-        <div class="sidebar-top">
-            <div class="sidebar-logo">
-                <span class="logo-badge">LaptopHub</span>
-                <span class="logo-subtitle">Enterprise Portal</span>
-            </div>
-            <nav class="sidebar-nav">
-                <a href="${pageContext.request.contextPath}/home" class="nav-item">
-                    <i class="fas fa-th-large"></i> <span>Overview</span>
-                </a>
-                <a href="${pageContext.request.contextPath}/products" class="nav-item">
-                    <i class="fas fa-laptop"></i> <span>Products</span>
-                </a>
-                <a href="${pageContext.request.contextPath}/cart" class="nav-item">
-                    <i class="fas fa-shopping-cart"></i> <span>My Cart</span>
-                </a>
-                <a href="${pageContext.request.contextPath}/profile" class="nav-item active">
-                    <i class="fas fa-cog"></i> <span>Settings</span>
-                </a>
-                <c:if test="${isAdmin}">
-                    <a href="${pageContext.request.contextPath}/admin" class="nav-item">
-                        <i class="fas fa-shield-alt"></i> <span>Admin Panel</span>
-                    </a>
-                </c:if>
-            </nav>
-        </div>
-        <div class="sidebar-bottom">
-            <div class="sidebar-user">
-                <div class="sidebar-user-avatar">
-                    <c:choose>
-                        <c:when test="${not empty profileUser.profileImage}">
-                            <img src="${pageContext.request.contextPath}/${profileUser.profileImage}" alt="Profile" style="width: 100%; height: 100%; object-fit: cover; border-radius: 50%;"/>
-                        </c:when>
-                        <c:otherwise>
-                            <c:out value="${profileUser.username.substring(0,1).toUpperCase()}"/>
-                        </c:otherwise>
-                    </c:choose>
-                </div>
-                <div class="sidebar-user-info">
-                    <span class="sidebar-user-name"><c:out value="${profileUser.username}"/></span>
-                    <span class="sidebar-user-role">
-                        <c:choose>
-                            <c:when test="${isAdmin}">Admin</c:when>
-                            <c:otherwise>Member</c:otherwise>
-                        </c:choose>
-                    </span>
-                </div>
-            </div>
-        </div>
-    </aside>
+    <%@ include file="/WEB-INF/views/includes/navbar.jsp" %>
 
     <!-- ===== MAIN CONTENT ===== -->
     <div class="main-wrapper">
@@ -304,6 +255,8 @@
         </form>
     </div>
 </div>
+
+<%@ include file="/WEB-INF/views/includes/footer.jsp" %>
 
 </body>
 </html>

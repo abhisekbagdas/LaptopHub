@@ -9,18 +9,6 @@
 </head>
 <body>
 
-<!-- TOP BAR -->
-<div class="topbar">
-    <div class="topbar-left">
-        <a href="${pageContext.request.contextPath}/about">About us</a>
-        <a href="${pageContext.request.contextPath}/faqs">FAQ</a>
-        <a href="${pageContext.request.contextPath}/privacy">Privacy policy</a>
-    </div>
-    <div class="topbar-right">
-        <a href="${pageContext.request.contextPath}/warranty">Warranty</a>
-        <a href="tel:+97798011000037">Customer service: +977-9801100037</a>
-    </div>
-</div>
 <%@ include file="/WEB-INF/views/includes/navbar.jsp" %>
 
 <!-- BREADCRUMB -->
