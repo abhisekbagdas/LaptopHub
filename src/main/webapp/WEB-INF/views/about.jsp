@@ -149,7 +149,7 @@
                 <p>Marketing Expert</p>
             </div>
             <div class="team-card">
-                <div class="avatar M4"><img src="${pageContext.request.contextPath}/static/images/dev/Rahul.jpeg"
+                <div class="avatar M4"><img src="${pageContext.request.contextPath}/static/images/dev/RiyalRahul.jpeg"
                                             style="width: 100px; height: 100px; border-radius: 50%; object-fit: cover;">
                 </div>
                 <h4>Rahul Rasaily</h4>
@@ -183,7 +183,7 @@
                 <div class="tl-dot">14</div>
                 <div class="tl-content">
                     <h4>Founded in 2014</h4>
-                    <p>Arjun Mehta launches LaptopVault from a small home office in Bangalore with just 12 laptop
+                    <p>Our Team launched LaptopVault from a small home office in Pokhara with just 12 laptop
                         models.</p>
                 </div>
             </div>

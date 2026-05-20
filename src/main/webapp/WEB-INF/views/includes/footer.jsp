@@ -22,12 +22,12 @@
             <div class="contact-info">
                 <p><strong>Location:</strong> Pokhara, Nepal</p>
                 <p><strong>Phone:</strong> +977-98765453210 </p>
-                <p><strong>✉ Email:</strong> info@laptophub.com</p>
+                <p><strong>Email:</strong> info@laptophub.com</p>
             </div>
             <div class="social-links">
-                <a href="#">Facebook</a>
-                <a href="#">Instagram</a>
-                <a href="#">Twitter</a>
+                <a href="https://www.facebook.com/">Facebook</a>
+                <a href="https://www.instagram.com/">Instagram</a>
+                <a href="https://x.com/">Twitter</a>
             </div>
         </div>
     </div>
